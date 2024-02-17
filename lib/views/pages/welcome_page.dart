@@ -1,4 +1,5 @@
 import 'package:dbu_gym/controllers/providers/carousel_provider.dart';
+import 'package:dbu_gym/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +45,7 @@ class WelcomePage extends StatelessWidget {
                   carouselController: carouselController,
                   itemCount: 3,
                   itemBuilder: (context, index, realIndex) => Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
+                    width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       color: Theme.of(context)
                           .textTheme
@@ -55,37 +56,40 @@ class WelcomePage extends StatelessWidget {
                         Radius.circular(10),
                       ),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(
-                            left: 10,
-                            top: 10,
+                    child: FittedBox(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(
+                              left: 10,
+                            ),
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: Text(
+                              carouselContent[index]['headline'],
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 3,
+                              softWrap: true,
+                            ),
                           ),
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          child: Text(
-                            "Achieve Your Fitness Goals With Us.",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(color: Colors.black),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 3,
-                            softWrap: true,
+                          Image.asset(
+                            "${carouselContent[index]['image_path']}",
                           ),
-                        ),
-                        Image.asset(
-                          alignment: Alignment.centerRight,
-                          "assets/images/fitness.png",
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   options: CarouselOptions(
                     aspectRatio: 16 / 9,
                     height: 200,
+                    initialPage: 1,
                     viewportFraction: 0.9,
                     enlargeCenterPage: true,
                     enableInfiniteScroll: true,
