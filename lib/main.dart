@@ -1,5 +1,6 @@
 import 'package:dbu_gym/controllers/providers/carousel_provider.dart';
 import 'package:dbu_gym/firebase_options.dart';
+import 'package:dbu_gym/router/router.dart';
 import 'package:dbu_gym/utils/theme.dart';
 import 'package:dbu_gym/views/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +17,12 @@ void main(List<String> args) async {
       providers: [
         ChangeNotifierProvider(create: (context) => CarouselProvider()),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
+        routerConfig: AppRouter.router,
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.system,
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
-        home: WelcomePage(),
       ),
     ),
   );
