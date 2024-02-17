@@ -64,17 +64,19 @@ class WelcomePage extends StatelessWidget {
                         children: [
                           Container(
                             padding: EdgeInsets.only(
-                              left: 10,
+                              left: 16,
                             ),
-                            width: MediaQuery.of(context).size.width * 0.6,
+                            width: MediaQuery.of(context).size.width * 0.65,
                             child: Text(
                               carouselContent[index]['headline'],
                               style: Theme.of(context)
                                   .textTheme
-                                  .titleLarge!
+                                  .headlineSmall!
                                   .copyWith(
-                                      color: Theme.of(context)
-                                          .scaffoldBackgroundColor),
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 3,
                               softWrap: true,
@@ -89,7 +91,7 @@ class WelcomePage extends StatelessWidget {
                   ),
                   options: CarouselOptions(
                     aspectRatio: 16 / 9,
-                    height: 200,
+                    height: 260,
                     initialPage: 1,
                     viewportFraction: 0.9,
                     enlargeCenterPage: true,
