@@ -59,7 +59,7 @@ class LoginPage extends StatelessWidget {
                             return "Please provide an email address.";
                           return EmailValidator.validate(value)
                               ? null
-                              : "Please provider a valid E-mail address.";
+                              : "Please provide a valid E-mail address.";
                         },
                       ),
                       SizedBox(
@@ -89,7 +89,7 @@ class LoginPage extends StatelessWidget {
                         textInputAction: TextInputAction.done,
                         validator: (value) {
                           if (value!.isEmpty)
-                            return "Please provider a password.";
+                            return "Please provide a password.";
                           if (value.length < 8) {
                             return "Password must be at least 8 characters.";
                           }
