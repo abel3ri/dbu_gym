@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "799896607947",
+    "project_id": "dbugym",
+    "storage_bucket": "dbugym.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:799896607947:android:c5335785d33227404f4f4e",
+        "android_client_info": {
+          "package_name": "com.example.dbu_gym"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOFB-m_anKOFhAy1OvcXYn9t-fmLUoItg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
