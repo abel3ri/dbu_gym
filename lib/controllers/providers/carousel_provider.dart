@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CarouselProvider with ChangeNotifier {
-  int _currentCarouselItemIndex = 0;
+  int _currentCarouselItemIndex = 1;
 
   get currentCarouselItemIndex => _currentCarouselItemIndex;
 
