@@ -1,4 +1,5 @@
 import 'package:dbu_gym/controllers/providers/carousel_provider.dart';
+import 'package:dbu_gym/controllers/providers/form_provider.dart';
 import 'package:dbu_gym/firebase_options.dart';
 import 'package:dbu_gym/router/router.dart';
 import 'package:dbu_gym/utils/theme.dart';
@@ -15,6 +16,7 @@ void main(List<String> args) async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => CarouselProvider()),
+        ChangeNotifierProvider(create: (context) => FormProvider()),
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,
