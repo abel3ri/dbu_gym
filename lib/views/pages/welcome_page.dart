@@ -2,6 +2,7 @@ import 'package:dbu_gym/controllers/providers/carousel_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -108,7 +109,6 @@ class WelcomePage extends StatelessWidget {
                     dotHeight: 10,
                   ),
                 ),
-                // SizedBox()
               ],
             ),
             Row(
@@ -123,7 +123,9 @@ class WelcomePage extends StatelessWidget {
                 ),
                 SizedBox(width: 8),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    GoRouter.of(context).pushNamed("login");
+                  },
                   child: Text("Login"),
                   style: ButtonStyle(
                     fixedSize: MaterialStateProperty.all(Size(120, 44)),
