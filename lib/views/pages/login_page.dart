@@ -1,11 +1,14 @@
+import 'package:dbu_gym/controllers/providers/form_provider.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+// import "package:email_validator/email_validator.dart";
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // GlobalKey _formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(),
       body: SafeArea(
@@ -18,7 +21,7 @@ class LoginPage extends StatelessWidget {
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * 0.04,
+              top: MediaQuery.of(context).size.height * 0.1,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -39,6 +42,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 Form(
+                  key: Provider.of<FormProvider>(context).formKey,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -51,6 +55,13 @@ class LoginPage extends StatelessWidget {
                           prefixIconColor: Colors.grey,
                         ),
                         textInputAction: TextInputAction.next,
+                        validator: (value) {
+                          if (value!.isEmpty)
+                            return "Please provide an email address.";
+                          return EmailValidator.validate(value)
+                              ? null
+                              : "Please provider a valid E-mail address.";
+                        },
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.015,
@@ -62,18 +73,40 @@ class LoginPage extends StatelessWidget {
                           prefixIcon: Icon(Icons.password),
                           prefixIconColor: Colors.grey,
                           suffixIcon: IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.remove_red_eye),
+                            onPressed: () {
+                              Provider.of<FormProvider>(context, listen: false)
+                                  .toggleShowPassword();
+                            },
+                            icon: Icon(
+                                Provider.of<FormProvider>(context).showPassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
                           ),
                         ),
-                        obscureText: true,
+                        obscureText:
+                            Provider.of<FormProvider>(context).showPassword
+                                ? false
+                                : true,
                         textInputAction: TextInputAction.done,
+                        validator: (value) {
+                          if (value!.isEmpty)
+                            return "Please provider a password.";
+                          if (value.length < 8) {
+                            return "Password must be at least 8 characters.";
+                          }
+                          return null;
+                        },
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),
                       FilledButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if ((Provider.of<FormProvider>(context, listen: false)
+                                  .formKey as GlobalKey<FormState>)
+                              .currentState!
+                              .validate()) {}
+                        },
                         child: Text("Login"),
                       ),
                       Row(
