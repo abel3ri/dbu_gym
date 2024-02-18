@@ -2,6 +2,7 @@
 
 import 'package:dbu_gym/controllers/providers/form_provider.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -130,17 +131,79 @@ class FormWidget extends StatelessWidget {
                 if (formType == "Sign up")
                   SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                 if (formType == "Sign up")
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Sign up as new user",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: Theme.of(context).primaryColor,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          // alignment:
+                          //     Alignment(0.25, -2).add(Alignment.topRight),
+                          children: [
+                            Text(
+                              "Sign up as a new user",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                  ),
                             ),
-                      ),
-                      Switch(value: false, onChanged: (value) {})
-                    ],
+                            IconButton(
+                              onPressed: () {
+                                // showDialog(
+                                //   context: context,
+                                //   builder: (context) => Container(
+                                //     child: Text("Hello"),
+                                //   ),
+                                // );
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: Text("Is it your first time?"),
+                                    titleTextStyle: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                    content: Text(
+                                      "If you have been working out before this app is introduced, keep the switch toggled off. \n\nBut if its your first time in the gym, toggle the switch on located on your right.",
+                                    ),
+                                    actionsPadding: EdgeInsets.all(12),
+                                    contentPadding: EdgeInsets.only(
+                                      top: 10,
+                                      left: 20,
+                                      right: 20,
+                                      bottom: 0,
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          GoRouter.of(context).pop();
+                                        },
+                                        child: Text("Ok"),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              },
+                              splashColor: Colors.transparent,
+                              iconSize: 14,
+                              alignment: Alignment(-2.5, -2),
+                              style: ButtonStyle(
+                                overlayColor: MaterialStateProperty.all(
+                                  Colors.transparent,
+                                ),
+                              ),
+                              icon: Icon(Icons.help),
+                            ),
+                          ],
+                        ),
+                        Switch(value: false, onChanged: (value) {})
+                      ],
+                    ),
                   ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.02,
