@@ -45,6 +45,7 @@ dependencies:
   email_validator: ^2.1.17
   ethiopian_calendar: ^0.0.2
   table_calendar: ^3.0.9
+  image_picker: ^1.0.7
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -54,9 +54,7 @@ class FormWidget extends StatelessWidget {
                   labelText: "E-mail",
                   prefixIcon: Icon(Icons.email),
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.015,
-                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 FormInputField(
                   controller: formProvider.passwordController,
                   labelText: "Password",
@@ -65,7 +63,7 @@ class FormWidget extends StatelessWidget {
                   formType: formType,
                 ),
                 if (formType == "Sign up")
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 if (formType == "Sign up")
                   FormInputField(
                     controller: formProvider.rePasswordController,
@@ -75,7 +73,7 @@ class FormWidget extends StatelessWidget {
                     formType: formType,
                   ),
                 if (formType == "Sign up")
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 if (formType == "Sign up")
                   Stack(
                     alignment: Alignment.bottomLeft.add(Alignment(0.2, 0)),
