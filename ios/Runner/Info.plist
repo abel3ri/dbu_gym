@@ -45,11 +45,6 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow DBU Gym to access gallery for profile picture</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Allow DBU Gym to access camera for profile picture</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow DBU Gym to access microphone for video uploads</string>
+
 </dict>
 </plist>

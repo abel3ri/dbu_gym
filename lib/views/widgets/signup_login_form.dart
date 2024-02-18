@@ -1,10 +1,12 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:dbu_gym/controllers/providers/form_provider.dart';
+import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/views/widgets/date_picker_input.dart';
 import 'package:dbu_gym/views/widgets/signup_login_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class FormWidget extends StatelessWidget {
@@ -17,6 +19,7 @@ class FormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formProvider = Provider.of<FormProvider>(context);
+
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       padding: EdgeInsets.only(
@@ -41,6 +44,28 @@ class FormWidget extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
           ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+          if (formType == "Sign up")
+            Stack(
+              alignment: Alignment(1, 1),
+              children: [
+                CircleAvatar(
+                  radius: 36,
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    final image = await ImagePicker()
+                        .pickImage(source: ImageSource.gallery);
+                    print(image);
+                  },
+                  child: Icon(
+                    Icons.image,
+                    size: 20,
+                    color: Colors.grey.shade400,
+                  ),
+                )
+              ],
+            ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           Form(
             key: formType == "Login"
