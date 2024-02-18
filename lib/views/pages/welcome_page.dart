@@ -117,7 +117,9 @@ class WelcomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FilledButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    GoRouter.of(context).pushNamed("signup");
+                  },
                   child: Text("Sign up"),
                   style: ButtonStyle(
                     fixedSize: MaterialStateProperty.all(Size(120, 44)),
