@@ -10,13 +10,18 @@ String? emailValidator(String? value) {
   return null;
 }
 
-String? passwordValidator(String? value, BuildContext context) {
+String? passwordValidator({
+  required String? value,
+  required String formType,
+  required BuildContext context,
+}) {
   final formProvider = Provider.of<FormProvider>(context, listen: false);
   if (value!.isEmpty) return "Please provide a password.";
 
   if (value.length < 8) return "Password must be at least 8 characters";
-  if (formProvider.passwordController.text !=
-      formProvider.rePasswordController.text) {
+  if (formType == "Sign up" &&
+      formProvider.passwordController.text !=
+          formProvider.rePasswordController.text) {
     return "Password do not match.";
   }
   return null;
@@ -25,8 +30,13 @@ String? passwordValidator(String? value, BuildContext context) {
 String? dateValidator({
   required String startDate,
   required String endDate,
+  required BuildContext context,
 }) {
-  if (DateTime.parse(startDate).isAfter(DateTime.parse(endDate)))
-    return "Start Date < End Date";
+  if (DateTime.parse(startDate).isAfter(DateTime.parse(endDate))) {
+    Provider.of<FormProvider>(context, listen: false).toggleDateInputError();
+
+    return "";
+  }
+  Provider.of<FormProvider>(context, listen: false).toggleDateInputSuccess();
   return null;
 }

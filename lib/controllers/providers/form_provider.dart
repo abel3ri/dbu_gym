@@ -9,6 +9,7 @@ class FormProvider with ChangeNotifier {
   final _rePasswordController = TextEditingController();
   final _startDateController = TextEditingController();
   final _endDateController = TextEditingController();
+  bool _hasDateInputError = false;
 
   void toggleShowPassword() {
     _showPassword = !_showPassword;
@@ -24,6 +25,15 @@ class FormProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void toggleDateInputError() {
+    _hasDateInputError = true;
+    notifyListeners();
+  }
+
+  void toggleDateInputSuccess() {
+    _hasDateInputError = false;
+    notifyListeners();
+  }
   // void
 
   get showPassword => _showPassword;
@@ -34,4 +44,5 @@ class FormProvider with ChangeNotifier {
   TextEditingController get endDateController => _endDateController;
   GlobalKey<FormState> get loginFormKey => _loginFormKey;
   GlobalKey<FormState> get signUpFormKey => _signUpFormKey;
+  bool get hasDateInputError => _hasDateInputError;
 }

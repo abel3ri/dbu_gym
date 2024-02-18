@@ -72,27 +72,42 @@ class FormWidget extends StatelessWidget {
                     labelText: "Re-enter password",
                     prefixIcon: Icon(Icons.password),
                     showPassword: formProvider.showPassword,
+                    formType: formType,
                   ),
                 if (formType == "Sign up")
                   SizedBox(height: MediaQuery.of(context).size.height * 0.015),
                 if (formType == "Sign up")
-                  Row(
+                  Stack(
+                    alignment: Alignment.bottomLeft.add(Alignment(0.2, 0)),
                     children: [
-                      Flexible(
-                        child: DatePickerInputField(
-                          controller: formProvider.startDateController,
-                          labelText: "Start Date",
-                          helpText: "Start date of your gym plan",
-                        ),
+                      Row(
+                        children: [
+                          Flexible(
+                            child: DatePickerInputField(
+                              controller: formProvider.startDateController,
+                              labelText: "Start Date",
+                              helpText: "Start date of your gym plan",
+                            ),
+                          ),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.02),
+                          Flexible(
+                            child: DatePickerInputField(
+                              controller: formProvider.endDateController,
+                              labelText: "End Date",
+                              helpText: "End date of your gym plan",
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                      Flexible(
-                        child: DatePickerInputField(
-                          controller: formProvider.endDateController,
-                          labelText: "End Date",
-                          helpText: "End date of your gym plan",
+                      if (formProvider.hasDateInputError)
+                        Text(
+                          "Start Date should not exceed End Date.",
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    color: Theme.of(context).colorScheme.error,
+                                  ),
                         ),
-                      ),
                     ],
                   ),
                 SizedBox(

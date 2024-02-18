@@ -50,7 +50,11 @@ class FormInputField extends StatelessWidget {
           : TextInputAction.done,
       validator: labelText == "E-mail"
           ? emailValidator
-          : (value) => passwordValidator(value, context),
+          : (value) => passwordValidator(
+                value: value,
+                context: context,
+                formType: formType,
+              ),
     );
   }
 }
