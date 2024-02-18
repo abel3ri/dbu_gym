@@ -3,6 +3,7 @@
 import 'package:dbu_gym/controllers/providers/form_provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class FormWidget extends StatelessWidget {
@@ -144,7 +145,13 @@ class FormWidget extends StatelessWidget {
                         ? "Don't have an account?"
                         : "Already have an account?"),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        formType == "Login"
+                            ? GoRouter.of(context)
+                                .pushReplacementNamed("signup")
+                            : GoRouter.of(context)
+                                .pushReplacementNamed("login");
+                      },
                       child: Text(formType == "Login" ? "Sign up" : "Login"),
                     ),
                   ],

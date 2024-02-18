@@ -1,6 +1,6 @@
 final List<Map<String, dynamic>> carouselContent = [
   {
-    "headline": "Manage Your Fitness Plan.",
+    "headline": "Manage Your Fitness Subscription Plan.",
     "image_path": "assets/images/fitness3.png",
   },
   {
