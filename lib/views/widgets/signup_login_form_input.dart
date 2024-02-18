@@ -1,0 +1,50 @@
+// ignore_for_file: must_be_immutable
+
+import 'package:dbu_gym/controllers/form_input_validator.dart';
+import 'package:dbu_gym/controllers/providers/form_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class FormInputField extends StatelessWidget {
+  FormInputField({
+    super.key,
+    this.showPassword = false,
+    required this.labelText,
+    required this.prefixIcon,
+    required this.controller,
+  });
+
+  bool showPassword;
+  final String labelText;
+  final Icon prefixIcon;
+  final TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        label: Text(labelText),
+        labelStyle: TextStyle(color: Colors.grey),
+        prefixIcon: prefixIcon,
+        prefixIconColor: Colors.grey,
+        suffixIcon: labelText == "Password"
+            ? IconButton(
+                onPressed: () {
+                  Provider.of<FormProvider>(context, listen: false)
+                      .toggleShowPassword();
+                },
+                icon: Icon(
+                    showPassword ? Icons.visibility_off : Icons.visibility),
+              )
+            : null,
+      ),
+      obscureText:
+          labelText != 'E-mail' ? (showPassword ? false : true) : false,
+      textInputAction: TextInputAction.done,
+      validator: labelText == "E- mail"
+          ? emailValidator
+          : (value) => passwordValidator(value, context),
+    );
+  }
+}
