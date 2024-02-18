@@ -1,6 +1,7 @@
 import 'package:dbu_gym/controllers/providers/form_provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
@@ -9,7 +10,15 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            FocusManager.instance.primaryFocus!.unfocus();
+            GoRouter.of(context).pushReplacementNamed("welcome");
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
+      ),
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
