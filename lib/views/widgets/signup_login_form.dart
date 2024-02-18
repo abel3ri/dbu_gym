@@ -100,6 +100,9 @@ class FormWidget extends StatelessWidget {
                 ),
                 FilledButton(
                   onPressed: () {
+                    FocusManager.instance.primaryFocus!.hasFocus
+                        ? FocusManager.instance.primaryFocus!.unfocus()
+                        : null;
                     if (formType == "Login") {
                       // valid login inputs
                       if (formProvider.loginFormKey.currentState!.validate()) {}
