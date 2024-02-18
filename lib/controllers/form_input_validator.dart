@@ -27,6 +27,6 @@ String? dateValidator({
   required String endDate,
 }) {
   if (DateTime.parse(startDate).isAfter(DateTime.parse(endDate)))
-    return "Start Date should not exceed End Date.";
+    return "Start Date < End Date";
   return null;
 }
