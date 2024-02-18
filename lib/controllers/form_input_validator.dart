@@ -21,3 +21,12 @@ String? passwordValidator(String? value, BuildContext context) {
   }
   return null;
 }
+
+String? dateValidator({
+  required String startDate,
+  required String endDate,
+}) {
+  if (DateTime.parse(startDate).isAfter(DateTime.parse(endDate)))
+    return "Start Date should not exceed End Date.";
+  return null;
+}
