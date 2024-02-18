@@ -15,6 +15,15 @@ class FormProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void changeDateInputValue(String value, String labelText) {
+    if (labelText == "Start Date") {
+      _startDateController.text = value;
+    } else {
+      _endDateController.text = value;
+    }
+    notifyListeners();
+  }
+
   // void
 
   get showPassword => _showPassword;
