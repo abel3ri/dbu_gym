@@ -12,12 +12,14 @@ class FormInputField extends StatelessWidget {
     required this.labelText,
     required this.prefixIcon,
     required this.controller,
+    this.formType = "",
   });
 
   bool showPassword;
   final String labelText;
   final Icon prefixIcon;
   final TextEditingController controller;
+  String formType;
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +43,12 @@ class FormInputField extends StatelessWidget {
       ),
       obscureText:
           labelText != 'E-mail' ? (showPassword ? false : true) : false,
-      textInputAction: TextInputAction.done,
-      validator: labelText == "E- mail"
+      // Chnage text input action for email input (always) and password input (if we are in the sign up page)
+      textInputAction: (labelText == "E-mail" ||
+              (formType == "Sign up" && labelText == "Password"))
+          ? TextInputAction.next
+          : TextInputAction.done,
+      validator: labelText == "E-mail"
           ? emailValidator
           : (value) => passwordValidator(value, context),
     );

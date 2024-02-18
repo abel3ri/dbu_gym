@@ -62,13 +62,14 @@ class FormWidget extends StatelessWidget {
                   labelText: "Password",
                   prefixIcon: Icon(Icons.password),
                   showPassword: formProvider.showPassword,
+                  formType: formType,
                 ),
                 if (formType == "Sign up")
                   SizedBox(height: MediaQuery.of(context).size.height * 0.015),
                 if (formType == "Sign up")
                   FormInputField(
                     controller: formProvider.rePasswordController,
-                    labelText: "Re-password",
+                    labelText: "Re-enter password",
                     prefixIcon: Icon(Icons.password),
                     showPassword: formProvider.showPassword,
                   ),
