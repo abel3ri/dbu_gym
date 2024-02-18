@@ -1,6 +1,9 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:dbu_gym/controllers/form_input_validator.dart';
+import 'package:dbu_gym/controllers/providers/form_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DatePickerInputField extends StatelessWidget {
   String labelText;
@@ -15,27 +18,38 @@ class DatePickerInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formProvider = Provider.of<FormProvider>(context);
     return TextFormField(
+      controller: controller,
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: TextStyle(color: Colors.grey),
-        hintText: "MM/DD/YY",
+        hintText: "MM-DD-YY",
         prefixIcon: Icon(Icons.date_range),
         prefixIconColor: Colors.grey,
       ),
       keyboardType: TextInputType.datetime,
-      onTap: () {
-        showDatePicker(
+      readOnly: true,
+      onTap: () async {
+        DateTime? date = await showDatePicker(
           context: context,
           firstDate: DateTime(2000, 01, 01),
           lastDate: DateTime(2030, 01, 01),
           helpText: helpText,
           fieldLabelText: helpText,
+          keyboardType: TextInputType.datetime,
         );
+        String picked_date =
+            "${date!.year.toString().padLeft(2, "0")}-${date.month.toString().padLeft(2, "0")}-${date.day.toString().padLeft(2, "0")}";
+
+        Provider.of<FormProvider>(context, listen: false)
+            .changeDateInputValue(picked_date, labelText);
       },
       validator: (value) {
         if (value!.isEmpty) return "${labelText} is required.";
-        return null;
+        return dateValidator(
+            startDate: formProvider.startDateController.text,
+            endDate: formProvider.endDateController.text);
       },
     );
   }
