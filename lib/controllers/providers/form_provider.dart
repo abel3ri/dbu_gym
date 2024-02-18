@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class FormProvider with ChangeNotifier {
-  final _fromKey = GlobalKey<FormState>();
+  final _loginFormKey = GlobalKey<FormState>();
+  final _signUpFormKey = GlobalKey<FormState>();
   bool _showPassword = false;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -18,5 +19,6 @@ class FormProvider with ChangeNotifier {
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
   TextEditingController get rePasswordController => _rePasswordController;
-  get formKey => _fromKey;
+  GlobalKey<FormState> get loginFormKey => _loginFormKey;
+  GlobalKey<FormState> get signUpFormKey => _signUpFormKey;
 }

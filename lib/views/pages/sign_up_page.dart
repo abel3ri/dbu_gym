@@ -7,6 +7,7 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -24,7 +25,9 @@ class SignUpPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(
             horizontal: 28,
           ),
-          child: FormWidget(formType: "Sign up"),
+          child: FormWidget(
+            formType: "Sign up",
+          ),
         ),
       ),
     );
