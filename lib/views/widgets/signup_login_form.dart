@@ -1,12 +1,13 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:dbu_gym/controllers/providers/form_provider.dart';
-import 'package:dbu_gym/utils/constants.dart';
+import 'package:dbu_gym/views/pages/image_pick_selector.dart';
 import 'package:dbu_gym/views/widgets/date_picker_input.dart';
 import 'package:dbu_gym/views/widgets/signup_login_form_input.dart';
 import 'package:flutter/material.dart';
+import "package:image_picker/image_picker.dart";
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:provider/provider.dart';
 
 class FormWidget extends StatelessWidget {
@@ -47,20 +48,24 @@ class FormWidget extends StatelessWidget {
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           if (formType == "Sign up")
             Stack(
-              alignment: Alignment(1, 1),
+              alignment: Alignment(1.2, 1.2),
               children: [
                 CircleAvatar(
                   radius: 36,
                 ),
                 GestureDetector(
                   onTap: () async {
-                    final image = await ImagePicker()
-                        .pickImage(source: ImageSource.gallery);
-                    print(image);
+                    showModalBottomSheet(
+                        showDragHandle: true,
+                        constraints: BoxConstraints.tight(Size(
+                            MediaQuery.of(context).size.width,
+                            MediaQuery.of(context).size.height * 0.3)),
+                        context: context,
+                        builder: (context) => ImagePickSelector());
                   },
                   child: Icon(
-                    Icons.image,
-                    size: 20,
+                    Icons.add,
+                    size: 30,
                     color: Colors.grey.shade400,
                   ),
                 )
