@@ -5,7 +5,6 @@ import 'package:dbu_gym/views/pages/image_pick_selector.dart';
 import 'package:dbu_gym/views/widgets/date_picker_input.dart';
 import 'package:dbu_gym/views/widgets/signup_login_form_input.dart';
 import 'package:flutter/material.dart';
-import "package:image_picker/image_picker.dart";
 import 'package:go_router/go_router.dart';
 
 import 'package:provider/provider.dart';
@@ -63,11 +62,7 @@ class FormWidget extends StatelessWidget {
                         context: context,
                         builder: (context) => ImagePickSelector());
                   },
-                  child: Icon(
-                    Icons.add,
-                    size: 30,
-                    color: Colors.grey,
-                  ),
+                  child: Icon(Icons.add, size: 30),
                 )
               ],
             ),
@@ -92,9 +87,9 @@ class FormWidget extends StatelessWidget {
                   showPassword: formProvider.showPassword,
                   formType: formType,
                 ),
-                if (formType == "Sign up")
+
+                if (formType == "Sign up") ...[
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                if (formType == "Sign up")
                   FormInputField(
                     controller: formProvider.rePasswordController,
                     labelText: "Re-enter password",
@@ -102,11 +97,12 @@ class FormWidget extends StatelessWidget {
                     showPassword: formProvider.showPassword,
                     formType: formType,
                   ),
-                if (formType == "Sign up")
+                ],
+
+                if (formType == "Sign up") ...[
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                if (formType == "Sign up")
-                  Stack(
-                    alignment: Alignment.bottomLeft.add(Alignment(0.2, 0)),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
@@ -128,16 +124,27 @@ class FormWidget extends StatelessWidget {
                           ),
                         ],
                       ),
-                      if (formProvider.hasDateInputError)
-                        Text(
-                          "Start Date should not exceed End Date.",
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    color: Theme.of(context).colorScheme.error,
-                                  ),
+                      if (formProvider.hasDateInputError) ...[
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.01),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(
+                            "Start Date should not exceed End Date.",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                  color: Theme.of(context).colorScheme.error,
+                                ),
+                          ),
                         ),
+                      ]
                     ],
                   ),
+                ],
+                // if (formProvider.hasDateInputError)
+                //   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.02,
                 ),

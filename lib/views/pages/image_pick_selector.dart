@@ -1,6 +1,5 @@
 import 'package:dbu_gym/utils/image_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:fpdart/fpdart.dart';
 
 class ImagePickSelector extends StatelessWidget {
   const ImagePickSelector({super.key});
