@@ -1,6 +1,9 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:io';
+
 import 'package:dbu_gym/controllers/providers/form_provider.dart';
+import 'package:dbu_gym/controllers/providers/image_provider.dart';
 import 'package:dbu_gym/views/pages/image_pick_selector.dart';
 import 'package:dbu_gym/views/widgets/date_picker_input.dart';
 import 'package:dbu_gym/views/widgets/signup_login_form_input.dart';
@@ -19,6 +22,7 @@ class FormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formProvider = Provider.of<FormProvider>(context);
+    final imageProvider = Provider.of<AppImageProvider>(context);
 
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
@@ -51,6 +55,12 @@ class FormWidget extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 36,
+                  backgroundImage: imageProvider.imagePath != null
+                      ? FileImage(File(imageProvider.imagePath!))
+                      : null,
+                  child: imageProvider.imagePath == null
+                      ? Icon(Icons.person, size: 48)
+                      : null,
                 ),
                 GestureDetector(
                   onTap: () async {
@@ -105,7 +115,7 @@ class FormWidget extends StatelessWidget {
                           Flexible(
                             child: DatePickerInputField(
                               controller: formProvider.startDateController,
-                              labelText: "Start Date",
+                              labelText: "Gym Start Date",
                               helpText: "Start date of your gym plan",
                             ),
                           ),
@@ -114,7 +124,7 @@ class FormWidget extends StatelessWidget {
                           Flexible(
                             child: DatePickerInputField(
                               controller: formProvider.endDateController,
-                              labelText: "End Date",
+                              labelText: "Gym End Date",
                               helpText: "End date of your gym plan",
                             ),
                           ),

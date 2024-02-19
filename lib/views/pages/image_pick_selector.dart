@@ -1,5 +1,8 @@
+import 'package:dbu_gym/controllers/providers/image_provider.dart';
 import 'package:dbu_gym/utils/image_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class ImagePickSelector extends StatelessWidget {
   const ImagePickSelector({super.key});
@@ -13,7 +16,11 @@ class ImagePickSelector extends StatelessWidget {
           GestureDetector(
             onTap: () async {
               final res = await pickImageFromGallery();
-              res.fold((l) => print(l), (r) => print(r.path));
+              res.fold((l) => print(l), (r) {
+                GoRouter.of(context).pop();
+                Provider.of<AppImageProvider>(context, listen: false)
+                    .setImagePath(r.path);
+              });
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -28,7 +35,11 @@ class ImagePickSelector extends StatelessWidget {
           GestureDetector(
             onTap: () async {
               final res = await pickImageFromCamera();
-              res.fold((l) => print(l), (r) => print(r.path));
+              res.fold((l) => print(l), (r) {
+                GoRouter.of(context).pop();
+                Provider.of<AppImageProvider>(context, listen: false)
+                    .setImagePath(r.path);
+              });
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
