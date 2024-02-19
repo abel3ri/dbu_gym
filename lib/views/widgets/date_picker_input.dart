@@ -23,7 +23,7 @@ class DatePickerInputField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         labelText: labelText,
-        labelStyle: TextStyle(color: Colors.grey),
+        labelStyle: TextStyle(color: Colors.grey, fontSize: 12),
         hintText: "MM-DD-YYYY",
         prefixIcon: Icon(Icons.date_range),
         prefixIconColor: Colors.grey,

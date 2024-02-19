@@ -40,3 +40,10 @@ String? dateValidator({
   Provider.of<FormProvider>(context, listen: false).toggleDateInputSuccess();
   return null;
 }
+
+String? nameValidator(String? value) {
+  RegExp regExp = RegExp("[a-zA-Z]");
+  if (value!.isEmpty) return "Name is required";
+  if (!regExp.hasMatch(value)) return "Please prvoide valid name";
+  return null;
+}

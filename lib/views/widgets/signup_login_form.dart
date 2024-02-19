@@ -72,7 +72,11 @@ class FormWidget extends StatelessWidget {
                         context: context,
                         builder: (context) => ImagePickSelector());
                   },
-                  child: Icon(Icons.add, size: 30),
+                  child: Icon(
+                    Icons.add,
+                    size: 30,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 )
               ],
             ),
@@ -84,6 +88,31 @@ class FormWidget extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                if (formType == "Sign up") ...[
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: FormInputField(
+                          labelText: "First name",
+                          prefixIcon: Icon(Icons.person),
+                          controller: formProvider.firstNameController,
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.02,
+                      ),
+                      Flexible(
+                        child: FormInputField(
+                          labelText: "Last name",
+                          prefixIcon: Icon(Icons.person),
+                          controller: formProvider.lastNameController,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                ],
                 FormInputField(
                   controller: formProvider.emailController,
                   labelText: "E-mail",
@@ -120,7 +149,8 @@ class FormWidget extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.02),
+                            width: MediaQuery.of(context).size.width * 0.02,
+                          ),
                           Flexible(
                             child: DatePickerInputField(
                               controller: formProvider.endDateController,

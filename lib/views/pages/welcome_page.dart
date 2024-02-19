@@ -96,6 +96,7 @@ class WelcomePage extends StatelessWidget {
                     viewportFraction: 0.9,
                     enlargeCenterPage: true,
                     enableInfiniteScroll: true,
+                    enlargeFactor: 0.6,
                     onPageChanged: (index, reason) =>
                         Provider.of<CarouselProvider>(context, listen: false)
                             .changeItemIndex(index),

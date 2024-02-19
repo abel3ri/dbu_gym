@@ -41,20 +41,23 @@ class FormInputField extends StatelessWidget {
               )
             : null,
       ),
-      obscureText:
-          labelText != 'E-mail' ? (showPassword ? false : true) : false,
-      // Chnage text input action for email input (always) and password input (if we are in the sign up page)
+      obscureText: labelText.toLowerCase().contains("password") && showPassword
+          ? true
+          : false,
+      // Change text input action for email input (always) and password input (if we are in the sign up page)
       textInputAction: (labelText == "E-mail" ||
               (formType == "Sign up" && labelText == "Password"))
           ? TextInputAction.next
           : TextInputAction.done,
       validator: labelText == "E-mail"
           ? emailValidator
-          : (value) => passwordValidator(
-                value: value,
-                context: context,
-                formType: formType,
-              ),
+          : labelText.contains("name")
+              ? nameValidator
+              : (value) => passwordValidator(
+                    value: value,
+                    context: context,
+                    formType: formType,
+                  ),
     );
   }
 }
