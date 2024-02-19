@@ -66,7 +66,7 @@ class FormWidget extends StatelessWidget {
                   child: Icon(
                     Icons.add,
                     size: 30,
-                    color: Colors.grey.shade400,
+                    color: Colors.grey,
                   ),
                 )
               ],
