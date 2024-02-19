@@ -87,7 +87,6 @@ class FormWidget extends StatelessWidget {
                   showPassword: formProvider.showPassword,
                   formType: formType,
                 ),
-
                 if (formType == "Sign up") ...[
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   FormInputField(
@@ -97,12 +96,9 @@ class FormWidget extends StatelessWidget {
                     showPassword: formProvider.showPassword,
                     formType: formType,
                   ),
-                ],
-
-                if (formType == "Sign up") ...[
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Stack(
+                    alignment: Alignment(-0.8, 1),
                     children: [
                       Row(
                         children: [
@@ -125,26 +121,17 @@ class FormWidget extends StatelessWidget {
                         ],
                       ),
                       if (formProvider.hasDateInputError) ...[
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Text(
-                            "Start Date should not exceed End Date.",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                  color: Theme.of(context).colorScheme.error,
-                                ),
-                          ),
+                        Text(
+                          "Start Date should not exceed End Date.",
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    color: Theme.of(context).colorScheme.error,
+                                  ),
                         ),
                       ]
                     ],
                   ),
                 ],
-                // if (formProvider.hasDateInputError)
-                //   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.02,
                 ),

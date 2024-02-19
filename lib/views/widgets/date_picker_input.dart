@@ -27,6 +27,7 @@ class DatePickerInputField extends StatelessWidget {
         hintText: "MM-DD-YYYY",
         prefixIcon: Icon(Icons.date_range),
         prefixIconColor: Colors.grey,
+        errorText: formProvider.hasDateInputError ? "" : null,
       ),
       keyboardType: TextInputType.datetime,
       readOnly: true,
