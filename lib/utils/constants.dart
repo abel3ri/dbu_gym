@@ -1,3 +1,5 @@
+import "package:firebase_auth/firebase_auth.dart";
+
 final List<Map<String, dynamic>> carouselContent = [
   {
     "headline": "Manage Your Fitness Subscription Plan.",
@@ -12,3 +14,5 @@ final List<Map<String, dynamic>> carouselContent = [
     "image_path": "assets/images/fitness2.png",
   },
 ];
+
+FirebaseAuth auth = FirebaseAuth.instance;

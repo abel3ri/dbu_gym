@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:dbu_gym/models/user.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/views/pages/image_pick_selector.dart';
@@ -176,7 +177,7 @@ class FormWidget extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.02,
                 ),
                 FilledButton(
-                  onPressed: () {
+                  onPressed: () async {
                     FocusManager.instance.primaryFocus!.hasFocus
                         ? FocusManager.instance.primaryFocus!.unfocus()
                         : null;
@@ -185,8 +186,20 @@ class FormWidget extends StatelessWidget {
                       if (formProvider.loginFormKey.currentState!.validate()) {}
                     } else {
                       // valid sign up inputs
-                      if (formProvider.signUpFormKey.currentState!
-                          .validate()) {}
+                      if (formProvider.signUpFormKey.currentState!.validate()) {
+                        GymUser user = GymUser(
+                          firstName: formProvider.firstNameController.text,
+                          lastName: formProvider.lastNameController.text,
+                          email: formProvider.emailController.text,
+                          password: formProvider.passwordController.text,
+                          gymStartDate: formProvider.startDateController.text,
+                          gymEndDate: formProvider.endDateController.text,
+                          workoutShift: "Morning",
+                        );
+                        final res = await user.signUpUserWithEmailAndPassword();
+                        // Display error logic here
+                        res.fold((l) => print(l), (r) {});
+                      }
                     }
                   },
                   child: Text(formType == "Login" ? "Login" : "Sign up"),
