@@ -47,3 +47,8 @@ String? nameValidator(String? value) {
   if (!regExp.hasMatch(value)) return "Please prvoide valid name";
   return null;
 }
+
+String? dropDownFormFieldValidator(String? value) {
+  if (value == 'default') return "Please provide workout session.";
+  return null;
+}

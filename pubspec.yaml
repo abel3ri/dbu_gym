@@ -47,6 +47,8 @@ dependencies:
   ethiopian_calendar: ^0.0.2
   image_picker: ^1.0.7
   fpdart: ^1.1.0
+  cloud_firestore: ^4.15.5
+  crypto: ^3.0.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

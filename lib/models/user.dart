@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
@@ -9,7 +12,7 @@ class GymUser {
   late String password;
   late String gymStartDate;
   late String gymEndDate;
-  late String workoutShift;
+  late String workoutSession;
 
   GymUser({
     required this.firstName,
@@ -18,7 +21,7 @@ class GymUser {
     required this.password,
     required this.gymStartDate,
     required this.gymEndDate,
-    required this.workoutShift,
+    required this.workoutSession,
   });
 
   Future<Either<String, User>> signUpUserWithEmailAndPassword() async {
@@ -28,7 +31,21 @@ class GymUser {
         password: password,
       );
       User? user = userCredential.user;
-      if (userCredential.user != null) return right(user!);
+
+      if (user != null) {
+        // Save user to firestore if the user is successfuly created with E&P
+        await db.collection("users").doc(user.uid).set({
+          "id": user.uid,
+          "fullName": firstName + lastName,
+          "email": email,
+          "password": hashPassword(password),
+          "gymStartDate": gymStartDate,
+          "gymEndDate": gymEndDate,
+          "workoutSession": workoutSession,
+        });
+        return right(user);
+      }
+      ;
       throw "User not created.";
     } on FirebaseAuthException catch (err) {
       return left(err.message!);
@@ -51,5 +68,10 @@ class GymUser {
     } catch (err) {
       return left(err.toString());
     }
+  }
+
+  // hash password before storing to db
+  String hashPassword(String password) {
+    return sha1.convert(utf8.encode(password)).toString();
   }
 }
