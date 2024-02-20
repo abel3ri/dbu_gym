@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:dbu_gym/controllers/form_input_validator.dart';
 import 'package:dbu_gym/models/user.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
@@ -172,6 +173,32 @@ class FormWidget extends StatelessWidget {
                       ]
                     ],
                   ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  DropdownButtonFormField(
+                    value: "default",
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          color: Colors.grey,
+                        ),
+                    items: [
+                      DropdownMenuItem(
+                        value: "default",
+                        child: Text("Choose prefered workout session"),
+                      ),
+                      DropdownMenuItem(
+                        value: "morning",
+                        child: Text("Morning session"),
+                      ),
+                      DropdownMenuItem(
+                        value: "afternoon",
+                        child: Text("Evening session"),
+                      ),
+                    ],
+                    onChanged: (value) {
+                      Provider.of<FormProvider>(context, listen: false)
+                          .setWorkoutSessionValue(value!);
+                    },
+                    validator: dropDownFormFieldValidator,
+                  )
                 ],
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.02,
@@ -194,8 +221,9 @@ class FormWidget extends StatelessWidget {
                           password: formProvider.passwordController.text,
                           gymStartDate: formProvider.startDateController.text,
                           gymEndDate: formProvider.endDateController.text,
-                          workoutShift: "Morning",
+                          workoutSession: formProvider.workoutSession!,
                         );
+
                         final res = await user.signUpUserWithEmailAndPassword();
                         // Display error logic here
                         res.fold((l) => print(l), (r) {});
