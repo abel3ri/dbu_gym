@@ -1,7 +1,8 @@
+import "package:dbu_gym/views/pages/home_screen.dart";
+import "package:dbu_gym/views/pages/splash_page.dart";
 import "package:go_router/go_router.dart";
 import "package:dbu_gym/views/pages/login_page.dart";
 import "package:dbu_gym/views/pages/not_found_page.dart";
-import "package:dbu_gym/views/pages/welcome_page.dart";
 import 'package:dbu_gym/views/pages/sign_up_page.dart';
 
 class AppRouter {
@@ -10,7 +11,7 @@ class AppRouter {
       GoRoute(
         path: "/",
         name: "welcome",
-        builder: (context, state) => WelcomePage(),
+        builder: (context, state) => SplashPage(),
       ),
       GoRoute(
         path: "/login",
@@ -22,11 +23,11 @@ class AppRouter {
         name: "signup",
         builder: (context, state) => SignUpPage(),
       ),
-      // GoRoute(
-      //   path: "/signup-intermediate",
-      //   name: "signup-intermediate",
-      //   builder: (context, state) => SignUpIntermediatePage(),
-      // ),
+      GoRoute(
+        path: "/home",
+        name: "home",
+        builder: (context, state) => HomeScreen(),
+      ),
     ],
     errorBuilder: (context, state) => PageNotFound(),
   );
