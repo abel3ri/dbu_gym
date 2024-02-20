@@ -1,4 +1,4 @@
-import "package:dbu_gym/views/pages/home_screen.dart";
+import "package:dbu_gym/views/pages/home_page.dart";
 import "package:dbu_gym/views/pages/splash_page.dart";
 import "package:go_router/go_router.dart";
 import "package:dbu_gym/views/pages/login_page.dart";
@@ -26,7 +26,7 @@ class AppRouter {
       GoRoute(
         path: "/home",
         name: "home",
-        builder: (context, state) => HomeScreen(),
+        builder: (context, state) => HomePage(),
       ),
     ],
     errorBuilder: (context, state) => PageNotFound(),
