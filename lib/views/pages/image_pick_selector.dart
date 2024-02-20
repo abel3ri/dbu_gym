@@ -1,4 +1,4 @@
-import 'package:dbu_gym/controllers/providers/image_provider.dart';
+import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/utils/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

@@ -2,8 +2,8 @@
 
 import 'dart:io';
 
-import 'package:dbu_gym/controllers/providers/form_provider.dart';
-import 'package:dbu_gym/controllers/providers/image_provider.dart';
+import 'package:dbu_gym/providers/form_provider.dart';
+import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/views/pages/image_pick_selector.dart';
 import 'package:dbu_gym/views/widgets/date_picker_input.dart';
 import 'package:dbu_gym/views/widgets/signup_login_form_input.dart';

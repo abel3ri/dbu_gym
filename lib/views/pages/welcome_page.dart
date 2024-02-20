@@ -1,4 +1,4 @@
-import 'package:dbu_gym/controllers/providers/carousel_provider.dart';
+import 'package:dbu_gym/providers/carousel_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';

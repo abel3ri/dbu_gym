@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:dbu_gym/controllers/form_input_validator.dart';
-import 'package:dbu_gym/controllers/providers/form_provider.dart';
+import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

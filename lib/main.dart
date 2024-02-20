@@ -1,6 +1,6 @@
-import 'package:dbu_gym/controllers/providers/carousel_provider.dart';
-import 'package:dbu_gym/controllers/providers/form_provider.dart';
-import 'package:dbu_gym/controllers/providers/image_provider.dart';
+import 'package:dbu_gym/providers/carousel_provider.dart';
+import 'package:dbu_gym/providers/form_provider.dart';
+import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/firebase_options.dart';
 import 'package:dbu_gym/router/router.dart';
 import 'package:dbu_gym/utils/theme.dart';
