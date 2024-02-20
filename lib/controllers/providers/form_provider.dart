@@ -19,7 +19,7 @@ class FormProvider with ChangeNotifier {
   }
 
   void changeDateInputValue(String value, String labelText) {
-    if (labelText == "Start Date") {
+    if (labelText == "Gym Start Date") {
       _startDateController.text = value;
     } else {
       _endDateController.text = value;
