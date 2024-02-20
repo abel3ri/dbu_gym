@@ -11,6 +11,7 @@ class FormProvider with ChangeNotifier {
   final _endDateController = TextEditingController();
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
+  String? _workoutSesion;
   bool _hasDateInputError = false;
 
   void toggleShowPassword() {
@@ -36,7 +37,11 @@ class FormProvider with ChangeNotifier {
     _hasDateInputError = false;
     notifyListeners();
   }
-  // void
+
+  void setWorkoutSessionValue(String value) {
+    _workoutSesion = value;
+    notifyListeners();
+  }
 
   get showPassword => _showPassword;
   TextEditingController get emailController => _emailController;
@@ -49,4 +54,5 @@ class FormProvider with ChangeNotifier {
   GlobalKey<FormState> get loginFormKey => _loginFormKey;
   GlobalKey<FormState> get signUpFormKey => _signUpFormKey;
   bool get hasDateInputError => _hasDateInputError;
+  String? get workoutSession => _workoutSesion;
 }
