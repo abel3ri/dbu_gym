@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:dbu_gym/providers/carousel_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/views/widgets/signup_login_button.dart';
