@@ -1,5 +1,8 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:dbu_gym/providers/carousel_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
+import 'package:dbu_gym/views/widgets/signup_login_button.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:go_router/go_router.dart';
@@ -114,27 +117,30 @@ class WelcomePage extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
               children: [
-                FilledButton(
-                  onPressed: () {
-                    GoRouter.of(context).pushNamed("signup");
-                  },
-                  child: Text("Sign up"),
-                  style: ButtonStyle(
-                    fixedSize: MaterialStateProperty.all(Size(120, 44)),
-                  ),
-                ),
-                SizedBox(width: 8),
                 ElevatedButton(
-                  onPressed: () {
-                    GoRouter.of(context).pushNamed("login");
-                  },
-                  child: Text("Login"),
-                  style: ButtonStyle(
-                    fixedSize: MaterialStateProperty.all(Size(120, 44)),
-                  ),
+                  onPressed: () {},
+                  child: Text("Workout sessions and pricing"),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.012),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SignUpLoginButton(
+                      buttonName: "Sign up",
+                      onPressed: () {
+                        GoRouter.of(context).pushNamed("signup");
+                      },
+                    ),
+                    SizedBox(width: 8),
+                    SignUpLoginButton(
+                      buttonName: "Login",
+                      onPressed: () {
+                        GoRouter.of(context).pushNamed("login");
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),
