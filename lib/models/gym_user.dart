@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:crypto/crypto.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
@@ -38,7 +35,7 @@ class GymUser {
           "id": user.uid,
           "fullName": firstName + lastName,
           "email": email,
-          "password": hashPassword(password),
+          "password": password,
           "gymStartDate": gymStartDate,
           "gymEndDate": gymEndDate,
           "workoutSession": workoutSession,
@@ -58,28 +55,23 @@ class GymUser {
     }
   }
 
-  Future<Either<String, User>> signInUserWithEmailAndPassword() async {
+  // To Sign in user with creating an object
+  static Future<Either<String, User>> signInUserWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
       User? user = userCredential.user;
-      if (userCredential.user != null) return right(user!);
+      if (user != null) return right(user);
       return left("Unable to sign in user.");
     } on FirebaseAuthException catch (err) {
-      if (err.message ==
-          "The email address is already in use by another account.")
-        return left("E-mail already in use.");
-
       return left(err.message!);
     } catch (err) {
       return left(err.toString());
     }
-  }
-
-  // hash password before storing to db
-  String hashPassword(String password) {
-    return sha1.convert(utf8.encode(password)).toString();
   }
 }
