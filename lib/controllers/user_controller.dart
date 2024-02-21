@@ -1,6 +1,7 @@
 import 'package:dbu_gym/models/gym_user.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 Future<void> signUpLoginController({
@@ -38,5 +39,7 @@ Future<void> signUpLoginController({
         content: Text(l),
       ),
     );
-  }, (r) {});
+  }, (r) {
+    GoRouter.of(context).pushReplacementNamed("home");
+  });
 }
