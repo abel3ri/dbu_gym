@@ -3,7 +3,8 @@
 import 'dart:io';
 
 import 'package:dbu_gym/controllers/form_input_validator.dart';
-import 'package:dbu_gym/models/user.dart';
+import 'package:dbu_gym/controllers/user_controller.dart';
+import 'package:dbu_gym/models/gym_user.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/views/pages/image_pick_selector.dart';
@@ -214,23 +215,27 @@ class FormWidget extends StatelessWidget {
                     } else {
                       // valid sign up inputs
                       if (formProvider.signUpFormKey.currentState!.validate()) {
-                        GymUser user = GymUser(
-                          firstName: formProvider.firstNameController.text,
-                          lastName: formProvider.lastNameController.text,
-                          email: formProvider.emailController.text,
-                          password: formProvider.passwordController.text,
-                          gymStartDate: formProvider.startDateController.text,
-                          gymEndDate: formProvider.endDateController.text,
-                          workoutSession: formProvider.workoutSession!,
-                        );
-
-                        final res = await user.signUpUserWithEmailAndPassword();
-                        // Display error logic here
-                        res.fold((l) => print(l), (r) {});
+                        Provider.of<FormProvider>(context, listen: false)
+                            .setIsAuthtentcating(true);
+                        await signUpLoginController(formProvider, context);
+                        Provider.of<FormProvider>(context, listen: false)
+                            .setIsAuthtentcating(false);
                       }
                     }
                   },
-                  child: Text(formType == "Login" ? "Login" : "Sign up"),
+                  style: ButtonStyle(
+                    fixedSize: MaterialStateProperty.all(Size(120, 44)),
+                  ),
+                  child: formProvider.isAuthenticating
+                      ? SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(
+                            color: Theme.of(context).colorScheme.background,
+                            strokeWidth: 3,
+                          ),
+                        )
+                      : Text(formType == "Login" ? "Login" : "Sign up"),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

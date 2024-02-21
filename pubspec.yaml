@@ -37,6 +37,7 @@ dependencies:
   http: ^1.2.0
   firebase_core: ^2.25.4
   firebase_auth: ^4.17.4
+  cloud_firestore: ^4.15.5
   google_fonts: ^6.1.0
   flex_color_scheme: ^7.3.1
   carousel_slider: ^4.2.1
@@ -47,7 +48,6 @@ dependencies:
   ethiopian_calendar: ^0.0.2
   image_picker: ^1.0.7
   fpdart: ^1.1.0
-  cloud_firestore: ^4.15.5
   crypto: ^3.0.3
 dev_dependencies:
   flutter_test:

@@ -46,8 +46,12 @@ class GymUser {
         return right(user);
       }
       ;
-      throw "User not created.";
+      return left("User not created.");
     } on FirebaseAuthException catch (err) {
+      if (err.message ==
+          "The email address is already in use by another account.")
+        return left("E-mail already in use.");
+
       return left(err.message!);
     } catch (err) {
       return left(err.toString());
@@ -62,8 +66,12 @@ class GymUser {
       );
       User? user = userCredential.user;
       if (userCredential.user != null) return right(user!);
-      throw "Unable to sign in user.";
+      return left("Unable to sign in user.");
     } on FirebaseAuthException catch (err) {
+      if (err.message ==
+          "The email address is already in use by another account.")
+        return left("E-mail already in use.");
+
       return left(err.message!);
     } catch (err) {
       return left(err.toString());

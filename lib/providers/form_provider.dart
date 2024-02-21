@@ -11,6 +11,7 @@ class FormProvider with ChangeNotifier {
   final _endDateController = TextEditingController();
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
+  bool _isAuthenticating = false;
   String? _workoutSesion;
   bool _hasDateInputError = false;
 
@@ -43,6 +44,11 @@ class FormProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void setIsAuthtentcating(bool value) {
+    _isAuthenticating = value;
+    notifyListeners();
+  }
+
   get showPassword => _showPassword;
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
@@ -55,4 +61,5 @@ class FormProvider with ChangeNotifier {
   GlobalKey<FormState> get signUpFormKey => _signUpFormKey;
   bool get hasDateInputError => _hasDateInputError;
   String? get workoutSession => _workoutSesion;
+  bool get isAuthenticating => _isAuthenticating;
 }
