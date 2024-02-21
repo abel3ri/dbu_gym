@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:dbu_gym/controllers/form_input_validator.dart';
 import 'package:dbu_gym/controllers/user_controller.dart';
-import 'package:dbu_gym/models/gym_user.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/views/pages/image_pick_selector.dart';

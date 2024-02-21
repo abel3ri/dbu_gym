@@ -15,7 +15,7 @@ class SplashPage extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting)
             return Center(child: CircularProgressIndicator());
           if (snapshot.data == null) return WelcomePage();
-          return WelcomePage();
+          return HomePage();
         },
       ),
     );
