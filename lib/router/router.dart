@@ -1,5 +1,6 @@
 import "package:dbu_gym/views/pages/home_page.dart";
 import "package:dbu_gym/views/pages/splash_page.dart";
+import "package:dbu_gym/views/pages/welcome_page.dart";
 import "package:go_router/go_router.dart";
 import "package:dbu_gym/views/pages/login_page.dart";
 import "package:dbu_gym/views/pages/not_found_page.dart";
@@ -10,8 +11,13 @@ class AppRouter {
     routes: [
       GoRoute(
         path: "/",
-        name: "welcome",
+        name: "splash",
         builder: (context, state) => SplashPage(),
+      ),
+      GoRoute(
+        path: "/welcome",
+        name: "welcome",
+        builder: (context, state) => WelcomePage(),
       ),
       GoRoute(
         path: "/login",
