@@ -211,15 +211,21 @@ class FormWidget extends StatelessWidget {
                         : null;
                     if (formType == "Login") {
                       // valid login inputs
-                      if (formProvider.loginFormKey.currentState!.validate()) {}
+                      if (formProvider.loginFormKey.currentState!.validate()) {
+                        await signUpLoginController(
+                          formProvider: formProvider,
+                          context: context,
+                          formType: formType,
+                        );
+                      }
                     } else {
                       // valid sign up inputs
                       if (formProvider.signUpFormKey.currentState!.validate()) {
-                        Provider.of<FormProvider>(context, listen: false)
-                            .setIsAuthtentcating(true);
-                        await signUpLoginController(formProvider, context);
-                        Provider.of<FormProvider>(context, listen: false)
-                            .setIsAuthtentcating(false);
+                        await signUpLoginController(
+                          formProvider: formProvider,
+                          context: context,
+                          formType: formType,
+                        );
                       }
                     }
                   },

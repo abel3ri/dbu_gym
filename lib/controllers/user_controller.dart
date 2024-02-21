@@ -3,8 +3,13 @@ import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-Future<void> signUpLoginController(
-    FormProvider formProvider, BuildContext context) async {
+Future<void> signUpLoginController({
+  required FormProvider formProvider,
+  required BuildContext context,
+  required formType,
+}) async {
+  dynamic res;
+  Provider.of<FormProvider>(context, listen: false).setIsAuthtentcating(true);
   GymUser user = GymUser(
     firstName: formProvider.firstNameController.text,
     lastName: formProvider.lastNameController.text,
@@ -15,10 +20,12 @@ Future<void> signUpLoginController(
     workoutSession: formProvider.workoutSession!,
   );
 
-  final res = await user.signUpUserWithEmailAndPassword();
-  Provider.of<FormProvider>(context, listen: false).setIsAuthtentcating(false);
-  // Display error logic here
+  if (formType == "Sign up")
+    res = await user.signUpUserWithEmailAndPassword();
+  else if (formType == "Login")
+    res = await user.signInUserWithEmailAndPassword();
 
+  Provider.of<FormProvider>(context, listen: false).setIsAuthtentcating(false);
   res.fold((l) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
