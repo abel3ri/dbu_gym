@@ -11,23 +11,31 @@ Future<void> signUpLoginController({
 }) async {
   dynamic res;
   Provider.of<FormProvider>(context, listen: false).setIsAuthtentcating(true);
-  GymUser user = GymUser(
-    firstName: formProvider.firstNameController.text,
-    lastName: formProvider.lastNameController.text,
-    email: formProvider.emailController.text,
-    password: formProvider.passwordController.text,
-    gymStartDate: formProvider.startDateController.text,
-    gymEndDate: formProvider.endDateController.text,
-    workoutSession: formProvider.workoutSession!,
-  );
 
-  if (formType == "Sign up")
-    res = await user.signUpUserWithEmailAndPassword();
-  else if (formType == "Login")
-    res = await user.signInUserWithEmailAndPassword();
+  try {
+    if (formType == "Sign up") {
+      GymUser user = GymUser(
+        firstName: formProvider.firstNameController.text,
+        lastName: formProvider.lastNameController.text,
+        email: formProvider.emailController.text,
+        password: formProvider.passwordController.text,
+        gymStartDate: formProvider.startDateController.text,
+        gymEndDate: formProvider.endDateController.text,
+        workoutSession: formProvider.workoutSession!,
+      );
+      res = await user.signUpUserWithEmailAndPassword();
+    } else
+      res = await GymUser.signInUserWithEmailAndPassword(
+        email: formProvider.emailController.text,
+        password: formProvider.passwordController.text,
+      );
+  } catch (err) {
+    print(err.toString());
+  }
 
   Provider.of<FormProvider>(context, listen: false).setIsAuthtentcating(false);
-  res.fold((l) {
+  res.fold((errorMessage) {
+    // print(errorMessage);
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -36,10 +44,10 @@ Future<void> signUpLoginController({
             onPressed: () {
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
             }),
-        content: Text(l),
+        content: Text(errorMessage),
       ),
     );
-  }, (r) {
+  }, (user) {
     GoRouter.of(context).pushReplacementNamed("home");
   });
 }
