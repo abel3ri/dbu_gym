@@ -16,28 +16,28 @@ final List<Map<String, dynamic>> carouselContent = [
   },
 ];
 
-final Map<String, List<Map<String, String>>> pricingContent = {
+final Map<String, List<Map<String, dynamic>>> pricingContent = {
   "1-3Days": [
     {
       "workoutType": "Strength Training",
       "imagePath": "assets/images/pricing_page_image_1.png",
       "insidersPrice": "250 ETB/month",
       "outsidersPrice": "300 ETB/month",
-      "noWorkingDays": "3",
+      "noWorkingDays": "3 Days/week",
     },
     {
       "workoutType": "Aerobics Training",
       "imagePath": "assets/images/pricing_page_image_3.png",
       "insidersPrice": "300 ETB/month",
       "outsidersPrice": "350 ETB/month",
-      "noWorkingDays": "3",
+      "noWorkingDays": "3 Days/week",
     },
     {
       "workoutType": "Cardio Training",
       "imagePath": "assets/images/pricing_page_image_2.png",
       "insidersPrice": "300 ETB/month",
       "outsidersPrice": "350 ETB/month",
-      "noWorkingDays": "3",
+      "noWorkingDays": "3 Days/week",
     },
   ],
   "4-6Days": [
@@ -45,19 +45,30 @@ final Map<String, List<Map<String, String>>> pricingContent = {
       "workoutType": "Strength Training",
       "insidersPrice": "400 ETB/month",
       "outsidersPrice": "500 ETB/month",
-      "noWorkingDays": "6",
+      "imagePath": [
+        "assets/images/pricing_page_image_1.png",
+      ],
+      "noWorkingDays": "6 Days/week",
     },
     {
       "workoutType": "Aerobics & Cardio",
       "insidersPrice": "500 ETB/month",
       "outsidersPrice": "600 ETB/month",
-      "noWorkingDays": "6",
+      "imagePath": [
+        "assets/images/pricing_page_image_3.png",
+        "assets/images/pricing_page_image_2.png",
+      ],
+      "noWorkingDays": "6 Days/week",
     },
     {
       "workoutType": "Cardio & Strength",
       "insidersPrice": "500 ETB/month",
       "outsidersPrice": "600 ETB/month",
-      "noWorkingDays": "6",
+      "imagePath": [
+        "assets/images/pricing_page_image_2.png",
+        "assets/images/pricing_page_image_1.png",
+      ],
+      "noWorkingDays": "6 Days/week",
     },
   ]
 };
