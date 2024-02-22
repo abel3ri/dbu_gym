@@ -1,4 +1,5 @@
 import "package:dbu_gym/views/pages/home_page.dart";
+import "package:dbu_gym/views/pages/pricing_page.dart";
 import "package:dbu_gym/views/pages/splash_page.dart";
 import "package:dbu_gym/views/pages/welcome_page.dart";
 import "package:go_router/go_router.dart";
@@ -34,6 +35,11 @@ class AppRouter {
         name: "home",
         builder: (context, state) => HomePage(),
       ),
+      GoRoute(
+        path: "/pricing",
+        name: "pricing",
+        builder: (context, state) => PricingPage(),
+      )
     ],
     errorBuilder: (context, state) => PageNotFound(),
   );
