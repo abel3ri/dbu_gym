@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dbu_gym/providers/pricing_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class FourSixCarouselSlider extends StatelessWidget {
@@ -127,7 +126,7 @@ class FourSixCarouselSlider extends StatelessWidget {
             Text(
               pricingContent["4-6Days"]![index]["noWorkingDays"],
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontFamily: GoogleFonts.swankyAndMooMoo().fontFamily,
+                    fontFamily: "SwankyandMooMoo",
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.error,
                   ),

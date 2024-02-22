@@ -1,13 +1,12 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   static final ThemeData lightTheme = FlexThemeData.light(
     useMaterial3: true,
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
     scheme: FlexScheme.aquaBlue,
-    fontFamily: GoogleFonts.poppins().fontFamily,
+    fontFamily: "Poppins",
     usedColors: 1,
     surfaceMode: FlexSurfaceMode.highBackgroundLowScaffold,
     blendLevel: 1,
@@ -59,7 +58,7 @@ class AppTheme {
     useMaterial3: true,
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
     scheme: FlexScheme.aquaBlue,
-    fontFamily: GoogleFonts.poppins().fontFamily,
+    fontFamily: "Poppins",
     usedColors: 1,
     surfaceMode: FlexSurfaceMode.highBackgroundLowScaffold,
     blendLevel: 4,
