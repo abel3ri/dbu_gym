@@ -13,7 +13,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final CarouselController carouselController = CarouselController();
+    // final CarouselController carouselController = CarouselController();
 
     return Scaffold(
       body: SafeArea(
@@ -44,7 +44,7 @@ class WelcomePage extends StatelessWidget {
             Column(
               children: [
                 CarouselSlider.builder(
-                  carouselController: carouselController,
+                  // carouselController: carouselController,
                   itemCount: 3,
                   itemBuilder: (context, index, realIndex) => Container(
                     width: MediaQuery.of(context).size.width,
@@ -117,9 +117,15 @@ class WelcomePage extends StatelessWidget {
             ),
             Column(
               children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text("Workout sessions and pricing"),
+                TextButton(
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ))),
+                  onPressed: () {
+                    GoRouter.of(context).pushNamed("pricing");
+                  },
+                  child: Text("Checkout workout sessions & pricing"),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.012),
                 Row(
