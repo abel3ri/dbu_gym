@@ -16,5 +16,47 @@ final List<Map<String, dynamic>> carouselContent = [
   },
 ];
 
+final Map<String, List<Map<String, dynamic>>> pricingContent = {
+  "1-3Days": [
+    {
+      "workoutType": "Strength Training",
+      "insidersPrice": "250 ETB/month",
+      "outsidersPrice": "300 ETB/month",
+      "noWorkingDays": 3,
+    },
+    {
+      "workoutType": "Aerobics Training",
+      "insidersPrice": "300 ETB/month",
+      "outsidersPrice": "350 ETB/month",
+      "noWorkingDays": 3,
+    },
+    {
+      "workoutType": "Cardio Training",
+      "insidersPrice": "300 ETB/month",
+      "outsidersPrice": "350 ETB/month",
+      "noWorkingDays": 3,
+    },
+  ],
+  "4-6Days": [
+    {
+      "workoutType": "Strength Training",
+      "insidersPrice": "400 ETB/month",
+      "outsidersPrice": "500 ETB/month",
+      "noWorkingDays": 6,
+    },
+    {
+      "workoutType": "Aerobics & Cardio",
+      "insidersPrice": "500 ETB/month",
+      "outsidersPrice": "600 ETB/month",
+      "noWorkingDays": 6,
+    },
+    {
+      "workoutType": "Cardio & Strength",
+      "insidersPrice": "500 ETB/month",
+      "outsidersPrice": "600 ETB/month",
+      "noWorkingDays": 6,
+    },
+  ]
+};
 FirebaseAuth auth = FirebaseAuth.instance;
 FirebaseFirestore db = FirebaseFirestore.instance;
