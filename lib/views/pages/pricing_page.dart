@@ -1,12 +1,16 @@
+import 'package:dbu_gym/providers/pricing_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:provider/provider.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PricingPage extends StatelessWidget {
   const PricingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final pricingProvider = Provider.of<PricingProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -37,12 +41,24 @@ class PricingPage extends StatelessWidget {
                         children: [
                           Text("1-3 days",
                               style: Theme.of(context).textTheme.bodySmall),
-                          Switch(value: true, onChanged: (value) {}),
+                          Switch(
+                              value: pricingProvider.oneThreeDays,
+                              onChanged: (value) {
+                                Provider.of<PricingProvider>(context,
+                                        listen: false)
+                                    .toggleOneThreeDays(value);
+                              }),
                           SizedBox(
                               width: MediaQuery.of(context).size.width * 0.015),
                           Text("4-6 days",
                               style: Theme.of(context).textTheme.bodySmall),
-                          Switch(value: false, onChanged: (value) {}),
+                          Switch(
+                              value: pricingProvider.fourSixDays,
+                              onChanged: (value) {
+                                Provider.of<PricingProvider>(context,
+                                        listen: false)
+                                    .toggleFourSixDays(value);
+                              }),
                         ],
                       ),
                     ],
@@ -61,7 +77,6 @@ class PricingPage extends StatelessWidget {
                             // bottom: 8,
                           ),
                           child: Column(
-                            // crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Row(
                                 mainAxisAlignment:
@@ -167,13 +182,28 @@ class PricingPage extends StatelessWidget {
                       ),
                     ),
                     options: CarouselOptions(
+                      onPageChanged: (index, reason) {
+                        Provider.of<PricingProvider>(context, listen: false)
+                            .changeActiveIndex(index);
+                      },
                       aspectRatio: 16 / 9,
-                      height: MediaQuery.of(context).size.height * 0.7,
-                      initialPage: 1,
+                      height: MediaQuery.of(context).size.height * 0.6,
+                      initialPage: 0,
                       viewportFraction: 1,
                       enlargeCenterPage: true,
                       enableInfiniteScroll: true,
                       enlargeFactor: 0,
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  Center(
+                    child: AnimatedSmoothIndicator(
+                      activeIndex: pricingProvider.activeIndex,
+                      count: pricingContent['1-3Days']!.length,
+                      effect: ExpandingDotsEffect(
+                        activeDotColor: Theme.of(context).colorScheme.primary,
+                        dotHeight: 10,
+                      ),
                     ),
                   ),
                 ],
