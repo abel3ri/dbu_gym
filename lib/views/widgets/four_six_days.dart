@@ -53,18 +53,34 @@ class FourSixCarouselSlider extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           // since pricing image 3 a bit larger in width, im decreasing the width by 5%
-                          Image.asset(
-                            pricingContent['4-6Days']![index]['imagePath'][0]!,
-                            height: pricingContent['4-6Days']![index]
-                                        ['imagePath'][0]!
-                                    .toString()
-                                    .contains("_3")
-                                ? constraints.maxHeight * 0.35
-                                : constraints.maxHeight * 0.4,
+                          Expanded(
+                            child: Image.asset(
+                              pricingContent['4-6Days']![index]['imagePath']
+                                  [0]!,
+                              height: pricingContent['4-6Days']![index]
+                                          ['imagePath'][0]!
+                                      .toString()
+                                      .contains("_3")
+                                  ? constraints.maxHeight * 0.31
+                                  : constraints.maxHeight * 0.4,
+                            ),
                           ),
-                          Image.asset(
-                            pricingContent['4-6Days']![index]['imagePath'][1]!,
-                            height: constraints.maxHeight * 0.4,
+                          Text("&",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                    color: Theme.of(context).colorScheme.error,
+                                    fontSize: 32,
+                                    fontFamily: "SwankyandMooMoo",
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                          Expanded(
+                            child: Image.asset(
+                              pricingContent['4-6Days']![index]['imagePath']
+                                  [1]!,
+                              height: constraints.maxHeight * 0.35,
+                            ),
                           ),
                         ],
                       )
