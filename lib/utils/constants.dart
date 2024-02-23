@@ -75,39 +75,39 @@ final Map<String, List<Map<String, dynamic>>> pricingContent = {
 
 Map<String, Map<String, List<String>>> workoutSessionContent = {
   "monWedFri": {
-    "program1": [
-      "Monday morning: 06:00 AM - 07:30 AM",
-      "Wednesday morning: 06:00 AM - 07:30 AM",
-      "Friday morning: 06:00 AM - 07:30 AM",
+    "program 1": [
+      "Mon morning: 06:00 AM - 07:30 AM",
+      "Wed morning: 06:00 AM - 07:30 AM",
+      "Fri morning: 06:00 AM - 07:30 AM",
     ],
-    "program2": [
-      "Monday afternoon: 04:00 PM - 05:30 PM",
-      "Wednesday afternoon: 04:00 PM - 05:30 PM",
-      "Friday afternoon: 04:00 PM - 05:30 PM",
+    "program 2": [
+      "Mon afternoon: 04:00 PM - 05:30 PM",
+      "Wed afternoon: 04:00 PM - 05:30 PM",
+      "Fri afternoon: 04:00 PM - 05:30 PM",
     ],
-    "program3": [
-      "Monday afternoon: 06:00 PM - 07:30 PM",
-      "Wednesday afternoon: 06:00 PM - 07:30 PM",
-      "Friday afternoon: 06:00 PM - 07:30 PM",
-    ],
-  },
-  "TueThuSat:": {
-    "program1": [
-      "Tuesday morning: 06:00 AM - 07:30 AM",
-      "Thursday morning: 06:00 AM - 07:30 AM",
-      "Saturday morning: 06:00 AM - 07:30 AM",
-    ],
-    "program2": [
-      "Tuesday afternoon: 04:00 PM - 05:30 PM",
-      "Thursday afternoon: 04:00 PM - 05:30 PM",
-      "Saturday afternoon: 04:00 PM - 05:30 PM",
-    ],
-    "program3": [
-      "Tuesday afternoon: 06:00 PM - 07:30 PM",
-      "Thursday afternoon: 06:00 PM - 07:30 PM",
-      "Saturday afternoon: 06:00 PM - 07:30 PM",
+    "program 3": [
+      "Mon afternoon: 06:00 PM - 07:30 PM",
+      "Wed afternoon: 06:00 PM - 07:30 PM",
+      "Fri afternoon: 06:00 PM - 07:30 PM",
     ],
   },
+  "tueThuSat": {
+    "program 1": [
+      "Tue morning: 06:00 AM - 07:30 AM",
+      "Thu morning: 06:00 AM - 07:30 AM",
+      "Sat morning: 06:00 AM - 07:30 AM",
+    ],
+    "program 2": [
+      "Tue afternoon: 04:00 PM - 05:30 PM",
+      "Thu afternoon: 04:00 PM - 05:30 PM",
+      "Sat afternoon: 04:00 PM - 05:30 PM",
+    ],
+    "program 3": [
+      "Tue afternoon: 06:00 PM - 07:30 PM",
+      "Thu afternoon: 06:00 PM - 07:30 PM",
+      "Sat afternoon: 06:00 PM - 07:30 PM",
+    ],
+  }
 };
 
 FirebaseAuth auth = FirebaseAuth.instance;
