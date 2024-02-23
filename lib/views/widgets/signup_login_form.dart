@@ -6,6 +6,7 @@ import 'package:dbu_gym/controllers/form_input_validator.dart';
 import 'package:dbu_gym/controllers/user_controller.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
+import 'package:dbu_gym/utils/clear_form_inputs.dart';
 import 'package:dbu_gym/views/pages/image_pick_selector.dart';
 import 'package:dbu_gym/views/widgets/date_picker_input.dart';
 import 'package:dbu_gym/views/widgets/signup_login_form_input.dart';
@@ -216,6 +217,8 @@ class FormWidget extends StatelessWidget {
                           context: context,
                           formType: formType,
                         );
+                        // clear all form inputs after submitting the form
+                        clearFormInputs(context);
                       }
                     } else {
                       // valid sign up inputs
@@ -225,6 +228,8 @@ class FormWidget extends StatelessWidget {
                           context: context,
                           formType: formType,
                         );
+                        // clear all form inputs after submitting the form
+                        clearFormInputs(context);
                       }
                     }
                   },
