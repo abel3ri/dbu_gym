@@ -72,5 +72,43 @@ final Map<String, List<Map<String, dynamic>>> pricingContent = {
     },
   ]
 };
+
+Map<String, Map<String, List<String>>> workoutSessionContent = {
+  "monWedFri": {
+    "program1": [
+      "Monday morning: 06:00 AM - 07:30 AM",
+      "Wednesday morning: 06:00 AM - 07:30 AM",
+      "Friday morning: 06:00 AM - 07:30 AM",
+    ],
+    "program2": [
+      "Monday afternoon: 04:00 PM - 05:30 PM",
+      "Wednesday afternoon: 04:00 PM - 05:30 PM",
+      "Friday afternoon: 04:00 PM - 05:30 PM",
+    ],
+    "program3": [
+      "Monday afternoon: 06:00 PM - 07:30 PM",
+      "Wednesday afternoon: 06:00 PM - 07:30 PM",
+      "Friday afternoon: 06:00 PM - 07:30 PM",
+    ],
+  },
+  "TueThuSat:": {
+    "program1": [
+      "Tuesday morning: 06:00 AM - 07:30 AM",
+      "Thursday morning: 06:00 AM - 07:30 AM",
+      "Saturday morning: 06:00 AM - 07:30 AM",
+    ],
+    "program2": [
+      "Tuesday afternoon: 04:00 PM - 05:30 PM",
+      "Thursday afternoon: 04:00 PM - 05:30 PM",
+      "Saturday afternoon: 04:00 PM - 05:30 PM",
+    ],
+    "program3": [
+      "Tuesday afternoon: 06:00 PM - 07:30 PM",
+      "Thursday afternoon: 06:00 PM - 07:30 PM",
+      "Saturday afternoon: 06:00 PM - 07:30 PM",
+    ],
+  },
+};
+
 FirebaseAuth auth = FirebaseAuth.instance;
 FirebaseFirestore db = FirebaseFirestore.instance;
