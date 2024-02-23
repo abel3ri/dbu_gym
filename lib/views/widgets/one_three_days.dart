@@ -122,7 +122,7 @@ class OneThreeCarouselSlider extends StatelessWidget {
         viewportFraction: 1,
         enlargeCenterPage: true,
         enableInfiniteScroll: true,
-        enlargeFactor: 0.4,
+        enlargeFactor: 0.3,
       ),
     );
   }
