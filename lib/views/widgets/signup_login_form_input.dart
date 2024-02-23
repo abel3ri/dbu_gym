@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 class FormInputField extends StatelessWidget {
   FormInputField({
     super.key,
-    this.showPassword = false,
+    this.showPassword = true,
     required this.labelText,
     required this.prefixIcon,
     required this.controller,
