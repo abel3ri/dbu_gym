@@ -18,7 +18,7 @@ class FourSixCarouselSlider extends StatelessWidget {
           alignment: Alignment(0, 0.7),
           children: [
             Card(
-              elevation: 2,
+              elevation: 0.5,
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: Column(
@@ -161,7 +161,7 @@ class FourSixCarouselSlider extends StatelessWidget {
         viewportFraction: 1,
         enlargeCenterPage: true,
         enableInfiniteScroll: true,
-        enlargeFactor: 0,
+        enlargeFactor: 0.4,
       ),
     );
   }
