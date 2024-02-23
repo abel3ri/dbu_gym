@@ -15,33 +15,36 @@ class WorkoutProgram extends StatelessWidget {
   Widget build(BuildContext context) {
     print(workoutDays);
     print(programName);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          programName,
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            ...workoutSessionContent[workoutDays]![programName]!.map(
-              (content) {
-                return SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.04,
-                  child: Text(
-                    content,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        // fontSize: 2,
-                        ),
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 8, left: 9, right: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            programName,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ...workoutSessionContent[workoutDays]![programName]!.map(
+                (content) {
+                  return SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.04,
+                    child: Text(
+                      content,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
