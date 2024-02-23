@@ -1,4 +1,5 @@
 import 'package:dbu_gym/providers/form_provider.dart';
+import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,4 +12,5 @@ void clearFormInputs(BuildContext context) {
   formProvider.endDateController.clear();
   formProvider.firstNameController.clear();
   formProvider.lastNameController.clear();
+  Provider.of<ProfileImageProvider>(context, listen: false).setImagePath(null);
 }
