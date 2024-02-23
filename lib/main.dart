@@ -19,7 +19,7 @@ void main(List<String> args) async {
       providers: [
         ChangeNotifierProvider(create: (context) => CarouselProvider()),
         ChangeNotifierProvider(create: (context) => FormProvider()),
-        ChangeNotifierProvider(create: (context) => AppImageProvider()),
+        ChangeNotifierProvider(create: (context) => ProfileImageProvider()),
         ChangeNotifierProvider(create: (context) => PricingProvider()),
       ],
       child: MaterialApp.router(

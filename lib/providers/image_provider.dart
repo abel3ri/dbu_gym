@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class AppImageProvider with ChangeNotifier {
+class ProfileImageProvider with ChangeNotifier {
   String? _imagePath;
 
-  void setImagePath(String path) {
+  void setImagePath(String? path) {
     _imagePath = path;
     notifyListeners();
   }

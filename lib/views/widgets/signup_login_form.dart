@@ -25,7 +25,7 @@ class FormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formProvider = Provider.of<FormProvider>(context);
-    final imageProvider = Provider.of<AppImageProvider>(context);
+    final imageProvider = Provider.of<ProfileImageProvider>(context);
 
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),

@@ -18,7 +18,7 @@ class ImagePickSelector extends StatelessWidget {
               final res = await pickImageFromGallery();
               res.fold((l) => print(l), (r) {
                 GoRouter.of(context).pop();
-                Provider.of<AppImageProvider>(context, listen: false)
+                Provider.of<ProfileImageProvider>(context, listen: false)
                     .setImagePath(r.path);
               });
             },
@@ -37,7 +37,7 @@ class ImagePickSelector extends StatelessWidget {
               final res = await pickImageFromCamera();
               res.fold((l) => print(l), (r) {
                 GoRouter.of(context).pop();
-                Provider.of<AppImageProvider>(context, listen: false)
+                Provider.of<ProfileImageProvider>(context, listen: false)
                     .setImagePath(r.path);
               });
             },
