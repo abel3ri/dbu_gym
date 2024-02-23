@@ -1,5 +1,6 @@
 import 'package:dbu_gym/providers/pricing_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
+import 'package:dbu_gym/views/pages/workout_sessions_page.dart';
 import 'package:dbu_gym/views/widgets/four_six_days.dart';
 import 'package:dbu_gym/views/widgets/one_three_days.dart';
 import 'package:flutter/material.dart';
@@ -16,70 +17,87 @@ class PricingPage extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 24),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 36),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Pricing & Workout Sessions",
-                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Workout days",
+                        "Pricing",
                         style: Theme.of(context)
                             .textTheme
-                            .bodyMedium!
-                            .copyWith(fontWeight: FontWeight.bold),
+                            .headlineMedium!
+                            .copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontWeight: FontWeight.bold),
                       ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("1-3 days",
-                              style: Theme.of(context).textTheme.bodySmall),
-                          Switch(
-                              value: pricingProvider.oneThreeDays,
-                              onChanged: (value) {
-                                Provider.of<PricingProvider>(context,
-                                        listen: false)
-                                    .toggleOneThreeDays(value);
-                              }),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.015),
-                          Text("4-6 days",
-                              style: Theme.of(context).textTheme.bodySmall),
-                          Switch(
-                              value: pricingProvider.fourSixDays,
-                              onChanged: (value) {
-                                Provider.of<PricingProvider>(context,
-                                        listen: false)
-                                    .toggleFourSixDays(value);
-                              }),
+                          Text(
+                            "Workout days",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          Row(
+                            children: [
+                              Text("1-3 days",
+                                  style: Theme.of(context).textTheme.bodySmall),
+                              Switch(
+                                  value: pricingProvider.oneThreeDays,
+                                  onChanged: (value) {
+                                    Provider.of<PricingProvider>(context,
+                                            listen: false)
+                                        .toggleOneThreeDays(value);
+                                  }),
+                              SizedBox(
+                                  width: MediaQuery.of(context).size.width *
+                                      0.015),
+                              Text("4-6 days",
+                                  style: Theme.of(context).textTheme.bodySmall),
+                              Switch(
+                                  value: pricingProvider.fourSixDays,
+                                  onChanged: (value) {
+                                    Provider.of<PricingProvider>(context,
+                                            listen: false)
+                                        .toggleFourSixDays(value);
+                                  }),
+                            ],
+                          ),
                         ],
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
+                      if (pricingProvider.oneThreeDays)
+                        OneThreeCarouselSlider()
+                      else
+                        FourSixCarouselSlider(),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
+                      Center(
+                        child: AnimatedSmoothIndicator(
+                          activeIndex: pricingProvider.activeIndex,
+                          count: pricingContent['1-3Days']!.length,
+                          effect: ExpandingDotsEffect(
+                            activeDotColor:
+                                Theme.of(context).colorScheme.primary,
+                            dotHeight: 10,
+                          ),
+                        ),
                       ),
                     ],
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  if (pricingProvider.oneThreeDays)
-                    OneThreeCarouselSlider()
-                  else
-                    FourSixCarouselSlider(),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  Center(
-                    child: AnimatedSmoothIndicator(
-                      activeIndex: pricingProvider.activeIndex,
-                      count: pricingContent['1-3Days']!.length,
-                      effect: ExpandingDotsEffect(
-                        activeDotColor: Theme.of(context).colorScheme.primary,
-                        dotHeight: 10,
-                      ),
-                    ),
-                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+
+                  // workout sessions widget
+                  WorkoutSessionPage(),
                 ],
               ),
             ),
