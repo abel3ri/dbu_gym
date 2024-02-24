@@ -110,5 +110,44 @@ Map<String, Map<String, List<String>>> workoutSessionContent = {
   }
 };
 
+final List<Map<String, String>> exerciseCategories = [
+  {
+    "exerciseName": "Abs",
+    "imagePath": "assets/images/grid_images/abs.png",
+  },
+  {
+    "exerciseName": "Biceps",
+    "imagePath": "assets/images/grid_images/biceps.png",
+  },
+  {
+    "exerciseName": "Calves",
+    "imagePath": "assets/images/grid_images/calve.png",
+  },
+  {
+    "exerciseName": "Chest",
+    "imagePath": "assets/images/grid_images/chest.png",
+  },
+  {
+    "exerciseName": "Forearms",
+    "imagePath": "assets/images/grid_images/forearm.png",
+  },
+  {
+    "exerciseName": "Middle Back",
+    "imagePath": "assets/images/grid_images/middle_back.png",
+  },
+  {
+    "exerciseName": "Neck",
+    "imagePath": "assets/images/grid_images/neck.png",
+  },
+  {
+    "exerciseName": "Triceps",
+    "imagePath": "assets/images/grid_images/triceps.png",
+  },
+  {
+    "exerciseName": "Quadriceps",
+    "imagePath": "assets/images/grid_images/quadriceps.png",
+  },
+];
+
 FirebaseAuth auth = FirebaseAuth.instance;
 FirebaseFirestore db = FirebaseFirestore.instance;
