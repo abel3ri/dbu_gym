@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 class FormInputField extends StatelessWidget {
   FormInputField({
     super.key,
-    this.showPassword = true,
+    this.showPassword = false,
     required this.labelText,
     required this.prefixIcon,
     required this.controller,
@@ -37,11 +37,11 @@ class FormInputField extends StatelessWidget {
                       .toggleShowPassword();
                 },
                 icon: Icon(
-                    showPassword ? Icons.visibility_off : Icons.visibility),
+                    !showPassword ? Icons.visibility_off : Icons.visibility),
               )
             : null,
       ),
-      obscureText: labelText.toLowerCase().contains("password") && showPassword
+      obscureText: labelText.toLowerCase().contains("password") && !showPassword
           ? true
           : false,
       // Change text input action for email input (always) and password input (if we are in the sign up page)
