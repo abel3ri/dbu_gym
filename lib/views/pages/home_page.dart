@@ -1,4 +1,5 @@
 import 'package:dbu_gym/utils/constants.dart';
+import 'package:dbu_gym/views/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -6,53 +7,58 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              TabBar(
-                tabs: [
-                  Tab(
-                    child: Center(child: Text("Workouts")),
-                  ),
-                  Tab(
-                    child: Center(child: Text("Calculate BMI")),
-                  ),
-                  Tab(
-                    child: Center(child: Text("Subscription")),
-                  )
-                ],
-              ),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    Center(
-                      child: TextButton(
-                          onPressed: () async {
-                            await auth.signOut();
-                          },
-                          child: Text("Sign out")),
+    return AppZoomDrawer(
+      appBarActions: [
+        Text("Hello"),
+      ],
+      mainScreen: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: [
+                TabBar(
+                  tabs: [
+                    Tab(
+                      child: Center(child: Text("Workouts")),
                     ),
-                    Center(
-                      child: TextButton(
-                          onPressed: () async {
-                            await auth.signOut();
-                          },
-                          child: Text("Sign out")),
+                    Tab(
+                      child: Center(child: Text("Calculate BMI")),
                     ),
-                    Center(
-                      child: TextButton(
-                          onPressed: () async {
-                            await auth.signOut();
-                          },
-                          child: Text("Sign out")),
-                    ),
+                    Tab(
+                      child: Center(child: Text("Subscription")),
+                    )
                   ],
                 ),
-              ),
-            ],
+                Expanded(
+                  child: TabBarView(
+                    children: [
+                      Center(
+                        child: TextButton(
+                            onPressed: () async {
+                              await auth.signOut();
+                            },
+                            child: Text("Sign out")),
+                      ),
+                      Center(
+                        child: TextButton(
+                            onPressed: () async {
+                              await auth.signOut();
+                            },
+                            child: Text("Sign out")),
+                      ),
+                      Center(
+                        child: TextButton(
+                            onPressed: () async {
+                              await auth.signOut();
+                            },
+                            child: Text("Sign out")),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
