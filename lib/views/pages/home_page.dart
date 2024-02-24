@@ -1,6 +1,7 @@
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/views/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -35,30 +36,36 @@ class HomePage extends StatelessWidget {
                         itemCount: exerciseCategories.length,
                         padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
                         itemBuilder: (context, index) {
-                          return Card(
-                            elevation: 0.8,
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(4)),
-                            ),
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                    exerciseCategories[index]['imagePath']!,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.01,
-                                  ),
-                                  Text(
-                                    exerciseCategories[index]['exerciseName']!,
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium,
-                                  ),
-                                ],
+                          return GestureDetector(
+                            onTap: () {},
+                            child: Card(
+                              elevation: 0.8,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(4)),
+                              ),
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      exerciseCategories[index]['imagePath']!,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.01,
+                                    ),
+                                    Text(
+                                      exerciseCategories[index]
+                                          ['exerciseName']!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );
@@ -68,6 +75,8 @@ class HomePage extends StatelessWidget {
                         child: TextButton(
                             onPressed: () async {
                               await auth.signOut();
+                              GoRouter.of(context)
+                                  .pushReplacementNamed("splash");
                             },
                             child: Text("Sign out")),
                       ),
