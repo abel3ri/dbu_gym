@@ -13,8 +13,6 @@ class WorkoutProgram extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(workoutDays);
-    print(programName);
     return Padding(
       padding: const EdgeInsets.only(top: 8, left: 9, right: 8),
       child: Row(
