@@ -5,11 +5,13 @@ import "package:flutter_zoom_drawer/flutter_zoom_drawer.dart";
 // ignore: must_be_immutable
 class AppZoomDrawer extends StatelessWidget {
   Widget mainScreen;
+  Widget? title;
   List<Widget>? appBarActions;
 
   AppZoomDrawer({
     super.key,
     this.appBarActions,
+    this.title,
     required this.mainScreen,
   });
 
@@ -43,7 +45,9 @@ class AppZoomDrawer extends StatelessWidget {
               icon: Icon(Icons.sort),
             ),
             actions: appBarActions,
-            centerTitle: true,
+            title: title,
+            titleTextStyle: Theme.of(context).textTheme.bodyLarge,
+            // centerTitle: true,
           ),
           body: mainScreen,
         );
