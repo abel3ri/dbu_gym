@@ -1,5 +1,6 @@
 import 'package:dbu_gym/providers/carousel_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
+import 'package:dbu_gym/views/widgets/app_drawer.dart';
 import 'package:dbu_gym/views/widgets/signup_login_button.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -13,10 +14,9 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    // final CarouselController carouselController = CarouselController();
 
-    return Scaffold(
-      body: SafeArea(
+    return AppZoomDrawer(
+      mainScreen: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
