@@ -1,5 +1,6 @@
 import 'package:dbu_gym/providers/carousel_provider.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
+import 'package:dbu_gym/providers/home_page_grid_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/firebase_options.dart';
 import 'package:dbu_gym/providers/pricing_provider.dart';
@@ -23,6 +24,7 @@ void main(List<String> args) async {
         ChangeNotifierProvider(create: (context) => FormProvider()),
         ChangeNotifierProvider(create: (context) => ProfileImageProvider()),
         ChangeNotifierProvider(create: (context) => PricingProvider()),
+        ChangeNotifierProvider(create: (context) => HomePageGridProvider()),
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,
