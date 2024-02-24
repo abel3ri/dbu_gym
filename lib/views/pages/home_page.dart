@@ -30,8 +30,6 @@ class HomePage extends StatelessWidget {
                       GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          // mainAxisSpacing: 8,
-                          // crossAxisSpacing: 4,
                         ),
                         itemCount: exerciseCategories.length,
                         padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
