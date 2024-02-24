@@ -2,17 +2,14 @@ import "package:flex_color_scheme/flex_color_scheme.dart";
 import "package:flutter/material.dart";
 import "package:flutter_zoom_drawer/flutter_zoom_drawer.dart";
 
-final menuScreen = Container(
-  child: Center(
-    child: Text("Hello"),
-  ),
-);
-
 // ignore: must_be_immutable
 class AppZoomDrawer extends StatelessWidget {
   Widget mainScreen;
+  List<Widget>? appBarActions;
+
   AppZoomDrawer({
     super.key,
+    this.appBarActions,
     required this.mainScreen,
   });
 
@@ -22,10 +19,20 @@ class AppZoomDrawer extends StatelessWidget {
     return ZoomDrawer(
       controller: zoomDrawerController,
       mainScreenTapClose: true,
-      slideWidth: MediaQuery.of(context).size.width * 0.5,
-      menuBackgroundColor: Theme.of(context).colorScheme.primary.brighten(10),
+      slideWidth: MediaQuery.of(context).size.width * 0.7,
+      menuBackgroundColor: Theme.of(context).colorScheme.primary.darken(20),
       angle: 0,
-      menuScreen: menuScreen,
+      menuScreen: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.primary.darken(20),
+        body: Container(
+          child: Center(
+            child: Text(
+              "Hello",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+      ),
       mainScreen: Builder(builder: (context) {
         return Scaffold(
           appBar: AppBar(
@@ -33,11 +40,10 @@ class AppZoomDrawer extends StatelessWidget {
               onPressed: () {
                 ZoomDrawer.of(context)!.toggle();
               },
-              icon: Icon(
-                Icons.sort,
-                size: 28,
-              ),
+              icon: Icon(Icons.sort),
             ),
+            actions: appBarActions,
+            centerTitle: true,
           ),
           body: mainScreen,
         );
