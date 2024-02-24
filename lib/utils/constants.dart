@@ -1,5 +1,6 @@
 import "package:firebase_auth/firebase_auth.dart";
 import "package:cloud_firestore/cloud_firestore.dart";
+import "package:flutter/material.dart";
 
 const List<Map<String, dynamic>> carouselContent = [
   {
@@ -112,40 +113,39 @@ const Map<String, Map<String, List<String>>> workoutSessionContent = {
 
 const List<Map<String, String>> muscleGroupCategories = [
   {
-    "exerciseName": "Abs",
+    "muscleName": "Abs",
     "imagePath": "assets/images/grid_images/abs.png",
-    "apiEndPoint": "",
   },
   {
-    "exerciseName": "Biceps",
+    "muscleName": "Biceps",
     "imagePath": "assets/images/grid_images/biceps.png",
   },
   {
-    "exerciseName": "Calves",
+    "muscleName": "Calves",
     "imagePath": "assets/images/grid_images/calve.png",
   },
   {
-    "exerciseName": "Chest",
+    "muscleName": "Chest",
     "imagePath": "assets/images/grid_images/chest.png",
   },
   {
-    "exerciseName": "Forearms",
+    "muscleName": "Forearms",
     "imagePath": "assets/images/grid_images/forearm.png",
   },
   {
-    "exerciseName": "Middle Back",
+    "muscleName": "Middle Back",
     "imagePath": "assets/images/grid_images/middle_back.png",
   },
   {
-    "exerciseName": "Neck",
+    "muscleName": "Neck",
     "imagePath": "assets/images/grid_images/neck.png",
   },
   {
-    "exerciseName": "Triceps",
+    "muscleName": "Triceps",
     "imagePath": "assets/images/grid_images/triceps.png",
   },
   {
-    "exerciseName": "Quadriceps",
+    "muscleName": "Quadriceps",
     "imagePath": "assets/images/grid_images/quadriceps.png",
   },
 ];
@@ -160,6 +160,11 @@ const List<Map<String, String>> difficultyCategories = [
   {
     "difficulty": "Expert",
   },
+];
+const List<Color> difficultyCategoryColors = [
+  Colors.green,
+  Colors.yellow,
+  Colors.red,
 ];
 const List<Map<String, String>> exerciseTypeCategories = [
   {
