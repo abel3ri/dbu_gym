@@ -63,12 +63,13 @@ class PricingPage extends StatelessWidget {
                               Text("4-6 days",
                                   style: Theme.of(context).textTheme.bodySmall),
                               Switch(
-                                  value: pricingProvider.fourSixDays,
-                                  onChanged: (value) {
-                                    Provider.of<PricingProvider>(context,
-                                            listen: false)
-                                        .toggleFourSixDays(value);
-                                  }),
+                                value: pricingProvider.fourSixDays,
+                                onChanged: (value) {
+                                  Provider.of<PricingProvider>(context,
+                                          listen: false)
+                                      .toggleFourSixDays(value);
+                                },
+                              ),
                             ],
                           ),
                         ],
@@ -95,7 +96,7 @@ class PricingPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
                 // workout sessions widget
                 WorkoutSessionPage(),

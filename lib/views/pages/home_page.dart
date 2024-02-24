@@ -1,26 +1,59 @@
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Hello there!"),
-            ElevatedButton(
-              onPressed: () async {
-                await auth.signOut();
-                GoRouter.of(context).pushReplacementNamed("splash");
-              },
-              child: Text("Sign out"),
-            ),
-          ],
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: [
+              TabBar(
+                tabs: [
+                  Tab(
+                    child: Center(child: Text("Workouts")),
+                  ),
+                  Tab(
+                    child: Center(child: Text("Calculate BMI")),
+                  ),
+                  Tab(
+                    child: Center(child: Text("Subscription")),
+                  )
+                ],
+              ),
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    Center(
+                      child: TextButton(
+                          onPressed: () async {
+                            await auth.signOut();
+                          },
+                          child: Text("Sign out")),
+                    ),
+                    Center(
+                      child: TextButton(
+                          onPressed: () async {
+                            await auth.signOut();
+                          },
+                          child: Text("Sign out")),
+                    ),
+                    Center(
+                      child: TextButton(
+                          onPressed: () async {
+                            await auth.signOut();
+                          },
+                          child: Text("Sign out")),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

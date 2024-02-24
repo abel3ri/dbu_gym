@@ -1,4 +1,5 @@
 import 'package:dbu_gym/views/widgets/workout_program.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 
 class WorkoutSessionPage extends StatelessWidget {
@@ -9,7 +10,7 @@ class WorkoutSessionPage extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 24),
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary,
+          color: Theme.of(context).colorScheme.primary.darken(15),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(10),
             topRight: Radius.circular(10),
