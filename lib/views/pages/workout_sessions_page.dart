@@ -30,7 +30,7 @@ class WorkoutSessionPage extends StatelessWidget {
           Container(
             padding: EdgeInsets.fromLTRB(8, 12, 8, 8),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.background,
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             child: Column(
@@ -63,7 +63,7 @@ class WorkoutSessionPage extends StatelessWidget {
           Container(
             padding: EdgeInsets.fromLTRB(8, 12, 8, 8),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.background,
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             child: Column(
