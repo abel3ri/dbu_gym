@@ -1,7 +1,7 @@
 import "package:firebase_auth/firebase_auth.dart";
 import "package:cloud_firestore/cloud_firestore.dart";
 
-final List<Map<String, dynamic>> carouselContent = [
+const List<Map<String, dynamic>> carouselContent = [
   {
     "headline": "Manage Your Fitness Subscription Plan.",
     "image_path": "assets/images/fitness3.png",
@@ -16,7 +16,7 @@ final List<Map<String, dynamic>> carouselContent = [
   },
 ];
 
-final Map<String, List<Map<String, dynamic>>> pricingContent = {
+const Map<String, List<Map<String, dynamic>>> pricingContent = {
   "1-3Days": [
     {
       "workoutType": "Strength Training",
@@ -73,7 +73,7 @@ final Map<String, List<Map<String, dynamic>>> pricingContent = {
   ]
 };
 
-Map<String, Map<String, List<String>>> workoutSessionContent = {
+const Map<String, Map<String, List<String>>> workoutSessionContent = {
   "monWedFri": {
     "program 1": [
       "Mon morning: 06:00 AM - 07:30 AM",
@@ -110,10 +110,11 @@ Map<String, Map<String, List<String>>> workoutSessionContent = {
   }
 };
 
-final List<Map<String, String>> exerciseCategories = [
+const List<Map<String, String>> muscleGroupCategories = [
   {
     "exerciseName": "Abs",
     "imagePath": "assets/images/grid_images/abs.png",
+    "apiEndPoint": "",
   },
   {
     "exerciseName": "Biceps",
@@ -149,5 +150,31 @@ final List<Map<String, String>> exerciseCategories = [
   },
 ];
 
-FirebaseAuth auth = FirebaseAuth.instance;
-FirebaseFirestore db = FirebaseFirestore.instance;
+const List<Map<String, String>> difficultyCategories = [
+  {
+    "difficulty": "Beginner",
+  },
+  {
+    "difficulty": "Intermediate",
+  },
+  {
+    "difficulty": "Expert",
+  },
+];
+const List<Map<String, String>> exerciseTypeCategories = [
+  {
+    "exerciseTypeName": "Cardio",
+    "imagePath": "assets/images/grid_images/cardio.png",
+  },
+  {
+    "exerciseTypeName": "Strength",
+    "imagePath": "assets/images/grid_images/strength.png",
+  },
+  {
+    "exerciseTypeName": "Stretching",
+    "imagePath": "assets/images/grid_images/stretching.png",
+  },
+];
+
+final FirebaseAuth auth = FirebaseAuth.instance;
+final FirebaseFirestore db = FirebaseFirestore.instance;
