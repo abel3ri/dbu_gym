@@ -34,7 +34,9 @@ class WorkoutProgram extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.04,
                     child: Text(
                       content,
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(),
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontSize: 12.5,
+                          ),
                     ),
                   );
                 },

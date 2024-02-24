@@ -16,13 +16,13 @@ class PricingPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 36),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 36),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -94,12 +94,12 @@ class PricingPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.04),
 
-                  // workout sessions widget
-                  WorkoutSessionPage(),
-                ],
-              ),
+                // workout sessions widget
+                WorkoutSessionPage(),
+              ],
             ),
           ),
         ),
