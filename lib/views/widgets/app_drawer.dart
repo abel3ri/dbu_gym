@@ -21,16 +21,73 @@ class AppZoomDrawer extends StatelessWidget {
     return ZoomDrawer(
       controller: zoomDrawerController,
       mainScreenTapClose: true,
-      slideWidth: MediaQuery.of(context).size.width * 0.7,
-      menuBackgroundColor: Theme.of(context).colorScheme.primary.darken(20),
+      slideWidth: MediaQuery.of(context).size.width * 0.8,
+      menuBackgroundColor: Theme.of(context).colorScheme.background.darken(2),
       angle: 0,
       menuScreen: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.primary.darken(20),
-        body: Container(
+        backgroundColor: Theme.of(context).colorScheme.background.darken(2),
+        body: SafeArea(
           child: Center(
-            child: Text(
-              "Hello",
-              style: TextStyle(color: Colors.white),
+            child: ListView(
+              padding: EdgeInsets.symmetric(
+                vertical: MediaQuery.of(context).size.height * 0.08,
+                horizontal: MediaQuery.of(context).size.width * 0.02,
+              ),
+              children: [
+                CircleAvatar(
+                  // backgroundColor: ,
+                  child: Icon(Icons.person),
+                  radius: 30,
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text(
+                    "Profile",
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                ListTile(
+                  leading: Icon(Icons.light_mode),
+                  title: Text(
+                    "Theme",
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  trailing: DropdownButton(
+                    elevation: 0,
+                    dropdownColor:
+                        Theme.of(context).colorScheme.background.darken(),
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    value: "system",
+                    style: Theme.of(context).textTheme.bodySmall,
+                    items: [
+                      DropdownMenuItem(
+                        child: Text("System"),
+                        value: "system",
+                      ),
+                      DropdownMenuItem(
+                        child: Text("Light"),
+                        value: "light",
+                      ),
+                      DropdownMenuItem(
+                        child: Text("Dark"),
+                        value: "dark",
+                      ),
+                    ],
+                    onChanged: (value) {},
+                  ),
+                ),
+                ListTile(
+                  leading: Icon(Icons.money),
+                  title: Text(
+                    "Manage Subscription",
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+              ],
             ),
           ),
         ),
