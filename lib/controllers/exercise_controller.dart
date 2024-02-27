@@ -42,7 +42,40 @@ class ExerciseController {
       final res = await dio.get(
         exerciseAPIUrl,
         queryParameters: {
-          "Muscles": difficulty.replaceAll(" ", "_"),
+          "Intensity_Level": difficulty.replaceAll(" ", "_"),
+        },
+        options: options,
+      );
+
+      final data = res.data as List<dynamic>;
+      List<Exercise> exercsies = [];
+
+      data.forEach((exercise) {
+        exercsies.add(Exercise(
+          name: exercise['WorkOut'],
+          muscle: exercise['Muscles'],
+          equipment: exercise['Equipment'] ?? "Not required",
+          difficulty: exercise['Intensity_Level'],
+          explanation: exercise['Long Explanation'],
+          beginnerSets: exercise['Beginner Sets'],
+          intermediateSets: exercise['Intermediate Sets'],
+          expertSets: exercise['Expert Sets'],
+          videoUrl: exercise['Video'],
+        ));
+      });
+      return right(exercsies);
+    } catch (err) {
+      return left(err.toString());
+    }
+  }
+
+  static Future<Either<String, List<Exercise>>> getExerciseByEquipmentType(
+      String equipment) async {
+    try {
+      final res = await dio.get(
+        exerciseAPIUrl,
+        queryParameters: {
+          "Equipment": equipment.replaceAll(" ", "_"),
         },
         options: options,
       );
