@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:dbu_gym/providers/carousel_provider.dart';
 import 'package:dbu_gym/providers/exercise_provider.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
