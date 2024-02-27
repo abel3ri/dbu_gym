@@ -1,4 +1,7 @@
+import 'dart:js';
+
 import 'package:dbu_gym/providers/carousel_provider.dart';
+import 'package:dbu_gym/providers/exercise_provider.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/providers/home_page_grid_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
@@ -25,6 +28,7 @@ void main(List<String> args) async {
         ChangeNotifierProvider(create: (context) => ProfileImageProvider()),
         ChangeNotifierProvider(create: (context) => PricingProvider()),
         ChangeNotifierProvider(create: (context) => HomePageGridProvider()),
+        ChangeNotifierProvider(create: (context) => ExerciseProvider()),
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,
