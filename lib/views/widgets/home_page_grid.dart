@@ -1,6 +1,8 @@
+import 'package:dbu_gym/providers/home_page_grid_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class HomePageGrid extends StatelessWidget {
@@ -12,6 +14,9 @@ class HomePageGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categoryName =
+        Provider.of<HomePageGridProvider>(context, listen: false)
+            .selectedCategory;
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -20,9 +25,7 @@ class HomePageGrid extends StatelessWidget {
       padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
       itemBuilder: (context, index) {
         return GestureDetector(
-          onTap: () {
-            // print("Clicked");
-          },
+          onTap: () {},
           child: Card(
             elevation: 0.8,
             color: category[index]['difficulty'] != null
@@ -35,7 +38,7 @@ class HomePageGrid extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (category[index]['difficulty'] == null)
+                  if (categoryName != "difficulty")
                     Image.asset(
                       category[index]['imagePath']!,
                       fit: BoxFit.cover,
@@ -50,12 +53,12 @@ class HomePageGrid extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
-                  if (category[index]['muscleName'] != null)
+                  if (categoryName == 'muscle')
                     Text(
                       category[index]['muscleName']!,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
-                  if (category[index]['exerciseTypeName'] != null)
+                  if (categoryName == "exercise")
                     Text(
                       category[index]['exerciseTypeName']!,
                       style: Theme.of(context).textTheme.bodyMedium,
