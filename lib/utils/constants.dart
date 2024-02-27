@@ -168,18 +168,22 @@ const List<Color> difficultyCategoryColors = [
   Colors.yellow,
   Colors.red,
 ];
-const List<Map<String, String>> exerciseTypeCategories = [
+const List<Map<String, String>> equipmentTypeCategories = [
   {
-    "exerciseTypeName": "Cardio",
-    "imagePath": "assets/images/grid_images/cardio.png",
+    "equipmentName": "Dumbbells",
+    "imagePath": "assets/images/grid_images/dumbbell.png",
   },
   {
-    "exerciseTypeName": "Strength",
-    "imagePath": "assets/images/grid_images/strength.png",
+    "equipmentName": "EZ-bar",
+    "imagePath": "assets/images/grid_images/ez_bar.png",
   },
   {
-    "exerciseTypeName": "Stretching",
-    "imagePath": "assets/images/grid_images/stretching.png",
+    "equipmentName": "Bench",
+    "imagePath": "assets/images/grid_images/bench.png",
+  },
+  {
+    "equipmentName": "Barbell",
+    "imagePath": "assets/images/grid_images/barbell.png",
   },
 ];
 
