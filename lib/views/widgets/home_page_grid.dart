@@ -1,3 +1,4 @@
+import 'package:dbu_gym/controllers/exercise_controller.dart';
 import 'package:dbu_gym/providers/home_page_grid_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -25,7 +26,19 @@ class HomePageGrid extends StatelessWidget {
       padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
       itemBuilder: (context, index) {
         return GestureDetector(
-          onTap: () {},
+          onTap: () async {
+            if (categoryName == 'muscle') {
+              await ExerciseController.getExerciseByMuscleName(
+                category[index]['muscleName']!,
+              );
+            } else if (categoryName == "difficulty") {
+              await ExerciseController.getExerciseByDifficulty(
+                  category[index]['difficulty']!);
+            } else if (categoryName == "equipment") {
+              await ExerciseController.getExerciseByEquipmentType(
+                  category[index]['equipmentName']!);
+            }
+          },
           child: Card(
             elevation: 0.8,
             color: category[index]['difficulty'] != null
@@ -58,9 +71,9 @@ class HomePageGrid extends StatelessWidget {
                       category[index]['muscleName']!,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
-                  if (categoryName == "exercise")
+                  if (categoryName == "equipment")
                     Text(
-                      category[index]['exerciseTypeName']!,
+                      category[index]['equipmentName']!,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                 ],
