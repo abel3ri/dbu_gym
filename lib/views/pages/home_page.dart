@@ -17,6 +17,7 @@ class HomePage extends StatelessWidget {
       title: Text("DBU Gym"),
       appBarActions: [
         PopupMenuButton(
+          elevation: 0,
           onSelected: (value) {
             // print(value);
             Provider.of<HomePageGridProvider>(context, listen: false)
@@ -30,8 +31,8 @@ class HomePage extends StatelessWidget {
               child: Text("Categorize by muscle group"),
             ),
             PopupMenuItem(
-              value: "exercise",
-              child: Text("Categorize by exercise type"),
+              value: "equipment",
+              child: Text("Categorize by equipment type"),
             ),
             PopupMenuItem(
               value: "difficulty",
@@ -58,8 +59,8 @@ class HomePage extends StatelessWidget {
                       HomePageGrid(
                         category: categoryProvider.selectedCategory == "muscle"
                             ? muscleGroupCategories
-                            : categoryProvider.selectedCategory == "exercise"
-                                ? exerciseTypeCategories
+                            : categoryProvider.selectedCategory == "equipment"
+                                ? equipmentTypeCategories
                                 : difficultyCategories,
                       ),
                       Center(
