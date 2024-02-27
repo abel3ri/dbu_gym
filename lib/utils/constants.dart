@@ -115,52 +115,52 @@ const Map<String, Map<String, List<String>>> workoutSessionContent = {
 
 const List<Map<String, String>> muscleGroupCategories = [
   {
-    "muscleName": "Abs",
+    "name": "Abs",
     "imagePath": "assets/images/grid_images/abs.png",
   },
   {
-    "muscleName": "Biceps",
+    "name": "Biceps",
     "imagePath": "assets/images/grid_images/biceps.png",
   },
   {
-    "muscleName": "Calves",
+    "name": "Calves",
     "imagePath": "assets/images/grid_images/calve.png",
   },
   {
-    "muscleName": "Chest",
+    "name": "Chest",
     "imagePath": "assets/images/grid_images/chest.png",
   },
   {
-    "muscleName": "Warm Up",
+    "name": "Warm Up",
     "imagePath": "assets/images/grid_images/warm_up.png",
   },
   {
-    "muscleName": "Back",
+    "name": "Back",
     "imagePath": "assets/images/grid_images/middle_back.png",
   },
   {
-    "muscleName": "Shoulders",
+    "name": "Shoulders",
     "imagePath": "assets/images/grid_images/shoulder.png",
   },
   {
-    "muscleName": "Triceps",
+    "name": "Triceps",
     "imagePath": "assets/images/grid_images/triceps.png",
   },
   {
-    "muscleName": "Quadriceps",
+    "name": "Quadriceps",
     "imagePath": "assets/images/grid_images/quadriceps.png",
   },
 ];
 
 const List<Map<String, String>> difficultyCategories = [
   {
-    "difficulty": "Beginner",
+    "name": "Beginner",
   },
   {
-    "difficulty": "Intermediate",
+    "name": "Intermediate",
   },
   {
-    "difficulty": "Expert",
+    "name": "Expert",
   },
 ];
 const List<Color> difficultyCategoryColors = [
@@ -170,19 +170,19 @@ const List<Color> difficultyCategoryColors = [
 ];
 const List<Map<String, String>> equipmentTypeCategories = [
   {
-    "equipmentName": "Dumbbells",
+    "name": "Dumbbells",
     "imagePath": "assets/images/grid_images/dumbbell.png",
   },
   {
-    "equipmentName": "EZ-bar",
+    "name": "EZ-bar",
     "imagePath": "assets/images/grid_images/ez_bar.png",
   },
   {
-    "equipmentName": "Bench",
+    "name": "Bench",
     "imagePath": "assets/images/grid_images/bench.png",
   },
   {
-    "equipmentName": "Barbell",
+    "name": "Barbell",
     "imagePath": "assets/images/grid_images/barbell.png",
   },
 ];

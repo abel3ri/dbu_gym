@@ -27,21 +27,16 @@ class HomePageGrid extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () async {
-            if (categoryName == 'muscle') {
-              await ExerciseController.getExerciseByMuscleName(
-                category[index]['muscleName']!,
-              );
-            } else if (categoryName == "difficulty") {
-              await ExerciseController.getExerciseByDifficulty(
-                  category[index]['difficulty']!);
-            } else if (categoryName == "equipment") {
-              await ExerciseController.getExerciseByEquipmentType(
-                  category[index]['equipmentName']!);
-            }
+            final res = await ExerciseController(
+              categoryName: categoryName,
+              parameter: category[index]['name']!,
+            ).getExercise();
+            // print(res);
+            res.fold((l) => print(l), (r) => print(r));
           },
           child: Card(
             elevation: 0.8,
-            color: category[index]['difficulty'] != null
+            color: categoryName == "difficulty"
                 ? difficultyCategoryColors[index].darken(20)
                 : null,
             shape: RoundedRectangleBorder(
@@ -58,7 +53,7 @@ class HomePageGrid extends StatelessWidget {
                     )
                   else
                     Text(
-                      category[index]['difficulty']!,
+                      category[index]['name']!,
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
                             color: Colors.white,
                           ),
@@ -68,12 +63,12 @@ class HomePageGrid extends StatelessWidget {
                   ),
                   if (categoryName == 'muscle')
                     Text(
-                      category[index]['muscleName']!,
+                      category[index]['name']!,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   if (categoryName == "equipment")
                     Text(
-                      category[index]['equipmentName']!,
+                      category[index]['name']!,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                 ],

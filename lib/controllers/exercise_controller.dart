@@ -3,55 +3,36 @@ import 'package:dbu_gym/utils/constants.dart';
 import 'package:fpdart/fpdart.dart';
 
 class ExerciseController {
-  static Future<Either<String, List<Exercise>>> getExerciseByMuscleName(
-      String muscleName) async {
-    try {
-      final res = await dio.get(
-        exerciseAPIUrl,
-        queryParameters: {
-          "Muscles": muscleName.replaceAll(" ", "_"),
-        },
-        options: options,
-      );
+  String parameter;
+  String categoryName;
+  ExerciseController({
+    required this.parameter,
+    required this.categoryName,
+  });
 
-      final data = res.data as List<dynamic>;
-      List<Exercise> exercsies = [];
-
-      data.forEach((exercise) {
-        exercsies.add(Exercise(
-          name: exercise['WorkOut'],
-          muscle: exercise['Muscles'],
-          equipment: exercise['Equipment'] ?? "Not required",
-          difficulty: exercise['Intensity_Level'],
-          explanation: exercise['Long Explanation'],
-          beginnerSets: exercise['Beginner Sets'],
-          intermediateSets: exercise['Intermediate Sets'],
-          expertSets: exercise['Expert Sets'],
-          videoUrl: exercise['Video'],
-        ));
-      });
-      return right(exercsies);
-    } catch (err) {
-      return left(err.toString());
+  Map<String, String> getParameterObj() {
+    if (this.categoryName == 'muscle') {
+      return {"Muscles": this.parameter};
+    } else if (this.categoryName == 'difficulty') {
+      return {"Intensity_Level": this.parameter};
+    } else {
+      return {"Equipment": this.parameter};
     }
   }
 
-  static Future<Either<String, List<Exercise>>> getExerciseByDifficulty(
-      String difficulty) async {
+  Future<Either<String, List<Exercise>>> getExercise() async {
     try {
       final res = await dio.get(
         exerciseAPIUrl,
-        queryParameters: {
-          "Intensity_Level": difficulty.replaceAll(" ", "_"),
-        },
+        queryParameters: getParameterObj(),
         options: options,
       );
 
       final data = res.data as List<dynamic>;
-      List<Exercise> exercsies = [];
+      List<Exercise> exercises = [];
 
       data.forEach((exercise) {
-        exercsies.add(Exercise(
+        exercises.add(Exercise(
           name: exercise['WorkOut'],
           muscle: exercise['Muscles'],
           equipment: exercise['Equipment'] ?? "Not required",
@@ -63,40 +44,7 @@ class ExerciseController {
           videoUrl: exercise['Video'],
         ));
       });
-      return right(exercsies);
-    } catch (err) {
-      return left(err.toString());
-    }
-  }
-
-  static Future<Either<String, List<Exercise>>> getExerciseByEquipmentType(
-      String equipment) async {
-    try {
-      final res = await dio.get(
-        exerciseAPIUrl,
-        queryParameters: {
-          "Equipment": equipment.replaceAll(" ", "_"),
-        },
-        options: options,
-      );
-
-      final data = res.data as List<dynamic>;
-      List<Exercise> exercsies = [];
-
-      data.forEach((exercise) {
-        exercsies.add(Exercise(
-          name: exercise['WorkOut'],
-          muscle: exercise['Muscles'],
-          equipment: exercise['Equipment'] ?? "Not required",
-          difficulty: exercise['Intensity_Level'],
-          explanation: exercise['Long Explanation'],
-          beginnerSets: exercise['Beginner Sets'],
-          intermediateSets: exercise['Intermediate Sets'],
-          expertSets: exercise['Expert Sets'],
-          videoUrl: exercise['Video'],
-        ));
-      });
-      return right(exercsies);
+      return right(exercises);
     } catch (err) {
       return left(err.toString());
     }
