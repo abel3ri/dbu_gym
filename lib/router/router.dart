@@ -1,3 +1,4 @@
+import "package:dbu_gym/views/pages/exxercise_category_page.dart";
 import "package:dbu_gym/views/pages/home_page.dart";
 import "package:dbu_gym/views/pages/pricing_page.dart";
 import "package:dbu_gym/views/pages/splash_page.dart";
@@ -39,7 +40,12 @@ class AppRouter {
         path: "/pricing",
         name: "pricing",
         builder: (context, state) => PricingPage(),
-      )
+      ),
+      GoRoute(
+        path: "/exercise-category",
+        name: "exercise-category",
+        builder: (context, state) => ExerciseCategory(),
+      ),
     ],
     errorBuilder: (context, state) => PageNotFound(),
   );
