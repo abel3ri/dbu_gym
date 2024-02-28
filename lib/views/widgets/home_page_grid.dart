@@ -1,4 +1,5 @@
 import 'package:dbu_gym/controllers/exercise_controller.dart';
+import 'package:dbu_gym/providers/exercise_provider.dart';
 import 'package:dbu_gym/providers/home_page_grid_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -59,7 +60,12 @@ class HomePageGrid extends StatelessWidget {
               parameter: category[index]['name']!,
             ).getExercise();
             // print(res);
-            res.fold((l) => print(l), (r) {
+            res.fold((l) => print(l), (exercises) {
+              // Pass the exercises list to exercise category page
+              Provider.of<ExerciseProvider>(context, listen: false)
+                  .setExercises = exercises;
+              Provider.of<ExerciseProvider>(context, listen: false)
+                  .setCategoryName = categoryName;
               GoRouter.of(dialogContext!).pop();
               GoRouter.of(context).pushNamed("exercise-category");
             });
