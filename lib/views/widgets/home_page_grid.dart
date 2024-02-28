@@ -3,6 +3,7 @@ import 'package:dbu_gym/providers/home_page_grid_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
@@ -18,6 +19,7 @@ class HomePageGrid extends StatelessWidget {
     final categoryName =
         Provider.of<HomePageGridProvider>(context, listen: false)
             .selectedCategory;
+
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -27,12 +29,40 @@ class HomePageGrid extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () async {
+            BuildContext? dialogContext;
+            showDialog(
+              context: context,
+              builder: (context) {
+                dialogContext = context;
+                return Dialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                  ),
+                  alignment: Alignment.center,
+                  elevation: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 32),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+
             final res = await ExerciseController(
               categoryName: categoryName,
               parameter: category[index]['name']!,
             ).getExercise();
             // print(res);
-            res.fold((l) => print(l), (r) => print(r));
+            res.fold((l) => print(l), (r) {
+              GoRouter.of(dialogContext!).pop();
+              GoRouter.of(context).pushNamed("exercise-category");
+            });
           },
           child: Card(
             elevation: 0.8,
