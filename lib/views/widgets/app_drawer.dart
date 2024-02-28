@@ -95,6 +95,7 @@ class AppZoomDrawer extends StatelessWidget {
       mainScreen: Builder(builder: (context) {
         return Scaffold(
           appBar: AppBar(
+            elevation: 0,
             leading: IconButton(
               onPressed: () {
                 ZoomDrawer.of(context)!.toggle();
