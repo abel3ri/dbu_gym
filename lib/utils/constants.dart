@@ -124,7 +124,7 @@ const List<Map<String, String>> muscleGroupCategories = [
   },
   {
     "name": "Calves",
-    "imagePath": "assets/images/grid_images/calve.png",
+    "imagePath": "assets/images/grid_images/calves.png",
   },
   {
     "name": "Chest",
@@ -136,11 +136,11 @@ const List<Map<String, String>> muscleGroupCategories = [
   },
   {
     "name": "Back",
-    "imagePath": "assets/images/grid_images/middle_back.png",
+    "imagePath": "assets/images/grid_images/back.png",
   },
   {
     "name": "Shoulders",
-    "imagePath": "assets/images/grid_images/shoulder.png",
+    "imagePath": "assets/images/grid_images/shoulders.png",
   },
   {
     "name": "Triceps",
