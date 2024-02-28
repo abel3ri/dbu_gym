@@ -67,7 +67,7 @@ class ExerciseCategory extends StatelessWidget {
                           ),
                         ),
                         child: Image.asset(
-                          "assets/images/grid_images/${exerciseProvider.exercises[0].muscle.toLowerCase()}.png",
+                          "assets/images/grid_images/${exerciseProvider.exercises[0].muscle.toLowerCase().replaceAll(" ", "_")}.png",
                         ),
                       ),
                     ),
