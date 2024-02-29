@@ -12,21 +12,45 @@ class ExerciseCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final exerciseProvider = Provider.of<ExerciseProvider>(context);
-    // print(Provider.of<ExerciseProvider>(context).exercises);
-    print(
-        "assets/images/grid_images/${exerciseProvider.exercises[0].muscle}.png");
+    final String categoryName = exerciseProvider.categoryName;
+
+    String? _imgPath;
+    String? _text;
+
+    if (categoryName == 'muscle') {
+      _imgPath =
+          "assets/images/grid_images/${categoryName}/${exerciseProvider.getExercises()[0].primaryMuscle.replaceAll(" ", "_")}.png";
+      _text = exerciseProvider.getExercises()[0].primaryMuscle;
+    } else if (categoryName == 'exercise') {
+      _imgPath =
+          "assets/images/grid_images/${categoryName}/${exerciseProvider.getExercises()[0].category.replaceAll(" ", "_")}.png";
+      _text = exerciseProvider.getExercises()[0].category;
+    } else if (categoryName == 'equipment') {
+      _imgPath = exerciseProvider.getExercises()[0].equipment == null
+          ? "assets/images/grid_images/${categoryName}/placeholder.png"
+          : "assets/images/grid_images/${categoryName}/${exerciseProvider.getExercises()[0].category.replaceAll(" ", "_")}.png";
+      _text = exerciseProvider.getExercises()[0].equipment ?? 'Not Required';
+    } else {
+      _text = exerciseProvider.getExercises()[0].level;
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         elevation: 0,
         leading: IconButton(
           style: ButtonStyle(
-            overlayColor: MaterialStatePropertyAll(Colors.transparent),
+            overlayColor: MaterialStatePropertyAll(
+              Colors.transparent,
+            ),
           ),
           onPressed: () {
             GoRouter.of(context).pop();
           },
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.white,
+          ),
         ),
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -52,7 +76,7 @@ class ExerciseCategory extends StatelessWidget {
                       alignment: Alignment.topCenter,
                       child: Container(
                         padding:
-                            EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                         decoration: BoxDecoration(
                           color: Colors.white70,
                           borderRadius: BorderRadius.only(
@@ -67,7 +91,7 @@ class ExerciseCategory extends StatelessWidget {
                           ),
                         ),
                         child: Image.asset(
-                          "assets/images/grid_images/${exerciseProvider.exercises[0].muscle.toLowerCase().replaceAll(" ", "_")}.png",
+                          _imgPath!,
                         ),
                       ),
                     ),
@@ -85,10 +109,10 @@ class ExerciseCategory extends StatelessWidget {
                               ),
                         ),
                         Text(
-                          exerciseProvider.exercises[0].muscle,
+                          _text,
                           style: Theme.of(context)
                               .textTheme
-                              .headlineMedium!
+                              .headlineSmall!
                               .copyWith(
                                 fontFamily: "SwankyAndMooMoo",
                                 color: Colors.white,
@@ -119,7 +143,7 @@ class ExerciseCategory extends StatelessWidget {
               Expanded(
                 child: ListView.builder(
                   physics: BouncingScrollPhysics(),
-                  itemCount: exerciseProvider.exercises.length,
+                  itemCount: exerciseProvider.getExercises().length,
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   itemBuilder: (context, index) {
                     return Card(
@@ -128,26 +152,38 @@ class ExerciseCategory extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(8))),
                       child: ListTile(
                         leading: Text(
-                          exerciseProvider.exercises[index].name,
+                          exerciseProvider.getExercises()[index].name.length >
+                                  25
+                              ? exerciseProvider
+                                      .getExercises()[index]
+                                      .name
+                                      .substring(0, 26) +
+                                  "..."
+                              : exerciseProvider.getExercises()[index].name,
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         trailing: Container(
                           padding:
                               EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                           decoration: BoxDecoration(
-                            color:
-                                exerciseProvider.exercises[index].difficulty ==
-                                        'Beginner'
-                                    ? Colors.greenAccent.shade400
-                                    : exerciseProvider
-                                                .exercises[index].difficulty ==
-                                            'Expert'
-                                        ? Colors.redAccent
-                                        : Colors.yellowAccent.shade700,
+                            color: exerciseProvider
+                                        .getExercises()[index]
+                                        .level ==
+                                    'beginner'
+                                ? Colors.greenAccent.shade400.withOpacity(0.6)
+                                : exerciseProvider
+                                            .getExercises()[index]
+                                            .level ==
+                                        'expert'
+                                    ? Colors.redAccent.darken(10)
+                                    : Colors.yellowAccent.shade700.darken(5),
                             borderRadius: BorderRadius.all(Radius.circular(24)),
                           ),
                           child: Text(
-                            exerciseProvider.exercises[index].difficulty,
+                            exerciseProvider
+                                .getExercises()[index]
+                                .level
+                                .capitalize,
                             style:
                                 Theme.of(context).textTheme.bodySmall!.copyWith(
                                       color: Colors.white,
