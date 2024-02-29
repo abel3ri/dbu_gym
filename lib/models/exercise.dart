@@ -1,23 +1,25 @@
 class Exercise {
   late String name;
-  late String muscle;
+  late String primaryMuscle;
   late String? equipment;
-  late String difficulty;
-  late String videoUrl;
-  late String explanation;
-  late String beginnerSets;
-  late String intermediateSets;
-  late String expertSets;
+  late String level;
+  late String force;
+  late String mechanic;
+  late List<String> secondaryMuscles;
+  late List<String> instructions;
+  late String category;
+  late List<String> images;
 
   Exercise({
     required this.name,
-    required this.muscle,
+    required this.primaryMuscle,
     required this.equipment,
-    required this.difficulty,
-    required this.explanation,
-    required this.videoUrl,
-    required this.beginnerSets,
-    required this.intermediateSets,
-    required this.expertSets,
+    required this.level,
+    required this.mechanic,
+    required this.force,
+    required this.secondaryMuscles,
+    required this.instructions,
+    required this.category,
+    required this.images,
   });
 }
