@@ -115,40 +115,52 @@ const Map<String, Map<String, List<String>>> workoutSessionContent = {
 
 const List<Map<String, String>> muscleGroupCategories = [
   {
-    "name": "Abs",
-    "imagePath": "assets/images/grid_images/abs.png",
+    "name": "Abdominals",
+    "imagePath": "assets/images/grid_images/muscles/abdominals.png",
   },
   {
     "name": "Biceps",
-    "imagePath": "assets/images/grid_images/biceps.png",
+    "imagePath": "assets/images/grid_images/muscles/biceps.png",
   },
   {
     "name": "Calves",
-    "imagePath": "assets/images/grid_images/calves.png",
+    "imagePath": "assets/images/grid_images/muscles/calves.png",
   },
   {
     "name": "Chest",
-    "imagePath": "assets/images/grid_images/chest.png",
+    "imagePath": "assets/images/grid_images/muscles/chest.png",
   },
   {
-    "name": "Warm Up",
-    "imagePath": "assets/images/grid_images/warm_up.png",
-  },
-  {
-    "name": "Back",
-    "imagePath": "assets/images/grid_images/back.png",
+    "name": "Middle Back",
+    "imagePath": "assets/images/grid_images/muscles/middle_back.png",
   },
   {
     "name": "Shoulders",
-    "imagePath": "assets/images/grid_images/shoulders.png",
+    "imagePath": "assets/images/grid_images/muscles/shoulders.png",
   },
   {
     "name": "Triceps",
-    "imagePath": "assets/images/grid_images/triceps.png",
+    "imagePath": "assets/images/grid_images/muscles/triceps.png",
   },
   {
     "name": "Quadriceps",
-    "imagePath": "assets/images/grid_images/quadriceps.png",
+    "imagePath": "assets/images/grid_images/muscles/quadriceps.png",
+  },
+  {
+    "name": "Traps",
+    "imagePath": "assets/images/grid_images/muscles/traps.png",
+  },
+  {
+    "name": "Forearms",
+    "imagePath": "assets/images/grid_images/muscles/forearms.png",
+  },
+  {
+    "name": "Lower Back",
+    "imagePath": "assets/images/grid_images/muscles/lower_back.png",
+  },
+  {
+    "name": "Hamstrings",
+    "imagePath": "assets/images/grid_images/muscles/hamstrings.png",
   },
 ];
 
@@ -171,19 +183,47 @@ const List<Color> difficultyCategoryColors = [
 const List<Map<String, String>> equipmentTypeCategories = [
   {
     "name": "Dumbbells",
-    "imagePath": "assets/images/grid_images/dumbbell.png",
+    "imagePath": "assets/images/grid_images/equipments/dumbbell.png",
   },
   {
     "name": "EZ-bar",
-    "imagePath": "assets/images/grid_images/ez_bar.png",
+    "imagePath": "assets/images/grid_images/equipments/ez_bar.png",
   },
   {
-    "name": "Bench",
-    "imagePath": "assets/images/grid_images/bench.png",
+    "name": "Machine",
+    "imagePath": "assets/images/grid_images/equipments/machine.png",
   },
   {
     "name": "Barbell",
-    "imagePath": "assets/images/grid_images/barbell.png",
+    "imagePath": "assets/images/grid_images/equipments/barbell.png",
+  },
+  {
+    "name": "Foam Roll",
+    "imagePath": "assets/images/grid_images/equipments/foam_roll.png",
+  },
+  {
+    "name": "Chest Press",
+    "imagePath": "assets/images/grid_images/equipments/chest_press_machine.png",
+  },
+  {
+    "name": "Kettle Bell",
+    "imagePath": "assets/images/grid_images/equipments/kettlebells.png",
+  },
+  {
+    "name": "Medicine Ball",
+    "imagePath": "assets/images/grid_images/equipments/medicine_ball.png",
+  },
+  {
+    "name": "Exercise Ball",
+    "imagePath": "assets/images/grid_images/equipments/exercise_ball.png",
+  },
+  {
+    "name": "Bench",
+    "imagePath": "assets/images/grid_images/equipments/bench.png",
+  },
+  {
+    "name": "Bands",
+    "imagePath": "assets/images/grid_images/equipments/bands.png",
   },
 ];
 
