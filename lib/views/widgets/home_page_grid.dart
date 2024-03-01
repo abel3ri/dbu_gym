@@ -1,4 +1,3 @@
-import 'package:dbu_gym/controllers/exercise_controller.dart';
 import 'package:dbu_gym/providers/exercise_provider.dart';
 import 'package:dbu_gym/providers/home_page_grid_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
@@ -22,6 +21,7 @@ class HomePageGrid extends StatelessWidget {
             .selectedCategory;
 
     return GridView.builder(
+      physics: BouncingScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
       ),
@@ -30,45 +30,13 @@ class HomePageGrid extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () async {
-            BuildContext? dialogContext;
-            showDialog(
-              context: context,
-              builder: (context) {
-                dialogContext = context;
-                return Dialog(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  alignment: Alignment.center,
-                  elevation: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 32),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircularProgressIndicator(),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            );
+            Provider.of<ExerciseProvider>(context, listen: false)
+                .setSearchParamter = category[index]['name']!.toLowerCase();
 
-            final res = await ExerciseController(
-              categoryName: categoryName,
-              parameter: category[index]['name']!,
-            ).getExercise();
-            // print(res);
-            res.fold((l) => print(l), (exercises) {
-              // Pass the exercises list to exercise category page
-              Provider.of<ExerciseProvider>(context, listen: false)
-                  .setExercises = exercises;
-              Provider.of<ExerciseProvider>(context, listen: false)
-                  .setCategoryName = categoryName;
-              GoRouter.of(dialogContext!).pop();
-              GoRouter.of(context).pushNamed("exercise-category");
-            });
+            Provider.of<ExerciseProvider>(context, listen: false)
+                .setCategoryName = categoryName;
+
+            GoRouter.of(context).pushNamed("exercise-category");
           },
           child: Card(
             elevation: 0.8,
@@ -95,18 +63,13 @@ class HomePageGrid extends StatelessWidget {
                           ),
                     ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.01,
+                    height: MediaQuery.of(context).size.height * 0.03,
                   ),
-                  if (categoryName == 'muscle')
+                  if (categoryName != "difficulty")
                     Text(
                       category[index]['name']!,
                       style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  if (categoryName == "equipment")
-                    Text(
-                      category[index]['name']!,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
+                    )
                 ],
               ),
             ),
