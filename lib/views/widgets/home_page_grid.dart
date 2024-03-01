@@ -29,12 +29,15 @@ class HomePageGrid extends StatelessWidget {
       padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
       itemBuilder: (context, index) {
         return GestureDetector(
-          onTap: () async {
+          onTap: () {
             Provider.of<ExerciseProvider>(context, listen: false)
                 .setSearchParamter = category[index]['name']!.toLowerCase();
 
             Provider.of<ExerciseProvider>(context, listen: false)
                 .setCategoryName = categoryName;
+
+            Provider.of<ExerciseProvider>(context, listen: false)
+                .getExercises();
 
             GoRouter.of(context).pushNamed("exercise-category");
           },
