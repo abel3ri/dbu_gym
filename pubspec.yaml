@@ -73,8 +73,11 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/images/grid_images/
+    - assets/images/grid_images/muscle/
+    - assets/images/grid_images/equipment/
+    - assets/images/grid_images/exercise/
     - .env
+    - assets/exercises/exercises.json
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
