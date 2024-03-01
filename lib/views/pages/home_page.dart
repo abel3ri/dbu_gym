@@ -31,12 +31,16 @@ class HomePage extends StatelessWidget {
               child: Text("Categorize by muscle group"),
             ),
             PopupMenuItem(
+              value: "exercise",
+              child: Text("Categorize by exercise type"),
+            ),
+            PopupMenuItem(
               value: "equipment",
               child: Text("Categorize by equipment type"),
             ),
             PopupMenuItem(
               value: "difficulty",
-              child: Text("Categorize by difficulty"),
+              child: Text("Categorize by difficulty level"),
             ),
           ],
         ),
@@ -61,7 +65,10 @@ class HomePage extends StatelessWidget {
                             ? muscleGroupCategories
                             : categoryProvider.selectedCategory == "equipment"
                                 ? equipmentTypeCategories
-                                : difficultyCategories,
+                                : categoryProvider.selectedCategory ==
+                                        'difficulty'
+                                    ? difficultyCategories
+                                    : exerciseTypeCategories,
                       ),
                       Center(
                         child: TextButton(
