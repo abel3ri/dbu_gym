@@ -2,6 +2,7 @@ import 'package:dbu_gym/providers/home_page_grid_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/views/widgets/app_drawer.dart';
 import 'package:dbu_gym/views/widgets/home_page_grid.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,19 @@ class HomePage extends StatelessWidget {
     final categoryProvider = Provider.of<HomePageGridProvider>(context);
 
     return AppZoomDrawer(
-      title: Text("DBU Gym"),
+      title: SearchBar(
+        elevation: MaterialStatePropertyAll(0),
+        backgroundColor: MaterialStatePropertyAll(
+            Theme.of(context).colorScheme.background.darken(5)),
+        constraints: BoxConstraints(
+          minHeight: 50,
+        ),
+        overlayColor: MaterialStatePropertyAll(Colors.transparent),
+        leading: Icon(Icons.search, color: Colors.grey),
+        hintText: "Search exercise",
+        hintStyle: MaterialStatePropertyAll(TextStyle(color: Colors.grey)),
+        padding: MaterialStatePropertyAll(EdgeInsets.only(left: 12)),
+      ),
       appBarActions: [
         PopupMenuButton(
           elevation: 0,
