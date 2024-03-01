@@ -6,6 +6,7 @@ import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/firebase_options.dart';
 import 'package:dbu_gym/providers/pricing_provider.dart';
 import 'package:dbu_gym/router/router.dart';
+import 'package:dbu_gym/utils/loadExercie.dart';
 import 'package:dbu_gym/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,6 +18,7 @@ void main(List<String> args) async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  final allExercises = await loadExercises();
   await dotenv.load(fileName: ".env");
   runApp(
     MultiProvider(
@@ -26,7 +28,9 @@ void main(List<String> args) async {
         ChangeNotifierProvider(create: (context) => ProfileImageProvider()),
         ChangeNotifierProvider(create: (context) => PricingProvider()),
         ChangeNotifierProvider(create: (context) => HomePageGridProvider()),
-        ChangeNotifierProvider(create: (context) => ExerciseProvider()),
+        ChangeNotifierProvider(
+          create: (context) => ExerciseProvider(allExercises: allExercises),
+        ),
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,
