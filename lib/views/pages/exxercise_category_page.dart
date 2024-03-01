@@ -1,6 +1,4 @@
 import 'dart:math';
-
-import 'package:dbu_gym/models/exercise.dart';
 import 'package:dbu_gym/providers/exercise_provider.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -13,40 +11,30 @@ class ExerciseCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final exerciseProvider = Provider.of<ExerciseProvider>(context);
+    final exercises = exerciseProvider.exercises;
     final String categoryName = exerciseProvider.categoryName;
-    List<Exercise>? exercises;
-    bool isExercisesEmpty = false;
-
-    exerciseProvider.getExercises().fold((err) {
-      if (err.isNotEmpty) print(err);
-      return GoRouter.of(context).pushReplacementNamed("home");
-    }, (res) {
-      isExercisesEmpty = res.isEmpty;
-      exercises = res;
-    });
 
     // check if the exercises list is not empty and the category name and assign image path and text dynamically to increase readability of code
 
     String? _imgPath;
     String? _text;
 
-    if (!isExercisesEmpty) {
-      if (categoryName == 'muscle') {
-        _imgPath =
-            "assets/images/grid_images/${categoryName}/${exercises![0].primaryMuscle.replaceAll(" ", "_")}.png";
-        _text = exercises![0].primaryMuscle;
-      } else if (categoryName == 'exercise') {
-        _imgPath =
-            "assets/images/grid_images/${categoryName}/${exercises![0].category.replaceAll(" ", "_")}.png";
-        _text = exercises![0].category;
-      } else if (categoryName == 'equipment') {
-        _imgPath = "assets/images/grid_images/${categoryName}/placeholder.png";
+    if (categoryName == 'muscle') {
+      _imgPath =
+          "assets/images/grid_images/${categoryName}/${exercises[0].primaryMuscle.replaceAll(" ", "_")}.png";
+      _text = exercises[0].primaryMuscle;
+    } else if (categoryName == 'exercise') {
+      _imgPath =
+          "assets/images/grid_images/${categoryName}/${exercises[0].category.replaceAll(" ", "_")}.png";
+      _text = exercises[0].category;
+    } else if (categoryName == 'equipment') {
+      _imgPath =
+          "assets/images/grid_images/${categoryName}/${exercises[0].equipment!.replaceAll(' ', '_')}.png";
 
-        _text = exercises![0].equipment ?? 'Not Required';
-      } else {
-        _imgPath = "assets/images/grid_images/equipment/placeholder.png";
-        _text = exercises![0].level;
-      }
+      _text = exercises[0].equipment ?? 'Not Required';
+    } else {
+      _imgPath = "assets/images/grid_images/equipment/placeholder.png";
+      _text = exercises[0].level;
     }
 
     return Scaffold(
@@ -71,7 +59,7 @@ class ExerciseCategory extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Center(
-          child: exercises!.isEmpty
+          child: exercises.isEmpty
               ? Center(
                   child: Text("No exercises found!"),
                 )
@@ -110,7 +98,7 @@ class ExerciseCategory extends StatelessWidget {
                                 ),
                               ),
                               child: Image.asset(
-                                _imgPath!,
+                                _imgPath,
                               ),
                             ),
                           ),
@@ -128,7 +116,7 @@ class ExerciseCategory extends StatelessWidget {
                                     ),
                               ),
                               Text(
-                                _text!,
+                                _text,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineSmall!
@@ -162,7 +150,7 @@ class ExerciseCategory extends StatelessWidget {
                     Expanded(
                       child: ListView.builder(
                         physics: BouncingScrollPhysics(),
-                        itemCount: exercises!.length,
+                        itemCount: exercises.length,
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         itemBuilder: (context, index) {
                           return Card(
@@ -172,20 +160,20 @@ class ExerciseCategory extends StatelessWidget {
                                     BorderRadius.all(Radius.circular(8))),
                             child: ListTile(
                               leading: Text(
-                                exercises![index].name.length > 25
-                                    ? exercises![index].name.substring(0, 26) +
+                                exercises[index].name.length > 25
+                                    ? exercises[index].name.substring(0, 26) +
                                         "..."
-                                    : exercises![index].name,
+                                    : exercises[index].name,
                                 style: Theme.of(context).textTheme.bodyMedium,
                               ),
                               trailing: Container(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 4, horizontal: 8),
                                 decoration: BoxDecoration(
-                                  color: exercises![index].level == 'beginner'
+                                  color: exercises[index].level == 'beginner'
                                       ? Colors.greenAccent.shade400
                                           .withOpacity(0.6)
-                                      : exercises![index].level == 'expert'
+                                      : exercises[index].level == 'expert'
                                           ? Colors.redAccent.darken(10)
                                           : Colors.yellowAccent.shade700
                                               .darken(5),
@@ -193,7 +181,7 @@ class ExerciseCategory extends StatelessWidget {
                                       BorderRadius.all(Radius.circular(24)),
                                 ),
                                 child: Text(
-                                  exercises![index].level.capitalize,
+                                  exercises[index].level.capitalize,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall!
