@@ -12,7 +12,7 @@ class ExerciseCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     final exerciseProvider = Provider.of<ExerciseProvider>(context);
     final exercises = exerciseProvider.exercises;
-    final String categoryName = exerciseProvider.categoryName;
+    String categoryName = exerciseProvider.categoryName;
 
     // check if the exercises list is not empty and the category name and assign image path and text dynamically to increase readability of code
 
@@ -23,18 +23,22 @@ class ExerciseCategory extends StatelessWidget {
       _imgPath =
           "assets/images/grid_images/${categoryName}/${exercises[0].primaryMuscle.replaceAll(" ", "_")}.png";
       _text = exercises[0].primaryMuscle;
+      categoryName = categoryName + " Group";
     } else if (categoryName == 'exercise') {
       _imgPath =
           "assets/images/grid_images/${categoryName}/${exercises[0].category.replaceAll(" ", "_")}.png";
       _text = exercises[0].category;
+      categoryName = categoryName + " Category";
     } else if (categoryName == 'equipment') {
       _imgPath =
           "assets/images/grid_images/${categoryName}/${exercises[0].equipment!.replaceAll(' ', '_')}.png";
 
       _text = exercises[0].equipment ?? 'Not Required';
+      categoryName = categoryName + " Name";
     } else {
       _imgPath = "assets/images/grid_images/equipment/placeholder.png";
       _text = exercises[0].level;
+      categoryName = categoryName + " Level";
     }
 
     return Scaffold(
@@ -66,7 +70,7 @@ class ExerciseCategory extends StatelessWidget {
               : Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.fromLTRB(32, 0, 48, 8),
+                      padding: EdgeInsets.fromLTRB(32, 0, 48, 12),
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.25,
                       decoration: BoxDecoration(
@@ -83,18 +87,20 @@ class ExerciseCategory extends StatelessWidget {
                             alignment: Alignment.topCenter,
                             child: Container(
                               padding: EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 20),
+                                vertical: 8,
+                                horizontal: 20,
+                              ),
                               decoration: BoxDecoration(
-                                color: Colors.white70,
+                                color: Colors.grey.shade200,
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(
-                                      (Random().nextDouble() * 40) + 20),
+                                      (Random().nextDouble() * 40) + 25),
                                   topRight: Radius.circular(
-                                      (Random().nextDouble() * 20) + 20),
+                                      (Random().nextDouble() * 20) + 25),
                                   bottomRight: Radius.circular(
-                                      (Random().nextDouble() * 30) + 20),
+                                      (Random().nextDouble() * 30) + 25),
                                   bottomLeft: Radius.circular(
-                                      (Random().nextDouble() * 60) + 20),
+                                      (Random().nextDouble() * 60) + 25),
                                 ),
                               ),
                               child: Image.asset(
@@ -106,22 +112,24 @@ class ExerciseCategory extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                exerciseProvider.categoryName.capitalize,
+                                categoryName.capitalize,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headlineMedium!
+                                    .titleMedium!
                                     .copyWith(
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.grey.shade200,
+                                      color: Colors.grey.shade300,
                                     ),
                               ),
                               Text(
-                                _text,
+                                _text.toUpperCase(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headlineSmall!
+                                    .bodySmall!
                                     .copyWith(
-                                      fontFamily: "SwankyAndMooMoo",
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing:
+                                          _text.length <= 12 ? 2.5 : null,
                                       color: Colors.white,
                                     ),
                               ),
