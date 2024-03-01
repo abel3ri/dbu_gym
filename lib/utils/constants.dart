@@ -116,51 +116,51 @@ const Map<String, Map<String, List<String>>> workoutSessionContent = {
 const List<Map<String, String>> muscleGroupCategories = [
   {
     "name": "Abdominals",
-    "imagePath": "assets/images/grid_images/muscles/abdominals.png",
+    "imagePath": "assets/images/grid_images/muscle/abdominals.png",
   },
   {
     "name": "Biceps",
-    "imagePath": "assets/images/grid_images/muscles/biceps.png",
+    "imagePath": "assets/images/grid_images/muscle/biceps.png",
   },
   {
     "name": "Calves",
-    "imagePath": "assets/images/grid_images/muscles/calves.png",
+    "imagePath": "assets/images/grid_images/muscle/calves.png",
   },
   {
     "name": "Chest",
-    "imagePath": "assets/images/grid_images/muscles/chest.png",
+    "imagePath": "assets/images/grid_images/muscle/chest.png",
   },
   {
     "name": "Middle Back",
-    "imagePath": "assets/images/grid_images/muscles/middle_back.png",
+    "imagePath": "assets/images/grid_images/muscle/middle_back.png",
   },
   {
     "name": "Shoulders",
-    "imagePath": "assets/images/grid_images/muscles/shoulders.png",
+    "imagePath": "assets/images/grid_images/muscle/shoulders.png",
   },
   {
     "name": "Triceps",
-    "imagePath": "assets/images/grid_images/muscles/triceps.png",
+    "imagePath": "assets/images/grid_images/muscle/triceps.png",
   },
   {
     "name": "Quadriceps",
-    "imagePath": "assets/images/grid_images/muscles/quadriceps.png",
+    "imagePath": "assets/images/grid_images/muscle/quadriceps.png",
   },
   {
     "name": "Traps",
-    "imagePath": "assets/images/grid_images/muscles/traps.png",
+    "imagePath": "assets/images/grid_images/muscle/traps.png",
   },
   {
     "name": "Forearms",
-    "imagePath": "assets/images/grid_images/muscles/forearms.png",
+    "imagePath": "assets/images/grid_images/muscle/forearms.png",
   },
   {
     "name": "Lower Back",
-    "imagePath": "assets/images/grid_images/muscles/lower_back.png",
+    "imagePath": "assets/images/grid_images/muscle/lower_back.png",
   },
   {
     "name": "Hamstrings",
-    "imagePath": "assets/images/grid_images/muscles/hamstrings.png",
+    "imagePath": "assets/images/grid_images/muscle/hamstrings.png",
   },
 ];
 
@@ -182,48 +182,75 @@ const List<Color> difficultyCategoryColors = [
 ];
 const List<Map<String, String>> equipmentTypeCategories = [
   {
-    "name": "Dumbbells",
-    "imagePath": "assets/images/grid_images/equipments/dumbbell.png",
+    "name": "Dumbbell",
+    "imagePath": "assets/images/grid_images/equipment/dumbbell.png",
   },
   {
     "name": "EZ-bar",
-    "imagePath": "assets/images/grid_images/equipments/ez_bar.png",
+    "imagePath": "assets/images/grid_images/equipment/ez_bar.png",
   },
   {
     "name": "Machine",
-    "imagePath": "assets/images/grid_images/equipments/machine.png",
+    "imagePath": "assets/images/grid_images/equipment/machine.png",
   },
   {
     "name": "Barbell",
-    "imagePath": "assets/images/grid_images/equipments/barbell.png",
+    "imagePath": "assets/images/grid_images/equipment/barbell.png",
   },
   {
     "name": "Foam Roll",
-    "imagePath": "assets/images/grid_images/equipments/foam_roll.png",
+    "imagePath": "assets/images/grid_images/equipment/foam_roll.png",
   },
   {
-    "name": "Chest Press",
-    "imagePath": "assets/images/grid_images/equipments/chest_press_machine.png",
+    "name": "Chest Press Machine",
+    "imagePath": "assets/images/grid_images/equipment/chest_press_machine.png",
   },
   {
-    "name": "Kettle Bell",
-    "imagePath": "assets/images/grid_images/equipments/kettlebells.png",
+    "name": "KettleBell",
+    "imagePath": "assets/images/grid_images/equipment/kettlebells.png",
   },
   {
     "name": "Medicine Ball",
-    "imagePath": "assets/images/grid_images/equipments/medicine_ball.png",
+    "imagePath": "assets/images/grid_images/equipment/medicine_ball.png",
   },
   {
     "name": "Exercise Ball",
-    "imagePath": "assets/images/grid_images/equipments/exercise_ball.png",
+    "imagePath": "assets/images/grid_images/equipment/exercise_ball.png",
   },
   {
     "name": "Bench",
-    "imagePath": "assets/images/grid_images/equipments/bench.png",
+    "imagePath": "assets/images/grid_images/equipment/bench.png",
   },
   {
     "name": "Bands",
-    "imagePath": "assets/images/grid_images/equipments/bands.png",
+    "imagePath": "assets/images/grid_images/equipment/bands.png",
+  },
+];
+
+const List<Map<String, String>> exerciseTypeCategories = [
+  {
+    "name": "Olympic Weightlifting",
+    "imagePath": "assets/images/grid_images/exercise/olympic_weightlifting.png",
+  },
+  {
+    "name": "Plyometrics",
+    "imagePath": "assets/images/grid_images/exercise/plyometrics.png",
+  },
+  {
+    "name": "Strength",
+    "imagePath": "assets/images/grid_images/exercise/strength.png",
+  },
+  {
+    "name": "Stretching",
+    "imagePath": "assets/images/grid_images/exercise/stretching.png",
+  },
+  {
+    "name": "Strongman",
+    "imagePath": "assets/images/grid_images/exercise/strongman.png",
+  },
+  {
+    "name": "Powerlifting",
+    "imagePath": "assets/images/grid_images/exercise/powerlifting.png",
   },
 ];
 
