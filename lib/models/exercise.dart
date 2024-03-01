@@ -3,8 +3,8 @@ class Exercise {
   late String primaryMuscle;
   late String? equipment;
   late String level;
-  late String force;
-  late String mechanic;
+  late String? force;
+  late String? mechanic;
   late List<String> secondaryMuscles;
   late List<String> instructions;
   late String category;
