@@ -186,10 +186,6 @@ const List<Map<String, String>> equipmentTypeCategories = [
     "imagePath": "assets/images/grid_images/equipment/dumbbell.png",
   },
   {
-    "name": "EZ-bar",
-    "imagePath": "assets/images/grid_images/equipment/ez_bar.png",
-  },
-  {
     "name": "Machine",
     "imagePath": "assets/images/grid_images/equipment/machine.png",
   },
@@ -202,11 +198,7 @@ const List<Map<String, String>> equipmentTypeCategories = [
     "imagePath": "assets/images/grid_images/equipment/foam_roll.png",
   },
   {
-    "name": "Chest Press Machine",
-    "imagePath": "assets/images/grid_images/equipment/chest_press_machine.png",
-  },
-  {
-    "name": "KettleBell",
+    "name": "KettleBells",
     "imagePath": "assets/images/grid_images/equipment/kettlebells.png",
   },
   {
@@ -216,10 +208,6 @@ const List<Map<String, String>> equipmentTypeCategories = [
   {
     "name": "Exercise Ball",
     "imagePath": "assets/images/grid_images/equipment/exercise_ball.png",
-  },
-  {
-    "name": "Bench",
-    "imagePath": "assets/images/grid_images/equipment/bench.png",
   },
   {
     "name": "Bands",
