@@ -9,12 +9,16 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
           onPressed: () {
             FocusManager.instance.primaryFocus!.unfocus();
             GoRouter.of(context).pushReplacementNamed("welcome");
           },
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back_ios_new),
+          style: ButtonStyle(
+            overlayColor: MaterialStatePropertyAll(Colors.transparent),
+          ),
         ),
       ),
       body: SafeArea(
