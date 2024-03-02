@@ -1,10 +1,10 @@
 // import 'package:dbu_gym/models/exercise.dart';
+
 import 'package:dbu_gym/models/exercise.dart';
 import 'package:flutter/material.dart';
-import 'package:fpdart/fpdart.dart';
 
 class ExerciseProvider with ChangeNotifier {
-  List allExercises = [];
+  List<dynamic> allExercises = [];
   ExerciseProvider({
     required this.allExercises,
   });
@@ -12,6 +12,23 @@ class ExerciseProvider with ChangeNotifier {
   String? _searchParamter;
   String? _categoryName;
   List<Exercise>? _exercises;
+
+  void dynamicToExerciseMapper() {
+    _exercises = this.allExercises.map((e) {
+      return Exercise(
+        name: e['name'],
+        primaryMuscle: e['primaryMuscles'][0],
+        equipment: e['equipment'],
+        level: e['level'],
+        mechanic: e['mechanic'],
+        force: e['force'],
+        secondaryMuscles: List<String>.from(['secondaryMuscles']),
+        instructions: List<String>.from(e['instructions']),
+        category: e['category'],
+        images: List<String>.from(e['images']),
+      );
+    }).toList();
+  }
 
   set setSearchParamter(String value) {
     _searchParamter = value;
@@ -26,100 +43,26 @@ class ExerciseProvider with ChangeNotifier {
   void getExercises() {
     try {
       if (_categoryName == "muscle") {
-        _exercises = this
-            .allExercises
-            .filter((exercise) {
-              return (exercise['primaryMuscles'] as List)
-                  .contains(_searchParamter);
-            })
-            .toList()
-            .map(
-              (e) => Exercise(
-                name: e['name'],
-                primaryMuscle: e['primaryMuscles'][0],
-                equipment: e['equipment'],
-                level: e['level'],
-                mechanic: e['mechanic'],
-                force: e['force'],
-                secondaryMuscles: List<String>.from(['secondaryMuscles']),
-                instructions: List<String>.from(e['instructions']),
-                category: e['category'],
-                images: List<String>.from(e['images']),
-              ),
-            )
-            .toList();
+        _exercises = _exercises!.where((exercise) {
+          return exercise.primaryMuscle.contains(_searchParamter!);
+        }).toList();
         notifyListeners();
       } else if (_categoryName == "difficulty") {
-        _exercises = this
-            .allExercises
-            .filter((exercise) {
-              return (exercise['level']).contains(_searchParamter);
-            })
-            .toList()
-            .map(
-              (e) => Exercise(
-                name: e['name'],
-                primaryMuscle: e['primaryMuscles'][0],
-                equipment: e['equipment'],
-                level: e['level'],
-                mechanic: e['mechanic'],
-                force: e['force'],
-                secondaryMuscles: List<String>.from(['secondaryMuscles']),
-                instructions: List<String>.from(e['instructions']),
-                category: e['category'],
-                images: List<String>.from(e['images']),
-              ),
-            )
-            .toList();
+        _exercises = _exercises!.where((exercise) {
+          return exercise.level.contains(_searchParamter!);
+        }).toList();
         notifyListeners();
       } else if (_categoryName == 'exercise') {
-        _exercises = this
-            .allExercises
-            .filter((exercise) {
-              return (exercise['category']).contains(_searchParamter);
-            })
-            .toList()
-            .map(
-              (e) => Exercise(
-                name: e['name'],
-                primaryMuscle: e['primaryMuscles'][0],
-                equipment: e['equipment'],
-                level: e['level'],
-                mechanic: e['mechanic'],
-                force: e['force'],
-                secondaryMuscles: List<String>.from(['secondaryMuscles']),
-                instructions: List<String>.from(e['instructions']),
-                category: e['category'],
-                images: List<String>.from(e['images']),
-              ),
-            )
-            .toList();
+        _exercises = _exercises!.where((exercise) {
+          return exercise.category.contains(_searchParamter!);
+        }).toList();
         notifyListeners();
       } else {
-        // print(_searchParamter);
-        _exercises = this
-            .allExercises
-            .filter((exercise) {
-              if (exercise['equipment'] != null)
-                return exercise['equipment'].contains(_searchParamter);
-              return false;
-            })
-            .toList()
-            .map(
-              (e) => Exercise(
-                name: e['name'],
-                primaryMuscle: e['primaryMuscles'][0],
-                equipment: e['equipment'],
-                level: e['level'],
-                mechanic: e['mechanic'],
-                force: e['force'],
-                secondaryMuscles: List<String>.from(['secondaryMuscles']),
-                instructions: List<String>.from(e['instructions']),
-                category: e['category'],
-                images: List<String>.from(e['images']),
-              ),
-            )
-            .toList();
+        _exercises = _exercises!.where((exercise) {
+          if (exercise.equipment != null)
+            return exercise.primaryMuscle.contains(_searchParamter!);
+          return false;
+        }).toList();
         notifyListeners();
       }
     } catch (err) {
