@@ -60,7 +60,7 @@ class ExerciseProvider with ChangeNotifier {
       } else {
         _exercises = _exercises!.where((exercise) {
           if (exercise.equipment != null)
-            return exercise.primaryMuscle.contains(_searchParamter!);
+            return exercise.equipment!.contains(_searchParamter!);
           return false;
         }).toList();
         notifyListeners();
