@@ -1,4 +1,4 @@
-import 'package:dbu_gym/providers/exercise_provider.dart';
+import 'package:dbu_gym/providers/exercises_provider.dart';
 import 'package:dbu_gym/providers/home_page_grid_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/views/pages/search_page.dart';
@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categoryProvider = Provider.of<HomePageGridProvider>(context);
-    final exerciseProvider = Provider.of<ExerciseProvider>(context);
+    final exerciseProvider = Provider.of<ExercisesProvider>(context);
     exerciseProvider.dynamicToExerciseMapper();
 
     return AppZoomDrawer(

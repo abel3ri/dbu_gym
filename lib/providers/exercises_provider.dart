@@ -3,9 +3,9 @@
 import 'package:dbu_gym/models/exercise.dart';
 import 'package:flutter/material.dart';
 
-class ExerciseProvider with ChangeNotifier {
+class ExercisesProvider with ChangeNotifier {
   List<dynamic> allExercises = [];
-  ExerciseProvider({
+  ExercisesProvider({
     required this.allExercises,
   });
 

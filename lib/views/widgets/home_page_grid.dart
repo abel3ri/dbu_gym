@@ -1,4 +1,4 @@
-import 'package:dbu_gym/providers/exercise_provider.dart';
+import 'package:dbu_gym/providers/exercises_provider.dart';
 import 'package:dbu_gym/providers/home_page_grid_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -30,13 +30,13 @@ class HomePageGrid extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            Provider.of<ExerciseProvider>(context, listen: false)
+            Provider.of<ExercisesProvider>(context, listen: false)
                 .setSearchParamter = category[index]['name']!.toLowerCase();
 
-            Provider.of<ExerciseProvider>(context, listen: false)
+            Provider.of<ExercisesProvider>(context, listen: false)
                 .setCategoryName = categoryName;
 
-            Provider.of<ExerciseProvider>(context, listen: false)
+            Provider.of<ExercisesProvider>(context, listen: false)
                 .getExercises();
 
             GoRouter.of(context).pushNamed("exercise-category");

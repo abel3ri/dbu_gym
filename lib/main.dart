@@ -1,5 +1,5 @@
 import 'package:dbu_gym/providers/carousel_provider.dart';
-import 'package:dbu_gym/providers/exercise_provider.dart';
+import 'package:dbu_gym/providers/exercises_provider.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/providers/home_page_grid_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
@@ -29,7 +29,7 @@ void main(List<String> args) async {
         ChangeNotifierProvider(create: (context) => PricingProvider()),
         ChangeNotifierProvider(create: (context) => HomePageGridProvider()),
         ChangeNotifierProvider(
-          create: (context) => ExerciseProvider(allExercises: allExercises),
+          create: (context) => ExercisesProvider(allExercises: allExercises),
         ),
       ],
       child: MaterialApp.router(
