@@ -1,5 +1,7 @@
+import 'package:dbu_gym/providers/exercise_provider.dart';
 import 'package:dbu_gym/providers/home_page_grid_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
+import 'package:dbu_gym/views/pages/search_page.dart';
 import 'package:dbu_gym/views/widgets/app_drawer.dart';
 import 'package:dbu_gym/views/widgets/home_page_grid.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -13,20 +15,39 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categoryProvider = Provider.of<HomePageGridProvider>(context);
+    final exerciseProvider = Provider.of<ExerciseProvider>(context);
+    exerciseProvider.dynamicToExerciseMapper();
 
     return AppZoomDrawer(
-      title: SearchBar(
-        elevation: MaterialStatePropertyAll(0),
-        backgroundColor: MaterialStatePropertyAll(
-            Theme.of(context).colorScheme.background.darken(5)),
-        constraints: BoxConstraints(
-          minHeight: 50,
+      title: GestureDetector(
+        onTap: () async {
+          try {
+            await showSearch(
+              context: context,
+              delegate: SearchPage(exercises: exerciseProvider.exercises),
+            );
+          } catch (err) {
+            print("No exercise selected.");
+          }
+        },
+        child: Container(
+          height: 48,
+          padding: EdgeInsets.only(left: 12),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.background.darken(5),
+            borderRadius: BorderRadius.all(Radius.circular(200)),
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.search, color: Colors.grey.shade500),
+              SizedBox(width: 8),
+              Text(
+                "Search exercise",
+                style: TextStyle(color: Colors.grey.shade500),
+              ),
+            ],
+          ),
         ),
-        overlayColor: MaterialStatePropertyAll(Colors.transparent),
-        leading: Icon(Icons.search, color: Colors.grey),
-        hintText: "Search exercise",
-        hintStyle: MaterialStatePropertyAll(TextStyle(color: Colors.grey)),
-        padding: MaterialStatePropertyAll(EdgeInsets.only(left: 12)),
       ),
       appBarActions: [
         PopupMenuButton(
