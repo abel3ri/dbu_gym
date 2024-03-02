@@ -1,3 +1,5 @@
+import 'package:dbu_gym/models/exercise.dart';
+import 'package:dbu_gym/providers/exercise_provider.dart';
 import 'package:dbu_gym/providers/exercises_provider.dart';
 import 'package:dbu_gym/providers/home_page_grid_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
@@ -15,17 +17,22 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categoryProvider = Provider.of<HomePageGridProvider>(context);
-    final exerciseProvider = Provider.of<ExercisesProvider>(context);
-    exerciseProvider.dynamicToExerciseMapper();
+    final exercisesProvider = Provider.of<ExercisesProvider>(context);
+    final exerciseProvider = Provider.of<ExerciseProvider>(context);
+
+    // map allExercises from List<dynamic> to List<Exercise> before doing any filtering
+    exercisesProvider.dynamicToExerciseMapper();
 
     return AppZoomDrawer(
       title: GestureDetector(
         onTap: () async {
           try {
-            await showSearch(
+            final Exercise exercise = await showSearch(
               context: context,
-              delegate: SearchPage(exercises: exerciseProvider.exercises),
+              delegate: SearchPage(exercises: exercisesProvider.exercises),
             );
+            exerciseProvider.setExercise(exercise);
+            GoRouter.of(context).pushNamed("exercise-details-page");
           } catch (err) {
             print("No exercise selected.");
           }

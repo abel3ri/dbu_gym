@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:dbu_gym/providers/exercise_provider.dart';
 import 'package:dbu_gym/providers/exercises_provider.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +11,11 @@ class ExerciseCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final exerciseProvider = Provider.of<ExercisesProvider>(context);
-    final exercises = exerciseProvider.exercises;
-    String categoryName = exerciseProvider.categoryName;
+    final exercisesProvider = Provider.of<ExercisesProvider>(context);
+    final exerciseProvider = Provider.of<ExerciseProvider>(context);
+
+    final exercises = exercisesProvider.exercises;
+    String categoryName = exercisesProvider.categoryName;
 
     // check if the exercises list is not empty and the category name and assign image path and text dynamically to increase readability of code
 
@@ -169,6 +172,7 @@ class ExerciseCategory extends StatelessWidget {
                             child: ListTile(
                               splashColor: Colors.transparent,
                               onTap: () {
+                                exerciseProvider.setExercise(exercises[index]);
                                 GoRouter.of(context).pushNamed(
                                   "exercise-details-page",
                                 );
