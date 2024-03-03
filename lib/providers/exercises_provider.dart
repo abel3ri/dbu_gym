@@ -22,7 +22,7 @@ class ExercisesProvider with ChangeNotifier {
         level: e['level'],
         mechanic: e['mechanic'],
         force: e['force'],
-        secondaryMuscles: List<String>.from(['secondaryMuscles']),
+        secondaryMuscles: List<String>.from(e['secondaryMuscles']),
         instructions: List<String>.from(e['instructions']),
         category: e['category'],
         images: List<String>.from(e['images']),
