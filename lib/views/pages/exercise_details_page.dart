@@ -13,11 +13,12 @@ class ExerciseDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final exerciseProvider = Provider.of<ExerciseProvider>(context);
+    final exercise = exerciseProvider.exercise;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary.darken(10),
         elevation: 0,
-        title: Text(exerciseProvider.exercise!.name),
+        title: Text(exercise!.name),
         titleTextStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
               color: Colors.white,
             ),
@@ -75,11 +76,60 @@ class ExerciseDetailsPage extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: constraints.maxHeight * 0.6,
+                  padding: EdgeInsets.symmetric(horizontal: 18, vertical: 24),
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.background,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(24),
                       topRight: Radius.circular(24),
+                    ),
+                  ),
+                  child: SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    child: Column(
+                      children: [
+                        ExerciseAttributeRow(
+                          attributeName: "Primary muscle",
+                          attributeValue: exercise.primaryMuscle.capitalize,
+                        ),
+                        Divider(height: constraints.maxHeight * 0.04),
+                        ExerciseAttributeRow(
+                            attributeName: "Difficulty level",
+                            attributeValue: exercise.level.capitalize),
+                        Divider(height: constraints.maxHeight * 0.04),
+                        ExerciseAttributeRow(
+                          attributeName: "Category",
+                          attributeValue: exercise.category.capitalize,
+                        ),
+                        Divider(height: constraints.maxHeight * 0.04),
+                        ExerciseAttributeRow(
+                          attributeName: "Force",
+                          attributeValue: exercise.force == null
+                              ? "-"
+                              : exercise.force!.capitalize,
+                        ),
+                        Divider(height: constraints.maxHeight * 0.04),
+                        ExerciseAttributeRow(
+                          attributeName: "Mechanic",
+                          attributeValue: exercise.mechanic == null
+                              ? "-"
+                              : exercise.mechanic!.capitalize,
+                        ),
+                        Divider(height: constraints.maxHeight * 0.04),
+                        ExerciseAttributeRow(
+                          attributeName: "Equipment",
+                          attributeValue: exercise.equipment == null
+                              ? "-"
+                              : exercise.equipment!.capitalize,
+                        ),
+                        Divider(height: constraints.maxHeight * 0.04),
+                        ExerciseAttributeRow(
+                          attributeName: "Secondary Muscles",
+                          attributeValue: exercise.equipment == null
+                              ? "-"
+                              : exercise.secondaryMuscles,
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -88,6 +138,46 @@ class ExerciseDetailsPage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class ExerciseAttributeRow extends StatelessWidget {
+  ExerciseAttributeRow({
+    super.key,
+    required this.attributeName,
+    required this.attributeValue,
+  });
+
+  String attributeName;
+  dynamic attributeValue;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(attributeName),
+        attributeName == 'Secondary Muscles'
+            ? (attributeValue as List<String>).isEmpty
+                ? Text("None")
+                : Wrap(
+                    children: (attributeValue as List<String>)
+                        .map(
+                          (e) => Chip(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            label: Text(e.capitalize),
+                            padding: EdgeInsets.zero,
+                          ),
+                        )
+                        .toList(),
+                  )
+            : Text(attributeValue),
+      ],
     );
   }
 }
