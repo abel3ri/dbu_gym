@@ -213,6 +213,18 @@ const List<Map<String, String>> equipmentTypeCategories = [
     "name": "Bands",
     "imagePath": "assets/images/grid_images/equipment/bands.png",
   },
+  {
+    "name": "Body only",
+    "imagePath": "assets/images/grid_images/equipment/body_only.png",
+  },
+  {
+    "name": "Cable",
+    "imagePath": "assets/images/grid_images/equipment/cable.png",
+  },
+  {
+    "name": "E-Z curl bar",
+    "imagePath": "assets/images/grid_images/equipment/e-z_curl_bar.png",
+  },
 ];
 
 const List<Map<String, String>> exerciseTypeCategories = [
