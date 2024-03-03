@@ -51,6 +51,7 @@ dependencies:
   flutter_zoom_drawer: ^3.1.2
   flutter_dotenv: ^5.1.0
   dio: ^5.4.1
+  image: ^3.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
