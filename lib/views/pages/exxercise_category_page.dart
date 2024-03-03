@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:dbu_gym/providers/exercise_provider.dart';
 import 'package:dbu_gym/providers/exercises_provider.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -46,7 +45,7 @@ class ExerciseCategory extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.primary.darken(10),
         elevation: 0,
         leading: IconButton(
           style: ButtonStyle(
@@ -73,11 +72,11 @@ class ExerciseCategory extends StatelessWidget {
               : Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.fromLTRB(32, 0, 48, 12),
+                      padding: EdgeInsets.fromLTRB(32, 0, 48, 8),
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.25,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.primary.darken(10),
                         borderRadius: BorderRadius.only(
                           bottomRight: Radius.circular(50),
                         ),
@@ -88,26 +87,14 @@ class ExerciseCategory extends StatelessWidget {
                         children: [
                           Align(
                             alignment: Alignment.topCenter,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 8,
-                                horizontal: 20,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.grey.shade200,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(
-                                      (Random().nextDouble() * 40) + 25),
-                                  topRight: Radius.circular(
-                                      (Random().nextDouble() * 20) + 25),
-                                  bottomRight: Radius.circular(
-                                      (Random().nextDouble() * 30) + 25),
-                                  bottomLeft: Radius.circular(
-                                      (Random().nextDouble() * 60) + 25),
+                            child: CircleAvatar(
+                              radius: 60,
+                              backgroundColor: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: Image.asset(
+                                  _imgPath,
                                 ),
-                              ),
-                              child: Image.asset(
-                                _imgPath,
                               ),
                             ),
                           ),
@@ -144,7 +131,7 @@ class ExerciseCategory extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.zero,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.primary.darken(10),
                       ),
                       child: Container(
                         height: MediaQuery.of(context).size.height * 0.06,
