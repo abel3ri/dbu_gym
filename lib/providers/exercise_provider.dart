@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:dbu_gym/models/exercise.dart';
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
 import "dart:typed_data";
 
 import 'package:image/image.dart' as img;
@@ -8,7 +11,6 @@ import "package:dio/dio.dart";
 class ExerciseProvider with ChangeNotifier {
   Exercise? _exercise;
   bool _isLoading = false;
-  List<int> _gifBytes = [];
 
   void setExercise(Exercise exercise) {
     if (_exercise != null) _exercise = null;
@@ -16,8 +18,9 @@ class ExerciseProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> convertJpgToPdf() async {
+  Future<Either<String, List<int>?>> convertJpgToPdf() async {
     try {
+      List<int> _gifBytes = [];
       List<String> imagePaths = exercise!.images
           .map((e) =>
               "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/${e}")
@@ -37,16 +40,15 @@ class ExerciseProvider with ChangeNotifier {
       }
 
       _gifBytes = img.encodeGifAnimation(animation)!;
-      _isLoading = false;
-      notifyListeners();
+      return right(_gifBytes);
+    } on SocketException catch (_) {
+      return left("Connection time out.");
     } catch (err) {
       print(err.toString());
-      _isLoading = false;
-      notifyListeners();
+      return left(err.toString());
     }
   }
 
   Exercise? get exercise => _exercise!;
-  List<int> get gifBytes => _gifBytes;
   bool get isLoadig => _isLoading;
 }
