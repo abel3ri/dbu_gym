@@ -26,22 +26,22 @@ class ExerciseCategory extends StatelessWidget {
       _imgPath =
           "assets/images/grid_images/${categoryName}/${exercises[0].primaryMuscle.replaceAll(" ", "_")}.png";
       _text = exercises[0].primaryMuscle;
-      categoryName = categoryName + " Group";
+      // categoryName = categoryName + " Group";
     } else if (categoryName == 'exercise') {
       _imgPath =
           "assets/images/grid_images/${categoryName}/${exercises[0].category.replaceAll(" ", "_")}.png";
       _text = exercises[0].category;
-      categoryName = categoryName + " Category";
+      // categoryName = categoryName + " Category";
     } else if (categoryName == 'equipment') {
       _imgPath =
           "assets/images/grid_images/${categoryName}/${exercises[0].equipment!.replaceAll(' ', '_')}.png";
 
       _text = exercises[0].equipment ?? 'Not Required';
-      categoryName = categoryName + " Name";
+      // categoryName = categoryName + " Name";
     } else {
       _imgPath = "assets/images/grid_images/equipment/placeholder.png";
       _text = exercises[0].level;
-      categoryName = categoryName + " Level";
+      // categoryName = categoryName + " Level";
     }
 
     return Scaffold(
@@ -172,7 +172,13 @@ class ExerciseCategory extends StatelessWidget {
                             child: ListTile(
                               splashColor: Colors.transparent,
                               onTap: () {
+                                Provider.of<ExercisesProvider>(context,
+                                        listen: false)
+                                    .getExercises();
                                 exerciseProvider.setExercise(exercises[index]);
+                                Provider.of<ExerciseProvider>(context,
+                                        listen: false)
+                                    .setExercise(exercises[index]);
                                 GoRouter.of(context).pushNamed(
                                   "exercise-details-page",
                                 );

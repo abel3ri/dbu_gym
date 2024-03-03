@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:dbu_gym/providers/exercises_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:dbu_gym/providers/exercise_provider.dart';
 import 'package:go_router/go_router.dart';
@@ -21,6 +22,8 @@ class ExerciseDetailsPage extends StatelessWidget {
             ),
           ),
           onPressed: () {
+            Provider.of<ExercisesProvider>(context, listen: false)
+                .getExercises();
             GoRouter.of(context).pop();
           },
           icon: Icon(Icons.arrow_back_ios_new),

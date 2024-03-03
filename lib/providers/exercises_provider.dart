@@ -13,7 +13,7 @@ class ExercisesProvider with ChangeNotifier {
   String? _categoryName;
   List<Exercise>? _exercises;
 
-  void dynamicToExerciseMapper() {
+  void dynamicToExerciseTypeMapper() {
     _exercises = this.allExercises.map((e) {
       return Exercise(
         name: e['name'],
@@ -46,25 +46,22 @@ class ExercisesProvider with ChangeNotifier {
         _exercises = _exercises!.where((exercise) {
           return exercise.primaryMuscle.contains(_searchParamter!);
         }).toList();
-        notifyListeners();
       } else if (_categoryName == "difficulty") {
         _exercises = _exercises!.where((exercise) {
           return exercise.level.contains(_searchParamter!);
         }).toList();
-        notifyListeners();
       } else if (_categoryName == 'exercise') {
         _exercises = _exercises!.where((exercise) {
           return exercise.category.contains(_searchParamter!);
         }).toList();
-        notifyListeners();
       } else {
         _exercises = _exercises!.where((exercise) {
           if (exercise.equipment != null)
             return exercise.equipment!.contains(_searchParamter!);
           return false;
         }).toList();
-        notifyListeners();
       }
+      notifyListeners();
     } catch (err) {
       print(err.toString());
     }

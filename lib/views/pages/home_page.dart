@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
     final exerciseProvider = Provider.of<ExerciseProvider>(context);
 
     // map allExercises from List<dynamic> to List<Exercise> before doing any filtering
-    exercisesProvider.dynamicToExerciseMapper();
+    exercisesProvider.dynamicToExerciseTypeMapper();
 
     return AppZoomDrawer(
       title: GestureDetector(
