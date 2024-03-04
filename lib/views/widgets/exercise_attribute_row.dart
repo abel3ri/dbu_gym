@@ -16,15 +16,22 @@ class ExerciseAttributeRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      // mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: attributeValue == 'Secondary Muscles'
           ? CrossAxisAlignment.center
           : CrossAxisAlignment.start,
       children: [
-        Text(attributeName),
+        Text(
+          attributeName,
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
         attributeName == 'Secondary Muscles'
             ? (attributeValue as List<String>).isEmpty
-                ? Text("None")
+                ? Text(
+                    "None",
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                  )
                 : Flexible(
                     child: Wrap(
                       spacing: 4,
@@ -38,19 +45,35 @@ class ExerciseAttributeRow extends StatelessWidget {
                                     color: Colors.white,
                                   ),
                               elevation: 0,
-                              backgroundColor: Colors.grey,
                               labelPadding: EdgeInsets.symmetric(horizontal: 6),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),
+                                side: BorderSide(
+                                  width: 0.25,
+                                ),
                               ),
-                              label: Text(e.capitalize),
+                              label: Text(
+                                e.capitalize,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                              ),
                               padding: EdgeInsets.zero,
                             ),
                           )
                           .toList(),
                     ),
                   )
-            : Text(attributeValue),
+            : Text(
+                attributeValue,
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+              ),
       ],
     );
   }

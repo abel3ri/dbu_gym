@@ -17,11 +17,12 @@ class ExerciseDetailsPage extends StatelessWidget {
     final exercise = exerciseProvider.exercise;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary.darken(10),
+        backgroundColor: Theme.of(context).colorScheme.background.darken(20),
         elevation: 0,
+        surfaceTintColor: Colors.transparent,
         title: Text(exercise!.name),
-        titleTextStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
-              color: Colors.white,
+        titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+            // color: Colors.white,
             ),
         centerTitle: true,
         leading: IconButton(
@@ -35,11 +36,11 @@ class ExerciseDetailsPage extends StatelessWidget {
                 .getExercises();
             GoRouter.of(context).pop();
           },
-          icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
+          icon: Icon(Icons.arrow_back_ios_new),
         ),
       ),
       body: Container(
-        color: Theme.of(context).colorScheme.primary.darken(10),
+        color: Theme.of(context).colorScheme.background.darken(20),
         child: Center(
           child: LayoutBuilder(
             builder: (context, constraints) => Column(
@@ -49,15 +50,13 @@ class ExerciseDetailsPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.85,
                   height: constraints.maxHeight * 0.4,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary.darken(10),
+                    color: Theme.of(context).colorScheme.background.darken(20),
                   ),
                   child: FutureBuilder(
                     future: exerciseProvider.convertJpgToPdf(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
-                            child:
-                                CircularProgressIndicator(color: Colors.white));
+                        return Center(child: CircularProgressIndicator());
                       } else {
                         return snapshot.data!.isLeft()
                             ? Text(snapshot.data!.getLeft().toString())
@@ -81,8 +80,8 @@ class ExerciseDetailsPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.background,
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(24),
-                      topRight: Radius.circular(24),
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
                     ),
                   ),
                   child: SingleChildScrollView(
@@ -93,37 +92,43 @@ class ExerciseDetailsPage extends StatelessWidget {
                           attributeName: "Primary muscle",
                           attributeValue: exercise.primaryMuscle.capitalize,
                         ),
-                        Divider(height: constraints.maxHeight * 0.04),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.04),
                         ExerciseAttributeRow(
                             attributeName: "Difficulty level",
                             attributeValue: exercise.level.capitalize),
-                        Divider(height: constraints.maxHeight * 0.04),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.04),
                         ExerciseAttributeRow(
                           attributeName: "Category",
                           attributeValue: exercise.category.capitalize,
                         ),
-                        Divider(height: constraints.maxHeight * 0.04),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.04),
                         ExerciseAttributeRow(
                           attributeName: "Force",
                           attributeValue: exercise.force == null
                               ? "-"
                               : exercise.force!.capitalize,
                         ),
-                        Divider(height: constraints.maxHeight * 0.04),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.04),
                         ExerciseAttributeRow(
                           attributeName: "Mechanic",
                           attributeValue: exercise.mechanic == null
                               ? "-"
                               : exercise.mechanic!.capitalize,
                         ),
-                        Divider(height: constraints.maxHeight * 0.04),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.04),
                         ExerciseAttributeRow(
                           attributeName: "Equipment",
                           attributeValue: exercise.equipment == null
                               ? "-"
                               : exercise.equipment!.capitalize,
                         ),
-                        Divider(height: constraints.maxHeight * 0.04),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.04),
                         ExerciseAttributeRow(
                           attributeName: "Secondary Muscles",
                           attributeValue: exercise.secondaryMuscles,

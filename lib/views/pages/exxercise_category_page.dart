@@ -23,28 +23,29 @@ class ExerciseCategory extends StatelessWidget {
       _imgPath =
           "assets/images/grid_images/${categoryName}/${exercises[0].primaryMuscle.replaceAll(" ", "_")}.png";
       _text = exercises[0].primaryMuscle;
-      // categoryName = categoryName + " Group";
+      categoryName = categoryName + " Group";
     } else if (categoryName == 'exercise') {
       _imgPath =
           "assets/images/grid_images/${categoryName}/${exercises[0].category.replaceAll(" ", "_")}.png";
       _text = exercises[0].category;
-      // categoryName = categoryName + " Category";
+      categoryName = categoryName + " Category";
     } else if (categoryName == 'equipment') {
       _imgPath =
           "assets/images/grid_images/${categoryName}/${exercises[0].equipment!.replaceAll(' ', '_')}.png";
 
       _text = exercises[0].equipment ?? 'Not Required';
-      // categoryName = categoryName + " Name";
+      categoryName = categoryName + " Name";
     } else {
       _imgPath = "assets/images/grid_images/equipment/placeholder.png";
       _text = exercises[0].level;
-      // categoryName = categoryName + " Level";
+      categoryName = categoryName + " Level";
     }
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary.darken(10),
+        backgroundColor: Theme.of(context).colorScheme.background.darken(20),
         elevation: 0,
+        surfaceTintColor: Colors.transparent,
         leading: IconButton(
           style: ButtonStyle(
             overlayColor: MaterialStatePropertyAll(
@@ -56,11 +57,10 @@ class ExerciseCategory extends StatelessWidget {
           },
           icon: Icon(
             Icons.arrow_back_ios_new,
-            color: Colors.white,
+            // color: Colors.grey.shade200,
           ),
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Center(
           child: exercises.isEmpty
@@ -74,9 +74,10 @@ class ExerciseCategory extends StatelessWidget {
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.25,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary.darken(10),
+                        color:
+                            Theme.of(context).colorScheme.background.darken(20),
                         borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(50),
+                          bottomRight: Radius.circular(60),
                         ),
                       ),
                       child: Column(
@@ -106,19 +107,22 @@ class ExerciseCategory extends StatelessWidget {
                                     .titleMedium!
                                     .copyWith(
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.grey.shade300,
+                                      fontSize:
+                                          _text.length >= 15 ? 12.5 : null,
+                                      letterSpacing: 2,
                                     ),
                               ),
                               Text(
                                 _text.toUpperCase(),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodySmall!
+                                    .bodyMedium!
                                     .copyWith(
                                       fontWeight: FontWeight.bold,
                                       letterSpacing:
                                           _text.length <= 12 ? 2.5 : null,
-                                      color: Colors.white,
+                                      fontSize: _text.length >= 15 ? 14 : null,
+                                      // color: Colors.white,
                                     ),
                               ),
                             ],
@@ -129,16 +133,28 @@ class ExerciseCategory extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.zero,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary.darken(10),
+                        color:
+                            Theme.of(context).colorScheme.background.darken(20),
                       ),
                       child: Container(
-                        height: MediaQuery.of(context).size.height * 0.06,
+                        height: MediaQuery.of(context).size.height * 0.08,
                         padding: EdgeInsets.zero,
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.background,
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(50),
+                            topLeft: Radius.circular(60),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "${exercises.length} exercises",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
                           ),
                         ),
                       ),
