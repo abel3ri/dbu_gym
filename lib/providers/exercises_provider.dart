@@ -13,22 +13,20 @@ class ExercisesProvider with ChangeNotifier {
   String? _categoryName;
   List<Exercise>? _exercises;
 
-  // void dynamicToExerciseTypeMapper() {
-  //   _exercises = this.allExercises.map((e) {
-  //     return Exercise(
-  //       name: e['name'],
-  //       primaryMuscle: e['primaryMuscles'][0],
-  //       equipment: e['equipment'],
-  //       level: e['level'],
-  //       mechanic: e['mechanic'],
-  //       force: e['force'],
-  //       secondaryMuscles: List<String>.from(e['secondaryMuscles']),
-  //       instructions: List<String>.from(e['instructions']),
-  //       category: e['category'],
-  //       images: List<String>.from(e['images']),
-  //     );
-  //   }).toList();
-  // }
+  Exercise dynamicToExerciseMapper(Map<dynamic, dynamic> e) {
+    return Exercise(
+      name: e['name'] as String,
+      primaryMuscle: List.from(e['primaryMuscles'])[0],
+      equipment: e['equipment'] as String?,
+      level: e['level'] as String,
+      mechanic: e['mechanic'] as String?,
+      force: e['force'] as String?,
+      secondaryMuscles: List.from(e['secondaryMuscles']),
+      instructions: List.from(['instructions']),
+      category: e['category'] as String,
+      images: List.from(e['images']),
+    );
+  }
 
   set setSearchParamter(String value) {
     _searchParamter = value;
@@ -50,18 +48,7 @@ class ExercisesProvider with ChangeNotifier {
             })
             .toList()
             .map(
-              (e) => Exercise(
-                name: e['name'] as String,
-                primaryMuscle: List.from(e['primaryMuscles'])[0],
-                equipment: e['equipment'] as String?,
-                level: e['level'] as String,
-                mechanic: e['mechanic'] as String?,
-                force: e['force'] as String?,
-                secondaryMuscles: List.from(e['secondaryMuscles']),
-                instructions: List.from(['instructions']),
-                category: e['category'] as String,
-                images: List.from(e['images']),
-              ),
+              (e) => dynamicToExerciseMapper(e),
             )
             .toList();
         notifyListeners();
@@ -73,18 +60,7 @@ class ExercisesProvider with ChangeNotifier {
             })
             .toList()
             .map(
-              (e) => Exercise(
-                name: e['name'] as String,
-                primaryMuscle: List.from(e['primaryMuscles'])[0],
-                equipment: e['equipment'] as String?,
-                level: e['level'] as String,
-                mechanic: e['mechanic'] as String?,
-                force: e['force'] as String?,
-                secondaryMuscles: List.from(e['secondaryMuscles']),
-                instructions: List.from(['instructions']),
-                category: e['category'] as String,
-                images: List.from(e['images']),
-              ),
+              (e) => dynamicToExerciseMapper(e),
             )
             .toList();
         notifyListeners();
@@ -96,18 +72,7 @@ class ExercisesProvider with ChangeNotifier {
             })
             .toList()
             .map(
-              (e) => Exercise(
-                name: e['name'] as String,
-                primaryMuscle: List.from(e['primaryMuscles'])[0],
-                equipment: e['equipment'] as String?,
-                level: e['level'] as String,
-                mechanic: e['mechanic'] as String?,
-                force: e['force'] as String?,
-                secondaryMuscles: List.from(e['secondaryMuscles']),
-                instructions: List.from(['instructions']),
-                category: e['category'] as String,
-                images: List.from(e['images']),
-              ),
+              (e) => dynamicToExerciseMapper(e),
             )
             .toList();
         notifyListeners();
@@ -121,18 +86,7 @@ class ExercisesProvider with ChangeNotifier {
             })
             .toList()
             .map(
-              (e) => Exercise(
-                name: e['name'] as String,
-                primaryMuscle: List.from(e['primaryMuscles'])[0],
-                equipment: e['equipment'] as String?,
-                level: e['level'] as String,
-                mechanic: e['mechanic'] as String?,
-                force: e['force'] as String?,
-                secondaryMuscles: List.from(e['secondaryMuscles']),
-                instructions: List.from(['instructions']),
-                category: e['category'] as String,
-                images: List.from(e['images']),
-              ),
+              (e) => dynamicToExerciseMapper(e),
             )
             .toList();
         notifyListeners();
