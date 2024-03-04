@@ -11,8 +11,6 @@ class ExerciseCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final exercisesProvider = Provider.of<ExercisesProvider>(context);
-    final exerciseProvider = Provider.of<ExerciseProvider>(context);
-
     final exercises = exercisesProvider.exercises;
     String categoryName = exercisesProvider.categoryName;
 
@@ -162,7 +160,6 @@ class ExerciseCategory extends StatelessWidget {
                                 Provider.of<ExercisesProvider>(context,
                                         listen: false)
                                     .getExercises();
-                                exerciseProvider.setExercise(exercises[index]);
                                 Provider.of<ExerciseProvider>(context,
                                         listen: false)
                                     .setExercise(exercises[index]);
