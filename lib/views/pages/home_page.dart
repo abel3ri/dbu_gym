@@ -28,7 +28,11 @@ class HomePage extends StatelessWidget {
           try {
             final Exercise exercise = await showSearch(
               context: context,
-              delegate: SearchPage(exercises: exercisesProvider.exercises),
+              delegate: SearchPage(
+                exercises: exercisesProvider.allExercises
+                    .map((e) => exercisesProvider.dynamicToExerciseMapper(e))
+                    .toList(),
+              ),
             );
             exerciseProvider.setExercise(exercise);
             GoRouter.of(context).pushNamed("exercise-details-page");
