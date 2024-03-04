@@ -138,7 +138,7 @@ class ExerciseCategory extends StatelessWidget {
                       ),
                       child: Container(
                         height: MediaQuery.of(context).size.height * 0.08,
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.only(right: 20),
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.background,
@@ -146,15 +146,34 @@ class ExerciseCategory extends StatelessWidget {
                             topLeft: Radius.circular(60),
                           ),
                         ),
-                        child: Center(
-                          child: Text(
-                            "${exercises.length} exercises",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(
+                        child: LayoutBuilder(
+                          builder: (context, constraints) => Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: SizedBox(
+                                  width: constraints.maxWidth * 0.2,
+                                ),
+                              ),
+                              Text(
+                                "${exercises.length} exercises",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.tune,
                                   color: Theme.of(context).colorScheme.primary,
                                 ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
