@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:dbu_gym/providers/exercises_provider.dart';
+import 'package:dbu_gym/views/widgets/exercise_attribute_row.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:dbu_gym/providers/exercise_provider.dart';
@@ -125,9 +126,7 @@ class ExerciseDetailsPage extends StatelessWidget {
                         Divider(height: constraints.maxHeight * 0.04),
                         ExerciseAttributeRow(
                           attributeName: "Secondary Muscles",
-                          attributeValue: exercise.equipment == null
-                              ? "-"
-                              : exercise.secondaryMuscles,
+                          attributeValue: exercise.secondaryMuscles,
                         ),
                       ],
                     ),
@@ -138,46 +137,6 @@ class ExerciseDetailsPage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-// ignore: must_be_immutable
-class ExerciseAttributeRow extends StatelessWidget {
-  ExerciseAttributeRow({
-    super.key,
-    required this.attributeName,
-    required this.attributeValue,
-  });
-
-  String attributeName;
-  dynamic attributeValue;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(attributeName),
-        attributeName == 'Secondary Muscles'
-            ? (attributeValue as List<String>).isEmpty
-                ? Text("None")
-                : Wrap(
-                    children: (attributeValue as List<String>)
-                        .map(
-                          (e) => Chip(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                            label: Text(e.capitalize),
-                            padding: EdgeInsets.zero,
-                          ),
-                        )
-                        .toList(),
-                  )
-            : Text(attributeValue),
-      ],
     );
   }
 }
