@@ -1,6 +1,8 @@
+import "package:dbu_gym/providers/theme_provider.dart";
 import "package:flex_color_scheme/flex_color_scheme.dart";
 import "package:flutter/material.dart";
 import "package:flutter_zoom_drawer/flutter_zoom_drawer.dart";
+import "package:provider/provider.dart";
 
 // ignore: must_be_immutable
 class AppZoomDrawer extends StatelessWidget {
@@ -58,7 +60,8 @@ class AppZoomDrawer extends StatelessWidget {
                   trailing: DropdownButton(
                     elevation: 0,
                     borderRadius: BorderRadius.all(Radius.circular(8)),
-                    value: "system",
+                    value: Provider.of<ThemeProvider>(context)
+                        .getCurrentThemeMode(),
                     style: Theme.of(context).textTheme.bodySmall,
                     items: [
                       DropdownMenuItem(
@@ -74,7 +77,10 @@ class AppZoomDrawer extends StatelessWidget {
                         value: "dark",
                       ),
                     ],
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      Provider.of<ThemeProvider>(context, listen: false)
+                          .changeSelectedTheme(value!);
+                    },
                   ),
                 ),
                 ListTile(
