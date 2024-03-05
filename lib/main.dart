@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:dbu_gym/providers/carousel_provider.dart';
 import 'package:dbu_gym/providers/exercise_provider.dart';
 import 'package:dbu_gym/providers/exercises_provider.dart';
@@ -6,6 +8,7 @@ import 'package:dbu_gym/providers/home_page_grid_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/firebase_options.dart';
 import 'package:dbu_gym/providers/pricing_provider.dart';
+import 'package:dbu_gym/providers/theme_provider.dart';
 import 'package:dbu_gym/router/router.dart';
 import 'package:dbu_gym/utils/loadExercie.dart';
 import 'package:dbu_gym/utils/theme.dart';
@@ -33,6 +36,7 @@ void main(List<String> args) async {
           create: (context) => ExercisesProvider(allExercises: allExercises),
         ),
         ChangeNotifierProvider(create: (context) => ExerciseProvider()),
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,
