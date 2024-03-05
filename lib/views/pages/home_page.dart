@@ -3,6 +3,7 @@ import 'package:dbu_gym/providers/exercise_provider.dart';
 import 'package:dbu_gym/providers/exercises_provider.dart';
 import 'package:dbu_gym/providers/home_page_grid_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
+import 'package:dbu_gym/views/pages/calc_bmi_page.dart';
 import 'package:dbu_gym/views/pages/search_page.dart';
 import 'package:dbu_gym/views/widgets/app_drawer.dart';
 import 'package:dbu_gym/views/widgets/home_page_grid.dart';
@@ -115,13 +116,7 @@ class HomePage extends StatelessWidget {
                                     : exerciseTypeCategories,
                       ),
                       Center(
-                        child: TextButton(
-                            onPressed: () async {
-                              await auth.signOut();
-                              GoRouter.of(context)
-                                  .pushReplacementNamed("splash");
-                            },
-                            child: Text("Sign out")),
+                        child: CalcBMIPage(),
                       ),
                     ],
                   ),
