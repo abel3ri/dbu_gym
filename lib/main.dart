@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:dbu_gym/providers/carousel_provider.dart';
 import 'package:dbu_gym/providers/exercise_provider.dart';
 import 'package:dbu_gym/providers/exercises_provider.dart';
@@ -16,12 +14,18 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import "package:shared_preferences/shared_preferences.dart";
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // get shared preferences instacne
+  final prefs = await SharedPreferences.getInstance();
+  // check if the app is running for the first time (i.e. key -> theme = null)
+  // if so set theme to system else do nothing
+  prefs.getString("theme") == null ? prefs.setString("theme", "system") : null;
   final allExercises = await loadExercises();
   await dotenv.load(fileName: ".env");
   runApp(
@@ -36,15 +40,25 @@ void main(List<String> args) async {
           create: (context) => ExercisesProvider(allExercises: allExercises),
         ),
         ChangeNotifierProvider(create: (context) => ExerciseProvider()),
-        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(
+            create: (context) => ThemeProvider(prefs: prefs)),
       ],
-      child: MaterialApp.router(
-        routerConfig: AppRouter.router,
-        debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.system,
-        theme: AppTheme.lightTheme,
-        darkTheme: AppTheme.darkTheme,
-      ),
+      child: Builder(builder: (context) {
+        // get the current selected theme and update the theme based on user selection
+        final selectedTheme =
+            Provider.of<ThemeProvider>(context).getCurrentThemeMode();
+        return MaterialApp.router(
+          routerConfig: AppRouter.router,
+          debugShowCheckedModeBanner: false,
+          themeMode: selectedTheme == 'system'
+              ? ThemeMode.system
+              : selectedTheme == 'dark'
+                  ? ThemeMode.dark
+                  : ThemeMode.light,
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+        );
+      }),
     ),
   );
 }
