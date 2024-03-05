@@ -97,6 +97,26 @@ class ExercisesProvider with ChangeNotifier {
     }
   }
 
+  void sortExercises(String sortValue) {
+    Map<String, int> difficultyLevelToNum = {
+      "beginner": 1,
+      "intermediate": 2,
+      "expert": 3,
+    };
+    if (sortValue == 'name') {
+      _exercises!.sort((a, b) => a.name.compareTo(b.name));
+      notifyListeners();
+    } else if (sortValue == 'level-asc') {
+      _exercises!.sort((a, b) => difficultyLevelToNum[a.level]!
+          .compareTo(difficultyLevelToNum[b.level]!));
+      notifyListeners();
+    } else if (sortValue == 'level-dec') {
+      _exercises!.sort((a, b) => difficultyLevelToNum[b.level]!
+          .compareTo(difficultyLevelToNum[a.level]!));
+      notifyListeners();
+    }
+  }
+
   String get searchParamter => _searchParamter!;
   String get categoryName => _categoryName!;
   List<Exercise> get exercises => _exercises!;
