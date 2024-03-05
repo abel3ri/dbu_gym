@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import "package:shared_preferences/shared_preferences.dart";
 
 class ThemeProvider with ChangeNotifier {
-  String _selectedTheme = 'system';
+  SharedPreferences prefs;
+  ThemeProvider({required this.prefs});
 
-  void changeSelectedTheme(String value) {
-    _selectedTheme = value;
-    notifyListeners();
+  String getCurrentThemeMode() {
+    return prefs.getString("theme")!;
   }
 
-  String get selectedTheme => _selectedTheme;
+  void changeSelectedTheme(String value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString("theme", value);
+    notifyListeners();
+  }
 }
