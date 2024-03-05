@@ -152,7 +152,7 @@ class ExerciseCategory extends StatelessWidget {
                             children: [
                               Flexible(
                                 child: SizedBox(
-                                  width: constraints.maxWidth * 0.2,
+                                  width: constraints.maxWidth * 0.15,
                                 ),
                               ),
                               Text(
@@ -166,12 +166,38 @@ class ExerciseCategory extends StatelessWidget {
                                           Theme.of(context).colorScheme.primary,
                                     ),
                               ),
-                              IconButton(
-                                onPressed: () {},
+                              PopupMenuButton(
+                                elevation: 0,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .background
+                                    .darken(20),
+                                tooltip: "Filter",
+                                initialValue: "name",
+                                onSelected: (value) {
+                                  exercisesProvider.sortExercises(value);
+                                },
                                 icon: Icon(
                                   Icons.tune,
                                   color: Theme.of(context).colorScheme.primary,
                                 ),
+                                padding: EdgeInsets.zero,
+                                itemBuilder: (context) => [
+                                  PopupMenuItem(
+                                    child: Text("Sort by name"),
+                                    value: "name",
+                                  ),
+                                  PopupMenuItem(
+                                    child:
+                                        Text("Sort by difficulty level - Asc"),
+                                    value: "level-asc",
+                                  ),
+                                  PopupMenuItem(
+                                    child:
+                                        Text("Sort by difficulty level- Dec"),
+                                    value: "level-dec",
+                                  ),
+                                ],
                               ),
                             ],
                           ),
