@@ -29,13 +29,13 @@ class AppZoomDrawer extends StatelessWidget {
         body: SafeArea(
           child: Center(
             child: ListView(
+              physics: BouncingScrollPhysics(),
               padding: EdgeInsets.symmetric(
                 vertical: MediaQuery.of(context).size.height * 0.08,
                 horizontal: MediaQuery.of(context).size.width * 0.02,
               ),
               children: [
                 CircleAvatar(
-                  // backgroundColor: ,
                   child: Icon(Icons.person),
                   radius: 30,
                 ),
@@ -57,8 +57,6 @@ class AppZoomDrawer extends StatelessWidget {
                   ),
                   trailing: DropdownButton(
                     elevation: 0,
-                    dropdownColor:
-                        Theme.of(context).colorScheme.background.darken(),
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                     value: "system",
                     style: Theme.of(context).textTheme.bodySmall,

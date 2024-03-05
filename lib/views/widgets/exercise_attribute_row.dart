@@ -56,7 +56,7 @@ class ExerciseAttributeRow extends StatelessWidget {
                                 e.capitalize,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyLarge!
+                                    .bodySmall!
                                     .copyWith(
                                       color:
                                           Theme.of(context).colorScheme.primary,

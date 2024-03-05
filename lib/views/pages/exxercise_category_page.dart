@@ -168,10 +168,9 @@ class ExerciseCategory extends StatelessWidget {
                               ),
                               PopupMenuButton(
                                 elevation: 0,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .background
-                                    .darken(20),
+                                color: Theme.of(context).colorScheme.background
+                                // .darken(20),
+                                ,
                                 tooltip: "Filter",
                                 initialValue: "name",
                                 onSelected: (value) {
