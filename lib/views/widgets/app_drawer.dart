@@ -1,7 +1,9 @@
 import "package:dbu_gym/providers/theme_provider.dart";
+import "package:dbu_gym/utils/constants.dart";
 import "package:flex_color_scheme/flex_color_scheme.dart";
 import "package:flutter/material.dart";
 import "package:flutter_zoom_drawer/flutter_zoom_drawer.dart";
+import "package:go_router/go_router.dart";
 import "package:provider/provider.dart";
 
 // ignore: must_be_immutable
@@ -30,68 +32,130 @@ class AppZoomDrawer extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.background.darken(2),
         body: SafeArea(
           child: Center(
-            child: ListView(
-              physics: BouncingScrollPhysics(),
+            child: Container(
+              height: MediaQuery.of(context).size.height,
               padding: EdgeInsets.symmetric(
                 vertical: MediaQuery.of(context).size.height * 0.08,
                 horizontal: MediaQuery.of(context).size.width * 0.02,
               ),
-              children: [
-                CircleAvatar(
-                  child: Icon(Icons.person),
-                  radius: 30,
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                ListTile(
-                  leading: Icon(Icons.person),
-                  title: Text(
-                    "Profile",
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                ListTile(
-                  leading: Icon(Icons.light_mode),
-                  title: Text(
-                    "Theme",
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  trailing: DropdownButton(
-                    elevation: 0,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    value: Provider.of<ThemeProvider>(context)
-                        .getCurrentThemeMode(),
-                    style: Theme.of(context).textTheme.bodySmall,
-                    items: [
-                      DropdownMenuItem(
-                        child: Text("System"),
-                        value: "system",
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      CircleAvatar(
+                        child: Icon(Icons.person),
+                        radius: 30,
                       ),
-                      DropdownMenuItem(
-                        child: Text("Light"),
-                        value: "light",
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
+                      ListTile(
+                        leading: Icon(Icons.person),
+                        title: Text(
+                          "Profile",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                       ),
-                      DropdownMenuItem(
-                        child: Text("Dark"),
-                        value: "dark",
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
+                      ListTile(
+                        leading: Icon(Provider.of<ThemeProvider>(context)
+                                    .getCurrentThemeMode() ==
+                                'dark'
+                            ? Icons.dark_mode
+                            : Icons.light_mode),
+                        title: Text(
+                          "Theme",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        trailing: DropdownButton(
+                          elevation: 0,
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          value: Provider.of<ThemeProvider>(context)
+                              .getCurrentThemeMode(),
+                          style: Theme.of(context).textTheme.bodySmall,
+                          items: [
+                            DropdownMenuItem(
+                              child: Text("System"),
+                              value: "system",
+                            ),
+                            DropdownMenuItem(
+                              child: Text("Light"),
+                              value: "light",
+                            ),
+                            DropdownMenuItem(
+                              child: Text("Dark"),
+                              value: "dark",
+                            ),
+                          ],
+                          onChanged: (value) {
+                            Provider.of<ThemeProvider>(context, listen: false)
+                                .changeSelectedTheme(value!);
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.money),
+                        title: Text(
+                          "Manage Subscription",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01),
+                      ListTile(
+                        onTap: () async {
+                          await auth.signOut();
+                          GoRouter.of(context).pushReplacementNamed("splash");
+                        },
+                        leading: Icon(Icons.logout_outlined),
+                        title: Text(
+                          "Logout",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                       ),
                     ],
-                    onChanged: (value) {
-                      Provider.of<ThemeProvider>(context, listen: false)
-                          .changeSelectedTheme(value!);
-                    },
                   ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.money),
-                  title: Text(
-                    "Manage Subscription",
-                    style: Theme.of(context).textTheme.bodyMedium,
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "V 1.0.0",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          SizedBox(width: 12),
+                          Text(
+                            "DBU Gym",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                          ),
+                        ],
+                      ),
+                      Divider(
+                        thickness: 0.5,
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text("Contact Developer"),
+                      ),
+                    ],
                   ),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              ],
+                ],
+              ),
             ),
           ),
         ),
