@@ -34,9 +34,11 @@ class AppZoomDrawer extends StatelessWidget {
           child: Center(
             child: Container(
               height: MediaQuery.of(context).size.height,
-              padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height * 0.08,
-                horizontal: MediaQuery.of(context).size.width * 0.02,
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.08,
+                left: MediaQuery.of(context).size.width * 0.02,
+                right: MediaQuery.of(context).size.width * 0.02,
+                bottom: MediaQuery.of(context).size.height * 0.01,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
