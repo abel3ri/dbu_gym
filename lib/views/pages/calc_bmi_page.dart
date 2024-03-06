@@ -1,4 +1,4 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:dbu_gym/views/widgets/bmi_input_field.dart';
 import 'package:flutter/material.dart';
 
 class CalcBMIPage extends StatelessWidget {
@@ -8,6 +8,7 @@ class CalcBMIPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24, vertical: 36),
           child: Card(
@@ -17,21 +18,18 @@ class CalcBMIPage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text("Calculate your BMI"),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  TextField(
-                    decoration: InputDecoration(
-                      fillColor:
-                          Theme.of(context).colorScheme.background.darken(5),
-                    ),
+                  BMIInputField(
+                    controller: TextEditingController(),
+                    inputName: "weightInput",
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  TextField(
-                    decoration: InputDecoration(
-                      fillColor:
-                          Theme.of(context).colorScheme.background.darken(5),
-                    ),
+                  BMIInputField(
+                    controller: TextEditingController(),
+                    inputName: "heightInput",
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   FilledButton(onPressed: () {}, child: Text("Calculate")),
