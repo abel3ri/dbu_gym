@@ -1,3 +1,4 @@
+import 'package:dbu_gym/providers/bmi_provider.dart';
 import 'package:dbu_gym/providers/carousel_provider.dart';
 import 'package:dbu_gym/providers/exercise_provider.dart';
 import 'package:dbu_gym/providers/exercises_provider.dart';
@@ -42,6 +43,7 @@ void main(List<String> args) async {
         ChangeNotifierProvider(create: (context) => ExerciseProvider()),
         ChangeNotifierProvider(
             create: (context) => ThemeProvider(prefs: prefs)),
+        ChangeNotifierProvider(create: (context) => BMIProvider())
       ],
       child: Builder(builder: (context) {
         // get the current selected theme and update the theme based on user selection
