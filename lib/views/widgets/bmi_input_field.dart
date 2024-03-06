@@ -33,6 +33,10 @@ class BMIInputField extends StatelessWidget {
           ),
         ),
       ),
+      textInputAction: inputName == 'weightInput'
+          ? TextInputAction.next
+          : TextInputAction.done,
+      keyboardType: TextInputType.number,
       validator: (value) {
         try {
           if (value!.isEmpty) return "Please provide this field.";
