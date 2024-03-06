@@ -1,8 +1,6 @@
-import "package:dio/dio.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:flutter/material.dart";
-import "package:flutter_dotenv/flutter_dotenv.dart";
 
 const List<Map<String, dynamic>> carouselContent = [
   {
@@ -253,15 +251,6 @@ const List<Map<String, String>> exerciseTypeCategories = [
     "imagePath": "assets/images/grid_images/exercise/powerlifting.png",
   },
 ];
-
-const exerciseAPIUrl = "https://work-out-api1.p.rapidapi.com/search";
-final dio = Dio();
-Options options = Options(
-  headers: {
-    'X-RapidAPI-Key': dotenv.env["API_KEY"],
-    'X-RapidAPI-Host': dotenv.env["API_HOST"],
-  },
-);
 
 final FirebaseAuth auth = FirebaseAuth.instance;
 final FirebaseFirestore db = FirebaseFirestore.instance;
