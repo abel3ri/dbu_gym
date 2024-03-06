@@ -13,7 +13,12 @@ class CalcBMIPage extends StatelessWidget {
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 36),
+          padding: EdgeInsets.only(
+            left: 24,
+            right: 24,
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+            top: 36,
+          ),
           child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
@@ -44,9 +49,29 @@ class CalcBMIPage extends StatelessWidget {
                         if (bmiProvider.formKey.currentState!.validate()) {
                           bmiProvider.calcBMI();
                         }
+                        FocusScope.of(context).unfocus();
                       },
                       child: Text("Calculate"),
                     ),
+                    if (bmiProvider.bmi != 0) ...[
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                        decoration: BoxDecoration(
+                          // color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          bmiProvider.bmiMessageMap(bmiProvider.bmi),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    color: Colors.grey.shade600,
+                                  ),
+                        ),
+                      ),
+                    ]
                   ],
                 ),
               ),
