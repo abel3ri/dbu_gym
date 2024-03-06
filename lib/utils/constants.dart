@@ -82,14 +82,14 @@ const Map<String, Map<String, List<String>>> workoutSessionContent = {
       "Fri morning: 06:00 AM - 07:30 AM",
     ],
     "program 2": [
-      "Mon afternoon: 04:00 PM - 05:30 PM",
-      "Wed afternoon: 04:00 PM - 05:30 PM",
-      "Fri afternoon: 04:00 PM - 05:30 PM",
+      "Mon afternoon: 03:00 PM - 04:30 PM",
+      "Wed afternoon: 03:00 PM - 04:30 PM",
+      "Fri afternoon: 03:00 PM - 04:30 PM",
     ],
     "program 3": [
-      "Mon afternoon: 06:00 PM - 07:30 PM",
-      "Wed afternoon: 06:00 PM - 07:30 PM",
-      "Fri afternoon: 06:00 PM - 07:30 PM",
+      "Mon afternoon: 05:00 PM - 06:30 PM",
+      "Wed afternoon: 05:00 PM - 06:30 PM",
+      "Fri afternoon: 05:00 PM - 06:30 PM",
     ],
   },
   "tueThuSat": {
