@@ -150,7 +150,15 @@ class AppZoomDrawer extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: Text("Contact Developer"),
+                        child: Text(
+                          "Contact Developer",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                        ),
                       ),
                     ],
                   ),

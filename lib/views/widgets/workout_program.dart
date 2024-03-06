@@ -1,4 +1,5 @@
 import 'package:dbu_gym/utils/constants.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -19,7 +20,7 @@ class WorkoutProgram extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            programName,
+            programName.capitalize,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
