@@ -12,8 +12,8 @@ class FormProvider with ChangeNotifier {
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   bool _isAuthenticating = false;
-  String? _workoutSesion;
   bool _hasDateInputError = false;
+  String _selectedWorkoutDays = 'default';
 
   void toggleShowPassword() {
     _showPassword = !_showPassword;
@@ -39,13 +39,13 @@ class FormProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setWorkoutSessionValue(String value) {
-    _workoutSesion = value;
+  void setIsAuthtentcating(bool value) {
+    _isAuthenticating = value;
     notifyListeners();
   }
 
-  void setIsAuthtentcating(bool value) {
-    _isAuthenticating = value;
+  void setSelectedWorkoutDays(String value) {
+    _selectedWorkoutDays = value;
     notifyListeners();
   }
 
@@ -60,6 +60,6 @@ class FormProvider with ChangeNotifier {
   GlobalKey<FormState> get loginFormKey => _loginFormKey;
   GlobalKey<FormState> get signUpFormKey => _signUpFormKey;
   bool get hasDateInputError => _hasDateInputError;
-  String? get workoutSession => _workoutSesion;
   bool get isAuthenticating => _isAuthenticating;
+  String get selectedWorkoutDays => _selectedWorkoutDays;
 }
