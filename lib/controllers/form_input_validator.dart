@@ -49,6 +49,6 @@ String? nameValidator(String? value) {
 }
 
 String? dropDownFormFieldValidator(String? value) {
-  if (value == 'default') return "Please provide workout session.";
+  if (value == 'default') return "Please provide this field.";
   return null;
 }

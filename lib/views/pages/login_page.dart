@@ -1,3 +1,4 @@
+import 'package:dbu_gym/utils/clear_form_inputs.dart';
 import 'package:dbu_gym/views/widgets/signup_login_form.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -14,6 +15,8 @@ class LoginPage extends StatelessWidget {
           onPressed: () {
             FocusManager.instance.primaryFocus!.unfocus();
             GoRouter.of(context).pushReplacementNamed("welcome");
+            // clear form inputs when user taps the back btn
+            clearFormInputs(context);
           },
           icon: Icon(Icons.arrow_back_ios_new),
           style: ButtonStyle(

@@ -12,5 +12,6 @@ void clearFormInputs(BuildContext context) {
   formProvider.endDateController.clear();
   formProvider.firstNameController.clear();
   formProvider.lastNameController.clear();
+  formProvider.setSelectedWorkoutDays("default");
   Provider.of<ProfileImageProvider>(context, listen: false).setImagePath(null);
 }
