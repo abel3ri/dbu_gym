@@ -50,6 +50,7 @@ class ExerciseAttributeRow extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(16),
                                 side: BorderSide(
                                   width: 0.25,
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                               ),
                               label: Text(

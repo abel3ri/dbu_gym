@@ -1,5 +1,4 @@
 // import 'package:dbu_gym/models/exercise.dart';
-
 import 'package:dbu_gym/models/exercise.dart';
 import 'package:flutter/material.dart';
 
@@ -13,18 +12,19 @@ class ExercisesProvider with ChangeNotifier {
   String? _categoryName;
   List<Exercise>? _exercises;
 
-  Exercise dynamicToExerciseMapper(Map<dynamic, dynamic> e) {
+  // Generic mapper function after filtering all exercises
+  Exercise dynamicToExerciseMapper(Map<dynamic, dynamic> exercise) {
     return Exercise(
-      name: e['name'] as String,
-      primaryMuscle: List.from(e['primaryMuscles'])[0],
-      equipment: e['equipment'] as String?,
-      level: e['level'] as String,
-      mechanic: e['mechanic'] as String?,
-      force: e['force'] as String?,
-      secondaryMuscles: List.from(e['secondaryMuscles']),
-      instructions: List.from(['instructions']),
-      category: e['category'] as String,
-      images: List.from(e['images']),
+      name: exercise['name'] as String,
+      primaryMuscle: List.from(exercise['primaryMuscles'])[0],
+      equipment: exercise['equipment'] as String?,
+      level: exercise['level'] as String,
+      mechanic: exercise['mechanic'] as String?,
+      force: exercise['force'] as String?,
+      secondaryMuscles: List.from(exercise['secondaryMuscles']),
+      instructions: List.from(exercise['instructions']),
+      category: exercise['category'] as String,
+      images: List.from(exercise['images']),
     );
   }
 
