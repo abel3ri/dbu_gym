@@ -14,6 +14,7 @@ class FormProvider with ChangeNotifier {
   bool _isAuthenticating = false;
   bool _hasDateInputError = false;
   String _selectedWorkoutDays = 'default';
+  String? _preferedWorkoutType;
 
   void toggleShowPassword() {
     _showPassword = !_showPassword;
@@ -49,6 +50,10 @@ class FormProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void setPreferedWorkoutType(String value) {
+    _preferedWorkoutType = value;
+  }
+
   get showPassword => _showPassword;
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
@@ -62,4 +67,5 @@ class FormProvider with ChangeNotifier {
   bool get hasDateInputError => _hasDateInputError;
   bool get isAuthenticating => _isAuthenticating;
   String get selectedWorkoutDays => _selectedWorkoutDays;
+  String get preferedWorkoutType => _preferedWorkoutType!;
 }
