@@ -183,23 +183,31 @@ class FormWidget extends StatelessWidget {
                     items: [
                       DropdownMenuItem(
                         value: "default",
-                        child: Text("Choose prefered workout session"),
+                        child: Text("Select number of workout days"),
+                        onTap: () {},
                       ),
                       DropdownMenuItem(
-                        value: "morning",
-                        child: Text("Morning session"),
+                        value: "oneThree",
+                        child: Text("1-3 Days"),
                       ),
                       DropdownMenuItem(
-                        value: "afternoon",
-                        child: Text("Evening session"),
+                        value: "fourSix",
+                        child: Text("4-6 Days"),
                       ),
                     ],
                     onChanged: (value) {
-                      Provider.of<FormProvider>(context, listen: false)
-                          .setWorkoutSessionValue(value!);
+                      formProvider.setSelectedWorkoutDays(value!);
                     },
                     validator: dropDownFormFieldValidator,
                   )
+                ],
+                if (formProvider.selectedWorkoutDays != "default") ...[
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  SignUpFormDropDownMenuBtn(
+                    workoutDays: formProvider.selectedWorkoutDays,
+                  ),
                 ],
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.02,
@@ -270,6 +278,52 @@ class FormWidget extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class SignUpFormDropDownMenuBtn extends StatelessWidget {
+  String workoutDays;
+  SignUpFormDropDownMenuBtn({
+    super.key,
+    required this.workoutDays,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButtonFormField(
+      value: "default",
+      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+            color: Colors.grey,
+          ),
+      items: [
+        DropdownMenuItem(
+          value: "default",
+          child: Text("Select prefered workout type"),
+        ),
+        DropdownMenuItem(
+          value: "strength",
+          child: Text("Strength Training"),
+        ),
+        DropdownMenuItem(
+          value: workoutDays == 'oneThree' ? "aerobics" : "aerobicsCardio",
+          child: Text(
+            workoutDays == 'oneThree'
+                ? "Aerobics Training"
+                : "Aerobics and Cardio Training",
+          ),
+        ),
+        DropdownMenuItem(
+          value: workoutDays == 'oneThree' ? "cardio" : "cardioStrength",
+          child: Text(
+            workoutDays == 'oneThree'
+                ? "Cardio Training"
+                : "Cardio and Strength Training",
+          ),
+        ),
+      ],
+      onChanged: (value) {},
+      validator: dropDownFormFieldValidator,
     );
   }
 }
