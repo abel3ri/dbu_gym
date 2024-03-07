@@ -1,5 +1,7 @@
 import 'package:dbu_gym/controllers/form_input_validator.dart';
+import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class SignUpFormDropDownMenuBtn extends StatelessWidget {
@@ -42,7 +44,10 @@ class SignUpFormDropDownMenuBtn extends StatelessWidget {
           ),
         ),
       ],
-      onChanged: (value) {},
+      onChanged: (value) {
+        Provider.of<FormProvider>(context, listen: false)
+            .setPreferedWorkoutType(value!);
+      },
       validator: dropDownFormFieldValidator,
     );
   }
