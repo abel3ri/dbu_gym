@@ -133,6 +133,85 @@ class ExerciseDetailsPage extends StatelessWidget {
                           attributeName: "Secondary Muscles",
                           attributeValue: exercise.secondaryMuscles,
                         ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.04),
+                        Column(
+                          children: [
+                            Text(
+                              "Instructions",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.02),
+                            ...exercise.instructions
+                                .map(
+                                  (e) => Container(
+                                    margin: EdgeInsets.symmetric(vertical: 8),
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 16,
+                                      horizontal: 8,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background
+                                          .darken(4),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        CircleAvatar(
+                                          child: Text(
+                                            "${exercise.instructions.indexOf(e) + 1}",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium!
+                                                .copyWith(
+                                                  color: Colors.grey.shade300,
+                                                ),
+                                          ),
+                                          radius: 14,
+                                          backgroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.03,
+                                        ),
+                                        Flexible(
+                                          child: Wrap(
+                                            children: [
+                                              Text(
+                                                e,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyMedium!
+                                                    .copyWith(
+                                                      height: 1.6,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          ],
+                        )
                       ],
                     ),
                   ),
