@@ -9,7 +9,8 @@ class GymUser {
   late String password;
   late String gymStartDate;
   late String gymEndDate;
-  late String workoutSession;
+  // late int numWorkoutDays;
+  // late String subscribedWorkoutType;
 
   GymUser({
     required this.firstName,
@@ -18,7 +19,8 @@ class GymUser {
     required this.password,
     required this.gymStartDate,
     required this.gymEndDate,
-    required this.workoutSession,
+    // required this.numWorkoutDays,
+    // required this.subscribedWorkoutType,
   });
 
   Future<Either<String, User>> signUpUserWithEmailAndPassword() async {
@@ -38,7 +40,6 @@ class GymUser {
           "password": password,
           "gymStartDate": gymStartDate,
           "gymEndDate": gymEndDate,
-          "workoutSession": workoutSession,
         });
         return right(user);
       }
