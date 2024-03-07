@@ -21,6 +21,8 @@ Future<void> signUpLoginController({
         password: formProvider.passwordController.text,
         gymStartDate: formProvider.startDateController.text,
         gymEndDate: formProvider.endDateController.text,
+        numWorkoutDays: formProvider.selectedWorkoutDays,
+        subscribedWorkoutType: formProvider.preferedWorkoutType,
       );
       res = await user.signUpUserWithEmailAndPassword();
     } else
