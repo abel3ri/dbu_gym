@@ -9,8 +9,8 @@ class GymUser {
   late String password;
   late String gymStartDate;
   late String gymEndDate;
-  // late int numWorkoutDays;
-  // late String subscribedWorkoutType;
+  late String numWorkoutDays;
+  late String subscribedWorkoutType;
 
   GymUser({
     required this.firstName,
@@ -19,8 +19,8 @@ class GymUser {
     required this.password,
     required this.gymStartDate,
     required this.gymEndDate,
-    // required this.numWorkoutDays,
-    // required this.subscribedWorkoutType,
+    required this.numWorkoutDays,
+    required this.subscribedWorkoutType,
   });
 
   Future<Either<String, User>> signUpUserWithEmailAndPassword() async {
@@ -35,11 +35,13 @@ class GymUser {
         // Save user to firestore if the user is successfuly created with E&P
         await db.collection("users").doc(user.uid).set({
           "id": user.uid,
-          "fullName": firstName + lastName,
+          "fullName": "${firstName} ${lastName}",
           "email": email,
           "password": password,
           "gymStartDate": gymStartDate,
           "gymEndDate": gymEndDate,
+          "numWorkoutDays": numWorkoutDays,
+          "subscribedWorkoutType": subscribedWorkoutType,
         });
         return right(user);
       }
