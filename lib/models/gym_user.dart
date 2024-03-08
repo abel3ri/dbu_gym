@@ -11,6 +11,7 @@ class GymUser {
   late String gymEndDate;
   late String numWorkoutDays;
   late String subscribedWorkoutType;
+  late String profileImageUrl;
 
   GymUser({
     required this.firstName,
@@ -21,6 +22,7 @@ class GymUser {
     required this.gymEndDate,
     required this.numWorkoutDays,
     required this.subscribedWorkoutType,
+    required this.profileImageUrl,
   });
 
   Future<Either<String, User>> signUpUserWithEmailAndPassword() async {
@@ -42,6 +44,7 @@ class GymUser {
           "gymEndDate": gymEndDate,
           "numWorkoutDays": numWorkoutDays,
           "subscribedWorkoutType": subscribedWorkoutType,
+          "profileImageUrl": profileImageUrl,
         });
         return right(user);
       }
