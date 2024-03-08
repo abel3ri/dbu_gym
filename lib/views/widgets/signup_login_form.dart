@@ -69,12 +69,13 @@ class FormWidget extends StatelessWidget {
                 GestureDetector(
                   onTap: () async {
                     showModalBottomSheet(
-                        showDragHandle: true,
-                        constraints: BoxConstraints.tight(Size(
-                            MediaQuery.of(context).size.width,
-                            MediaQuery.of(context).size.height * 0.3)),
-                        context: context,
-                        builder: (context) => ImagePickSelector());
+                      showDragHandle: true,
+                      constraints: BoxConstraints.tight(Size(
+                          MediaQuery.of(context).size.width,
+                          MediaQuery.of(context).size.height * 0.3)),
+                      context: context,
+                      builder: (context) => ImagePickSelector(),
+                    );
                   },
                   child: Icon(
                     Icons.add,
@@ -243,8 +244,22 @@ class FormWidget extends StatelessWidget {
                         clearFormInputs(context);
                       }
                     } else {
+                      if (imageProvider.imagePath == null) {
+                        // if the form is sign up form and user didn't provide profile image, show an error snackbar
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Please provide profile image."),
+                          ),
+                        );
+                      }
                       // valid sign up inputs
-                      if (formProvider.signUpFormKey.currentState!.validate()) {
+                      if (formProvider.signUpFormKey.currentState!.validate() &&
+                          imageProvider.imagePath != null) {
+                        // set image profile field from image provider
+                        formProvider.setIsAuthtentcating(true);
+                        await formProvider.setProfileImageUrl(
+                            imageProvider.imagePath!, imageProvider.imageName!);
                         await signUpLoginController(
                           formProvider: formProvider,
                           context: context,
