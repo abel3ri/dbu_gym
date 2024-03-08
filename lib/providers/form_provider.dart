@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:dbu_gym/utils/constants.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class FormProvider with ChangeNotifier {
@@ -15,6 +19,7 @@ class FormProvider with ChangeNotifier {
   bool _hasDateInputError = false;
   String _selectedWorkoutDays = 'default';
   String? _preferedWorkoutType;
+  String? _profileImageUrl;
 
   void toggleShowPassword() {
     _showPassword = !_showPassword;
@@ -55,6 +60,20 @@ class FormProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> setProfileImageUrl(String imageUrl, String imageName) async {
+    try {
+      File profileImage = File(imageUrl);
+      Reference ref = storage.ref().child("profile_images/${imageName}");
+      UploadTask uploadTask = ref.putFile(profileImage);
+      final snapshot = await uploadTask.whenComplete(() => {});
+      _profileImageUrl = await snapshot.ref.getDownloadURL();
+      notifyListeners();
+    } catch (err) {
+      print(err.toString());
+      notifyListeners();
+    }
+  }
+
   get showPassword => _showPassword;
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
@@ -69,4 +88,5 @@ class FormProvider with ChangeNotifier {
   bool get isAuthenticating => _isAuthenticating;
   String get selectedWorkoutDays => _selectedWorkoutDays;
   String get preferedWorkoutType => _preferedWorkoutType!;
+  String get profileImageUrl => _profileImageUrl!;
 }
