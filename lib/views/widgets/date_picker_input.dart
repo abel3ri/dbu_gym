@@ -26,6 +26,12 @@ class DatePickerInputField extends StatelessWidget {
         labelStyle: TextStyle(color: Colors.grey, fontSize: 12),
         hintText: "MM-DD-YYYY",
         prefixIcon: Icon(Icons.date_range),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
+            width: 1,
+          ),
+        ),
         prefixIconColor: Colors.grey,
         errorText: formProvider.hasDateInputError ? "" : null,
       ),

@@ -29,7 +29,8 @@ class BMIInputField extends StatelessWidget {
         suffixText: inputName == 'weightInput' ? "Killograms" : "Meters",
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.transparent,
+            color: Theme.of(context).colorScheme.primary,
+            width: 1,
           ),
         ),
       ),

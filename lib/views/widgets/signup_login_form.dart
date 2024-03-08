@@ -181,6 +181,14 @@ class FormWidget extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           color: Colors.grey,
                         ),
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.primary,
+                          width: 1,
+                        ),
+                      ),
+                    ),
                     items: [
                       DropdownMenuItem(
                         value: "default",
@@ -206,7 +214,8 @@ class FormWidget extends StatelessWidget {
                     validator: dropDownFormFieldValidator,
                   )
                 ],
-                if (formProvider.selectedWorkoutDays != "default") ...[
+                if (formProvider.selectedWorkoutDays != "default" &&
+                    formType == 'Sign up') ...[
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.02,
                   ),

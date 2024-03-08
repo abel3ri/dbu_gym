@@ -30,6 +30,12 @@ class FormInputField extends StatelessWidget {
         labelStyle: TextStyle(color: Colors.grey),
         prefixIcon: prefixIcon,
         prefixIconColor: Colors.grey,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
+            width: 1,
+          ),
+        ),
         suffixIcon: labelText == "Password"
             ? IconButton(
                 onPressed: () {
