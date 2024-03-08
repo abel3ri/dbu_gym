@@ -104,7 +104,7 @@ class ExercisesProvider with ChangeNotifier {
       "expert": 3,
     };
     if (sortValue == 'name') {
-      _exercises!.sort((a, b) => a.name.compareTo(b.name));
+       _exercises!.sort((a, b) => a.name.compareTo(b.name));
       notifyListeners();
     } else if (sortValue == 'level-asc') {
       _exercises!.sort((a, b) => difficultyLevelToNum[a.level]!

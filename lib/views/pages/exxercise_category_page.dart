@@ -217,9 +217,6 @@ class ExerciseCategory extends StatelessWidget {
                             child: ListTile(
                               splashColor: Colors.transparent,
                               onTap: () {
-                                Provider.of<ExercisesProvider>(context,
-                                        listen: false)
-                                    .getExercises();
                                 Provider.of<ExerciseProvider>(context,
                                         listen: false)
                                     .setExercise(exercises[index]);
