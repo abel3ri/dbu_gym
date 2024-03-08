@@ -23,6 +23,7 @@ Future<void> signUpLoginController({
         gymEndDate: formProvider.endDateController.text,
         numWorkoutDays: formProvider.selectedWorkoutDays,
         subscribedWorkoutType: formProvider.preferedWorkoutType,
+        profileImageUrl: formProvider.profileImageUrl,
       );
       res = await user.signUpUserWithEmailAndPassword();
     } else
@@ -49,6 +50,6 @@ Future<void> signUpLoginController({
       ),
     );
   }, (user) {
-    GoRouter.of(context).pushReplacementNamed("home");
+    GoRouter.of(context).pushReplacementNamed("splash");
   });
 }
