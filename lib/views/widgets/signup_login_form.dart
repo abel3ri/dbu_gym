@@ -184,7 +184,12 @@ class FormWidget extends StatelessWidget {
                     items: [
                       DropdownMenuItem(
                         value: "default",
-                        child: Text("Select number of workout days"),
+                        child: Text(
+                          "Select number of workout days",
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
                       ),
                       DropdownMenuItem(
                         value: "oneThree",

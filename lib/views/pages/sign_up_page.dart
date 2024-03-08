@@ -11,6 +11,7 @@ class SignUpPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        surfaceTintColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
             FocusManager.instance.primaryFocus!.unfocus();

@@ -23,7 +23,12 @@ class SignUpFormDropDownMenuBtn extends StatelessWidget {
       items: [
         DropdownMenuItem(
           value: workoutDays == 'oneThree' ? 'default1-3' : "default4-6",
-          child: Text("Select prefered workout type"),
+          child: Text(
+            "Select prefered workout type",
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
         ),
         DropdownMenuItem(
           value: "strength",
