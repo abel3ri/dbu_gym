@@ -11,16 +11,18 @@ class SignUpFormDropDownMenuBtn extends StatelessWidget {
     required this.workoutDays,
   });
 
+  // display different dropdownmenuitem content based on the selected workout days
   @override
   Widget build(BuildContext context) {
+    final formProvider = Provider.of<FormProvider>(context);
     return DropdownButtonFormField(
-      value: "default",
+      value: workoutDays == 'oneThree' ? 'default1-3' : "default4-6",
       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
             color: Colors.grey,
           ),
       items: [
         DropdownMenuItem(
-          value: "default",
+          value: workoutDays == 'oneThree' ? 'default1-3' : "default4-6",
           child: Text("Select prefered workout type"),
         ),
         DropdownMenuItem(
@@ -45,8 +47,8 @@ class SignUpFormDropDownMenuBtn extends StatelessWidget {
         ),
       ],
       onChanged: (value) {
-        Provider.of<FormProvider>(context, listen: false)
-            .setPreferedWorkoutType(value!);
+        formProvider.setPreferedWorkoutType(value!);
+        // print(formProvider.preferedWorkoutType);
       },
       validator: dropDownFormFieldValidator,
     );

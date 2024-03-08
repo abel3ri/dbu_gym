@@ -185,7 +185,6 @@ class FormWidget extends StatelessWidget {
                       DropdownMenuItem(
                         value: "default",
                         child: Text("Select number of workout days"),
-                        onTap: () {},
                       ),
                       DropdownMenuItem(
                         value: "oneThree",

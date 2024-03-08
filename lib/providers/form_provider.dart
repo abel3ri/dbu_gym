@@ -52,6 +52,7 @@ class FormProvider with ChangeNotifier {
 
   void setPreferedWorkoutType(String value) {
     _preferedWorkoutType = value;
+    notifyListeners();
   }
 
   get showPassword => _showPassword;
