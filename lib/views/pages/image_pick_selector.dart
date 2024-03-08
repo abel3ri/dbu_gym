@@ -19,7 +19,7 @@ class ImagePickSelector extends StatelessWidget {
               res.fold((l) => print(l), (r) {
                 GoRouter.of(context).pop();
                 Provider.of<ProfileImageProvider>(context, listen: false)
-                    .setImagePath(r.path);
+                    .setImagePathAndName(r.path, r.name);
               });
             },
             child: Column(
@@ -38,7 +38,7 @@ class ImagePickSelector extends StatelessWidget {
               res.fold((l) => print(l), (r) {
                 GoRouter.of(context).pop();
                 Provider.of<ProfileImageProvider>(context, listen: false)
-                    .setImagePath(r.path);
+                    .setImagePathAndName(r.path, r.name);
               });
             },
             child: Column(
