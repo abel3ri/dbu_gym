@@ -1,5 +1,6 @@
 import 'package:dbu_gym/models/gym_user.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
+import 'package:dbu_gym/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -52,4 +53,26 @@ Future<void> signUpLoginController({
   }, (user) {
     GoRouter.of(context).pushReplacementNamed("splash");
   });
+}
+
+Future<GymUser?> getUserData() async {
+  try {
+    final res = await db.collection("users").doc(auth.currentUser!.uid).get();
+    Map<String, dynamic> userData = res.data()!;
+    GymUser user = GymUser(
+      firstName: userData['fullName'].split(" ")[0],
+      lastName: userData['fullName'].split(" ")[1],
+      email: userData['email'],
+      password: userData['password'],
+      gymStartDate: userData['gymStartDate'],
+      gymEndDate: userData['gymEndDate'],
+      numWorkoutDays: userData['numWorkoutDays'],
+      subscribedWorkoutType: userData['subscribedWorkoutType'],
+      profileImageUrl: userData['profileImageUrl'],
+    );
+    return user;
+  } catch (err) {
+    print(err.toString());
+  }
+  return null;
 }
