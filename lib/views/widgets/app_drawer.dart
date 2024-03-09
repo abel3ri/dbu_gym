@@ -35,7 +35,7 @@ class AppZoomDrawer extends StatelessWidget {
             child: Container(
               height: MediaQuery.of(context).size.height,
               padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.08,
+                top: MediaQuery.of(context).size.height * 0.06,
                 left: MediaQuery.of(context).size.width * 0.02,
                 right: MediaQuery.of(context).size.width * 0.02,
                 bottom: MediaQuery.of(context).size.height * 0.01,
@@ -45,33 +45,42 @@ class AppZoomDrawer extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      CircleAvatar(
-                        child: Icon(Icons.person),
-                        radius: 30,
+                      // SizedBox(
+                      //     height: MediaQuery.of(context).size.height * 0.02),
+                      Text(
+                        "Settings",
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
+                      Divider(),
                       SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01),
-                      ListTile(
-                        leading: Icon(Icons.person),
-                        title: Text(
-                          "Profile",
-                          style: Theme.of(context).textTheme.bodyMedium,
+                          height: MediaQuery.of(context).size.height * 0.05),
+                      if (auth.currentUser != null) ...[
+                        CircleAvatar(
+                          child: Icon(Icons.person),
+                          radius: 30,
                         ),
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.01),
+                        ListTile(
+                          leading: Icon(Icons.person),
+                          titleTextStyle:
+                              Theme.of(context).textTheme.bodyMedium,
+                          title: Text("Profile"),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.01),
+                      ],
                       ListTile(
                         leading: Icon(Provider.of<ThemeProvider>(context)
                                     .getCurrentThemeMode() ==
                                 'dark'
                             ? Icons.dark_mode
                             : Icons.light_mode),
-                        title: Text(
-                          "Theme",
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
+                        titleTextStyle: Theme.of(context).textTheme.bodyMedium,
+                        title: Text("Theme"),
                         trailing: DropdownButton(
                           elevation: 0,
                           borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -98,25 +107,32 @@ class AppZoomDrawer extends StatelessWidget {
                           },
                         ),
                       ),
-                      ListTile(
-                        leading: Icon(Icons.money),
-                        title: Text(
-                          "Manage Subscription",
-                          style: Theme.of(context).textTheme.bodyMedium,
+                      if (auth.currentUser != null)
+                        ListTile(
+                          leading: Icon(Icons.money),
+                          titleTextStyle:
+                              Theme.of(context).textTheme.bodyMedium,
+                          title: Text("Manage Subscription"),
                         ),
+
+                      ListTile(
+                        leading: Icon(Icons.question_mark),
+                        titleTextStyle: Theme.of(context).textTheme.bodyMedium,
+                        title: Text("FAQs"),
                       ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01),
                       ListTile(
                         onTap: () async {
                           await auth.signOut();
                           GoRouter.of(context).pushReplacementNamed("splash");
                         },
+                        textColor: Theme.of(context).colorScheme.error,
+                        iconColor: Theme.of(context).colorScheme.error,
                         leading: Icon(Icons.logout_outlined),
-                        title: Text(
-                          "Logout",
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
+                        titleTextStyle:
+                            Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                        title: Text("Logout"),
                       ),
                     ],
                   ),
