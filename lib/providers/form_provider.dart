@@ -17,6 +17,7 @@ class FormProvider with ChangeNotifier {
   final _lastNameController = TextEditingController();
   bool _isAuthenticating = false;
   bool _hasDateInputError = false;
+  String _dateInputErrorStr = '';
   String _selectedWorkoutDays = 'default';
   String? _preferedWorkoutType;
   String? _profileImageUrl;
@@ -26,7 +27,7 @@ class FormProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void changeDateInputValue(String value, String labelText) {
+  void setDateInputValue(String value, String labelText) {
     if (labelText == "Gym Start Date") {
       _startDateController.text = value;
     } else {
@@ -60,6 +61,11 @@ class FormProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void setDateInputStr(String errorName) {
+    _dateInputErrorStr = errorName;
+    notifyListeners();
+  }
+
   Future<void> setProfileImageUrl(String imageUrl, String imageName) async {
     try {
       File profileImage = File(imageUrl);
@@ -74,7 +80,7 @@ class FormProvider with ChangeNotifier {
     }
   }
 
-  get showPassword => _showPassword;
+  bool get showPassword => _showPassword;
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
   TextEditingController get rePasswordController => _rePasswordController;
@@ -89,4 +95,5 @@ class FormProvider with ChangeNotifier {
   String get selectedWorkoutDays => _selectedWorkoutDays;
   String get preferedWorkoutType => _preferedWorkoutType!;
   String get profileImageUrl => _profileImageUrl!;
+  String? get dateInputErrorStr => _dateInputErrorStr;
 }
