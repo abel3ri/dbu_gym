@@ -17,4 +17,6 @@ void clearFormInputs(BuildContext context) {
     null,
     null,
   );
+  formProvider.toggleDateInputSuccess();
+  formProvider.setDateInputStr("");
 }
