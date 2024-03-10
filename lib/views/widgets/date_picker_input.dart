@@ -51,18 +51,22 @@ class DatePickerInputField extends StatelessWidget {
               "${date!.year.toString().padLeft(2, "0")}-${date.month.toString().padLeft(2, "0")}-${date.day.toString().padLeft(2, "0")}";
 
           Provider.of<FormProvider>(context, listen: false)
-              .changeDateInputValue(picked_date, labelText);
+              .setDateInputValue(picked_date, labelText);
         } catch (e) {
           print(e.toString());
         }
       },
       validator: (value) {
         if (value!.isEmpty) return "${labelText} is required.";
-        return dateValidator(
-          context: context,
-          startDate: formProvider.startDateController.text,
-          endDate: formProvider.endDateController.text,
-        );
+
+        if (formProvider.startDateController.text.isNotEmpty &&
+            formProvider.endDateController.text.isNotEmpty)
+          return dateValidator(
+            context: context,
+            startDate: DateTime.parse(formProvider.startDateController.text),
+            endDate: DateTime.parse(formProvider.endDateController.text),
+          );
+        return null;
       },
     );
   }
