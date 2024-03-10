@@ -28,16 +28,25 @@ String? passwordValidator({
 }
 
 String? dateValidator({
-  required String startDate,
-  required String endDate,
+  required DateTime startDate,
+  required DateTime endDate,
   required BuildContext context,
 }) {
-  if (DateTime.parse(startDate).isAfter(DateTime.parse(endDate))) {
-    Provider.of<FormProvider>(context, listen: false).toggleDateInputError();
-
+  final formProvider = Provider.of<FormProvider>(context, listen: false);
+  if (startDate.isBefore(DateTime.fromMillisecondsSinceEpoch(
+          DateTime.now().millisecondsSinceEpoch - 24 * 60 * 60 * 1000)) ||
+      endDate.isBefore(DateTime.now())) {
+    formProvider.toggleDateInputError();
+    formProvider.setDateInputStr("Invalid Date Entered.");
     return "";
   }
-  Provider.of<FormProvider>(context, listen: false).toggleDateInputSuccess();
+
+  if (startDate.isAfter(endDate)) {
+    formProvider.toggleDateInputError();
+    formProvider.setDateInputStr("Start Date should not exceed End Date.");
+    return "";
+  }
+  formProvider.toggleDateInputSuccess();
   return null;
 }
 
