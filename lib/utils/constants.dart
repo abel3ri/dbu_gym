@@ -22,21 +22,21 @@ const Map<String, List<Map<String, dynamic>>> pricingContent = {
   "1-3Days": [
     {
       "workoutType": "Strength Training",
-      "imagePath": "assets/images/pricing_page_image_1.png",
+      "imagePath": "assets/images/strength.png",
       "insidersPrice": "250 ETB/month",
       "outsidersPrice": "300 ETB/month",
       "noWorkingDays": "3 Days/week",
     },
     {
       "workoutType": "Aerobics Training",
-      "imagePath": "assets/images/pricing_page_image_3.png",
+      "imagePath": "assets/images/aerobics.png",
       "insidersPrice": "300 ETB/month",
       "outsidersPrice": "350 ETB/month",
       "noWorkingDays": "3 Days/week",
     },
     {
       "workoutType": "Cardio Training",
-      "imagePath": "assets/images/pricing_page_image_2.png",
+      "imagePath": "assets/images/cardio.png",
       "insidersPrice": "300 ETB/month",
       "outsidersPrice": "350 ETB/month",
       "noWorkingDays": "3 Days/week",
