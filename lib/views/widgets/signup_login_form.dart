@@ -67,7 +67,7 @@ class FormWidget extends StatelessWidget {
                       : null,
                 ),
                 GestureDetector(
-                  onTap: () async {
+                  onTap: () {
                     showModalBottomSheet(
                       showDragHandle: true,
                       constraints: BoxConstraints.tight(Size(
@@ -167,7 +167,7 @@ class FormWidget extends StatelessWidget {
                       ),
                       if (formProvider.hasDateInputError) ...[
                         Text(
-                          "Start Date should not exceed End Date.",
+                          formProvider.dateInputErrorStr!,
                           style:
                               Theme.of(context).textTheme.bodySmall!.copyWith(
                                     color: Theme.of(context).colorScheme.error,
