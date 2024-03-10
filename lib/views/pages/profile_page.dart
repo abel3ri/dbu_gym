@@ -1,7 +1,9 @@
 import 'package:dbu_gym/controllers/user_controller.dart';
+import 'package:dbu_gym/views/widgets/profile_page_row.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -36,95 +38,129 @@ class ProfilePage extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else {
-            return Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.03,
-                vertical: MediaQuery.of(context).size.height * 0.02,
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      CircleAvatar(
-                        radius: 55,
-                        child: CircleAvatar(
-                          radius: 50,
-                          backgroundImage: snapshot.hasData
-                              ? NetworkImage(snapshot.data!.profileImageUrl)
-                              : null,
+            return LayoutBuilder(
+              builder: (context, constraints) => Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: constraints.maxWidth * 0.03,
+                  vertical: constraints.maxHeight * 0.02,
+                ),
+                height: MediaQuery.of(context).size.height,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        CircleAvatar(
+                          radius: 55,
+                          child: CircleAvatar(
+                            radius: 50,
+                            backgroundImage: snapshot.hasData
+                                ? NetworkImage(snapshot.data!.profileImageUrl)
+                                : null,
+                          ),
+                        ),
+                        SizedBox(width: constraints.maxWidth * 0.06),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${snapshot.data!.firstName} ${snapshot.data!.lastName}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineLarge!
+                                  .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            SizedBox(width: constraints.maxWidth * 0.04),
+                            Text(
+                              snapshot.data!.email,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: constraints.maxHeight * 0.04),
+                    Container(
+                      width: constraints.maxWidth,
+                      child: Card(
+                        color:
+                            Theme.of(context).colorScheme.background.darken(5),
+                        elevation: 0,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: constraints.maxHeight * 0.02,
+                            horizontal: constraints.maxWidth * 0.04,
+                          ),
+                          child: Column(
+                            children: [
+                              ProfilePageRow(
+                                title: "Gym Start Date",
+                                data: DateFormat.yMMMd("en-US").format(
+                                  DateTime.parse(snapshot.data!.gymStartDate),
+                                ),
+                              ),
+                              SizedBox(height: constraints.maxHeight * 0.04),
+                              ProfilePageRow(
+                                title: "Gym End Date",
+                                data: DateFormat.yMMMd("en-US").format(
+                                  DateTime.parse(snapshot.data!.gymEndDate),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.04),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "${snapshot.data!.firstName} ${snapshot.data!.lastName}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineLarge!
-                                .copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                    ),
+                    SizedBox(height: constraints.maxHeight * 0.01),
+                    Container(
+                      height: constraints.maxHeight * 0.55,
+                      width: constraints.maxWidth,
+                      child: Card(
+                        color:
+                            Theme.of(context).colorScheme.background.darken(5),
+                        elevation: 0,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: constraints.maxHeight * 0.02,
+                            horizontal: constraints.maxWidth * 0.04,
                           ),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.height * 0.04),
-                          Text(
-                            snapshot.data!.email,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.04,
-                  ),
-                  Container(
-                    height: 200,
-                    width: MediaQuery.of(context).size.width,
-                    child: Card(
-                      color: Theme.of(context).colorScheme.background.darken(5),
-                      elevation: 0,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          child: Column(
                             children: [
-                              Text("Gym Start Date"),
-                              Text(snapshot.data!.gymStartDate),
+                              ProfilePageRow(
+                                  title: "Number of Workout Days",
+                                  data: snapshot.data!.numWorkoutDays ==
+                                          'oneThree'
+                                      ? "1-3 Days"
+                                      : "4-6 Days"),
+                              if (snapshot.data!.subscribedWorkoutType ==
+                                  'strength') ...[
+                                SizedBox(height: constraints.maxHeight * 0.02),
+                                Image.asset(
+                                  'assets/images/pricing_page_image_1.png',
+                                  width: constraints.maxWidth * 0.9,
+                                  height: constraints.maxHeight * 0.35,
+                                ),
+                              ],
+                              SizedBox(height: constraints.maxHeight * 0.04),
+                              ProfilePageRow(
+                                title: "Workout Plan",
+                                data: snapshot.data!.subscribedWorkoutType,
+                              ),
                             ],
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text("Gym End Date"),
-                              Text(snapshot.data!.gymEndDate),
-                            ],
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.01,
-                  ),
-                  Container(
-                    height: 200,
-                    width: MediaQuery.of(context).size.width,
-                    child: Card(
-                      color: Theme.of(context).colorScheme.background.darken(5),
-                      elevation: 0,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           }
