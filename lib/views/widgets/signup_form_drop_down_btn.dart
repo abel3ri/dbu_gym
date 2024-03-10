@@ -43,7 +43,7 @@ class SignUpFormDropDownMenuBtn extends StatelessWidget {
           child: Text("Strength Training"),
         ),
         DropdownMenuItem(
-          value: workoutDays == 'oneThree' ? "aerobics" : "aerobicsCardio",
+          value: workoutDays == 'oneThree' ? "aerobics" : "aerobics_cardio",
           child: Text(
             workoutDays == 'oneThree'
                 ? "Aerobics Training"
@@ -51,7 +51,7 @@ class SignUpFormDropDownMenuBtn extends StatelessWidget {
           ),
         ),
         DropdownMenuItem(
-          value: workoutDays == 'oneThree' ? "cardio" : "cardioStrength",
+          value: workoutDays == 'oneThree' ? "cardio" : "cardio_strength",
           child: Text(
             workoutDays == 'oneThree'
                 ? "Cardio Training"
@@ -61,7 +61,6 @@ class SignUpFormDropDownMenuBtn extends StatelessWidget {
       ],
       onChanged: (value) {
         formProvider.setPreferedWorkoutType(value!);
-        // print(formProvider.preferedWorkoutType);
       },
       validator: dropDownFormFieldValidator,
     );

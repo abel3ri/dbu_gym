@@ -27,7 +27,6 @@ class FormWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final formProvider = Provider.of<FormProvider>(context);
     final imageProvider = Provider.of<ProfileImageProvider>(context);
-
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       padding: EdgeInsets.only(
