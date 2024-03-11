@@ -7,13 +7,14 @@ import 'package:dbu_gym/controllers/user_controller.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/utils/clear_form_inputs.dart';
+import 'package:dbu_gym/utils/error.dart';
 import 'package:dbu_gym/views/pages/image_pick_selector.dart';
 import 'package:dbu_gym/views/widgets/date_picker_input.dart';
 import 'package:dbu_gym/views/widgets/signup_form_drop_down_btn.dart';
 import 'package:dbu_gym/views/widgets/signup_login_form_input.dart';
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:go_router/go_router.dart';
-import "package:awesome_snackbar_content/awesome_snackbar_content.dart";
 import 'package:provider/provider.dart';
 
 class FormWidget extends StatelessWidget {
@@ -231,52 +232,70 @@ class FormWidget extends StatelessWidget {
                     FocusManager.instance.primaryFocus!.hasFocus
                         ? FocusManager.instance.primaryFocus!.unfocus()
                         : null;
+
                     if (formType == "Login") {
                       // valid login inputs
                       if (formProvider.loginFormKey.currentState!.validate()) {
-                        await signUpLoginController(
+                        formProvider.setIsAuthtentcating(true);
+                        Either<CustomError, String> authRes =
+                            await signUpLoginController(
                           formProvider: formProvider,
                           context: context,
                           formType: formType,
                         );
-                        // clear all form inputs after submitting the form
-                        clearFormInputs(context);
+
+                        authRes.fold((err) {
+                          err.showError(context);
+                          formProvider.setIsAuthtentcating(false);
+                        }, (r) {
+                          GoRouter.of(context).pushReplacementNamed("splash");
+                          // clear all form inputs after submitting the form
+                          formProvider.setIsAuthtentcating(false);
+                          clearFormInputs(context);
+                        });
+                        // clear form input only when user is redirected to splash page
                       }
                     } else {
                       if (imageProvider.imagePath == null) {
                         // if the form is sign up form and user didn't provide profile image, show an error snackbar
-                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            elevation: 0,
-                            backgroundColor: Colors.transparent,
-                            behavior: SnackBarBehavior.floating,
-                            content: AwesomeSnackbarContent(
-                              title: "Error",
-                              message: "Please provider a profile picture.",
-                              messageFontSize: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .fontSize,
-                              contentType: ContentType.failure,
-                            ),
-                          ),
+                        CustomError error = CustomError(
+                          errorTitle: "Error",
+                          errorBody: "Please provider a profile picture",
                         );
+                        error.showError(context);
                       }
                       // valid sign up inputs
                       if (formProvider.signUpFormKey.currentState!.validate() &&
                           imageProvider.imagePath != null) {
-                        // set image profile field from image provider
                         formProvider.setIsAuthtentcating(true);
-                        await formProvider.setProfileImageUrl(
-                            imageProvider.imagePath!, imageProvider.imageName!);
-                        await signUpLoginController(
+                        // set image profile field from image provider
+
+                        // catch is there is storage uploading error
+                        Either<CustomError, String> storageRes =
+                            await formProvider.setProfileImageUrl(
+                          imageProvider.imagePath!,
+                          imageProvider.imageName!,
+                        );
+                        // show error is setProfileImageUrl returns an error
+                        storageRes.fold((err) {
+                          err.showError(context);
+                        }, (r) => null);
+
+                        Either<CustomError, String> authRes =
+                            await signUpLoginController(
                           formProvider: formProvider,
                           context: context,
                           formType: formType,
                         );
-                        // clear all form inputs after submitting the form
-                        clearFormInputs(context);
+                        authRes.fold((err) {
+                          err.showError(context);
+                          formProvider.setIsAuthtentcating(false);
+                        }, (r) {
+                          GoRouter.of(context).pushReplacementNamed("splash");
+                          formProvider.setIsAuthtentcating(false);
+                          // clear form inputs only if user is redirected to spalsh page
+                          clearFormInputs(context);
+                        });
                       }
                     }
                   },
