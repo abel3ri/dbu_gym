@@ -1,8 +1,11 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dbu_gym/utils/constants.dart';
+import 'package:dbu_gym/utils/error.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
 
 class FormProvider with ChangeNotifier {
   final _loginFormKey = GlobalKey<FormState>();
@@ -66,7 +69,8 @@ class FormProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setProfileImageUrl(String imageUrl, String imageName) async {
+  Future<Either<CustomError, String>> setProfileImageUrl(
+      String imageUrl, String imageName) async {
     try {
       File profileImage = File(imageUrl);
       Reference ref = storage.ref().child("profile_images/${imageName}");
@@ -74,9 +78,12 @@ class FormProvider with ChangeNotifier {
       final snapshot = await uploadTask.whenComplete(() => {});
       _profileImageUrl = await snapshot.ref.getDownloadURL();
       notifyListeners();
+      return right(_profileImageUrl!);
+    } on FirebaseException catch (err) {
+      return left(
+          CustomError(errorTitle: "Storage error", errorBody: err.message!));
     } catch (err) {
-      print(err.toString());
-      notifyListeners();
+      return left(CustomError(errorTitle: "Error", errorBody: err.toString()));
     }
   }
 
