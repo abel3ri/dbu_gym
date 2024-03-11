@@ -64,7 +64,7 @@ class ProfilePage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "${snapshot.data!.firstName} ${snapshot.data!.lastName}",
+                              "${snapshot.data!.firstName.capitalize} ${snapshot.data!.lastName.capitalize}",
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineLarge!
@@ -140,19 +140,56 @@ class ProfilePage extends StatelessWidget {
                                           'oneThree'
                                       ? "1-3 Days"
                                       : "4-6 Days"),
-                              if (snapshot.data!.subscribedWorkoutType ==
-                                  'strength') ...[
+                              if (snapshot.data!.numWorkoutDays ==
+                                  'oneThree') ...[
                                 SizedBox(height: constraints.maxHeight * 0.02),
                                 Image.asset(
-                                  'assets/images/pricing_page_image_1.png',
+                                  'assets/images/${snapshot.data!.subscribedWorkoutType}.png',
                                   width: constraints.maxWidth * 0.9,
                                   height: constraints.maxHeight * 0.35,
                                 ),
                               ],
+                              if (snapshot.data!.numWorkoutDays ==
+                                  'fourSix') ...[
+                                SizedBox(height: constraints.maxHeight * 0.02),
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/${snapshot.data!.subscribedWorkoutType.split("_")[0]}.png',
+                                      // aerobics asset image is a bir large, so check if the plan has aerobics and render different image width size
+                                      width: snapshot
+                                                  .data!.subscribedWorkoutType
+                                                  .split("_")[0] ==
+                                              'aerobics'
+                                          ? constraints.maxWidth * 0.3
+                                          : constraints.maxWidth * 0.35,
+                                      height: constraints.maxHeight * 0.35,
+                                    ),
+                                    SizedBox(
+                                      width: constraints.maxWidth * 0.14,
+                                      child: Center(
+                                        child: Text(
+                                          "&",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Image.asset(
+                                      'assets/images/${snapshot.data!.subscribedWorkoutType.split("_")[1]}.png',
+                                      width: constraints.maxWidth * 0.35,
+                                      height: constraints.maxHeight * 0.35,
+                                    ),
+                                  ],
+                                ),
+                              ],
                               SizedBox(height: constraints.maxHeight * 0.04),
                               ProfilePageRow(
-                                title: "Workout Plan",
-                                data: snapshot.data!.subscribedWorkoutType,
+                                title: "Workout Plan Type",
+                                data: snapshot.data!.subscribedWorkoutType
+                                    .replaceAll("_", " & ")
+                                    .capitalize,
                               ),
                             ],
                           ),
