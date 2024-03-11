@@ -1,18 +1,27 @@
 import 'package:dbu_gym/models/gym_user.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
+import 'package:dbu_gym/utils/error.dart';
+import 'package:dbu_gym/utils/extension.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
+import 'package:fpdart/fpdart.dart';
 
-Future<void> signUpLoginController({
+Future<Either<String, int>> getData() async {
+  try {
+    int data = await Future.delayed(Duration.zero, () => 21);
+    return right(data);
+  } catch (err) {
+    return left(err.toString());
+  }
+}
+
+Future<Either<CustomError, String>> signUpLoginController({
   required FormProvider formProvider,
   required BuildContext context,
   required formType,
 }) async {
-  dynamic res;
-  Provider.of<FormProvider>(context, listen: false).setIsAuthtentcating(true);
-
+  Either<CustomError, User> res;
   try {
     if (formType == "Sign up") {
       GymUser user = GymUser(
@@ -26,36 +35,49 @@ Future<void> signUpLoginController({
         subscribedWorkoutType: formProvider.preferedWorkoutType,
         profileImageUrl: formProvider.profileImageUrl,
       );
+
       res = await user.signUpUserWithEmailAndPassword();
-    } else
+
+      return res.isLeft()
+          ? left(
+              CustomError(
+                errorTitle: (res.asLeft as CustomError).errorTitle,
+                errorBody: (res.asLeft as CustomError).errorBody,
+              ),
+            )
+          : right("Success.");
+    } else {
+      // Login
       res = await GymUser.signInUserWithEmailAndPassword(
         email: formProvider.emailController.text,
         password: formProvider.passwordController.text,
       );
-  } catch (err) {
-    print(err.toString());
-  }
 
-  Provider.of<FormProvider>(context, listen: false).setIsAuthtentcating(false);
-  res.fold((errorMessage) {
-    // print(errorMessage);
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        action: SnackBarAction(
-            label: "Close",
-            onPressed: () {
-              ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            }),
-        content: Text(errorMessage),
+      return res.isLeft()
+          ? left(
+              CustomError(
+                errorTitle: (res.asLeft as CustomError).errorTitle,
+                errorBody: (res.asLeft as CustomError).errorBody,
+              ),
+            )
+          : right("Success.");
+    }
+  } on FirebaseAuthException catch (err) {
+    print(err);
+    return left(
+      CustomError(errorTitle: "Authentication error", errorBody: err.message!),
+    );
+  } catch (err) {
+    return left(
+      CustomError(
+        errorTitle: "Authentication error",
+        errorBody: err.toString(),
       ),
     );
-  }, (user) {
-    GoRouter.of(context).pushReplacementNamed("splash");
-  });
+  }
 }
 
-Future<GymUser?> getUserData() async {
+Future<Either<CustomError, GymUser>> getUserData() async {
   try {
     final res = await db.collection("users").doc(auth.currentUser!.uid).get();
     Map<String, dynamic> userData = res.data()!;
@@ -70,9 +92,18 @@ Future<GymUser?> getUserData() async {
       subscribedWorkoutType: userData['subscribedWorkoutType'],
       profileImageUrl: userData['profileImageUrl'],
     );
-    return user;
+    return right(user);
+  } on FirebaseException catch (err) {
+    return left(
+      CustomError(errorTitle: "Fetching err", errorBody: err.message!),
+    );
   } catch (err) {
-    print(err.toString());
+    return left(
+      CustomError(
+        errorTitle: "Fetching error",
+        errorBody: err.toString(),
+      ),
+    );
   }
-  return null;
+  // return null;
 }

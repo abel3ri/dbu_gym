@@ -58,6 +58,7 @@ String? nameValidator(String? value) {
 }
 
 String? dropDownFormFieldValidator(String? value) {
-  if (value == 'default') return "Please provide this field.";
+  if (['default', 'default1-3', 'default4-6'].contains(value))
+    return "Please provide this field.";
   return null;
 }

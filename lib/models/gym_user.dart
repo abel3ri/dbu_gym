@@ -1,4 +1,5 @@
 import 'package:dbu_gym/utils/constants.dart';
+import 'package:dbu_gym/utils/error.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
 
@@ -25,7 +26,7 @@ class GymUser {
     required this.profileImageUrl,
   });
 
-  Future<Either<String, User>> signUpUserWithEmailAndPassword() async {
+  Future<Either<CustomError, User>> signUpUserWithEmailAndPassword() async {
     try {
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
         email: email,
@@ -49,20 +50,31 @@ class GymUser {
         return right(user);
       }
       ;
-      return left("User not created.");
+      return left(
+        CustomError(
+          errorTitle: "Authentication error",
+          errorBody: "User could be not created.",
+        ),
+      );
     } on FirebaseAuthException catch (err) {
-      if (err.message ==
-          "The email address is already in use by another account.")
-        return left("E-mail already in use.");
-
-      return left(err.message!);
+      return left(
+        CustomError(
+          errorTitle: "Authentication error.",
+          errorBody: err.message!,
+        ),
+      );
     } catch (err) {
-      return left(err.toString());
+      return left(
+        CustomError(
+          errorTitle: "Error",
+          errorBody: err.toString(),
+        ),
+      );
     }
   }
 
   // To Sign in user with creating an object
-  static Future<Either<String, User>> signInUserWithEmailAndPassword({
+  static Future<Either<CustomError, User>> signInUserWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
@@ -73,11 +85,26 @@ class GymUser {
       );
       User? user = userCredential.user;
       if (user != null) return right(user);
-      return left("Unable to sign in user.");
+      return left(
+        CustomError(
+          errorTitle: "Authtentication error",
+          errorBody: "Unable to sign in user.",
+        ),
+      );
     } on FirebaseAuthException catch (err) {
-      return left(err.message!);
+      if (err.message ==
+          "The supplied auth credential is incorrect, malformed or has expired.")
+        return left(
+          CustomError(
+            errorTitle: "Authentication error.",
+            errorBody: "Incorrect email or password.",
+          ),
+        );
+      else
+        return left(CustomError(
+            errorTitle: "Authtentication error", errorBody: err.message!));
     } catch (err) {
-      return left(err.toString());
+      return left(CustomError(errorTitle: "Error", errorBody: err.toString()));
     }
   }
 }
