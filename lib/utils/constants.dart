@@ -48,7 +48,7 @@ const Map<String, List<Map<String, dynamic>>> pricingContent = {
       "insidersPrice": "400 ETB/month",
       "outsidersPrice": "500 ETB/month",
       "imagePath": [
-        "assets/images/pricing_page_image_1.png",
+        "assets/images/strength.png",
       ],
       "noWorkingDays": "6 Days/week",
     },
@@ -57,8 +57,8 @@ const Map<String, List<Map<String, dynamic>>> pricingContent = {
       "insidersPrice": "500 ETB/month",
       "outsidersPrice": "600 ETB/month",
       "imagePath": [
-        "assets/images/pricing_page_image_3.png",
-        "assets/images/pricing_page_image_2.png",
+        "assets/images/aerobics.png",
+        "assets/images/cardio.png",
       ],
       "noWorkingDays": "6 Days/week",
     },
@@ -67,8 +67,8 @@ const Map<String, List<Map<String, dynamic>>> pricingContent = {
       "insidersPrice": "500 ETB/month",
       "outsidersPrice": "600 ETB/month",
       "imagePath": [
-        "assets/images/pricing_page_image_2.png",
-        "assets/images/pricing_page_image_1.png",
+        "assets/images/cardio.png",
+        "assets/images/strength.png",
       ],
       "noWorkingDays": "6 Days/week",
     },
