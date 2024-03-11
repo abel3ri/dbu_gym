@@ -128,6 +128,9 @@ class AppZoomDrawer extends StatelessWidget {
                         leading: Icon(Icons.question_mark),
                         titleTextStyle: Theme.of(context).textTheme.bodyMedium,
                         title: Text("FAQs"),
+                        onTap: () {
+                          GoRouter.of(context).pushNamed("faq");
+                        },
                       ),
                       if (auth.currentUser != null)
                         ListTile(
