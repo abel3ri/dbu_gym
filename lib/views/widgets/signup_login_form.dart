@@ -13,7 +13,7 @@ import 'package:dbu_gym/views/widgets/signup_form_drop_down_btn.dart';
 import 'package:dbu_gym/views/widgets/signup_login_form_input.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import "package:awesome_snackbar_content/awesome_snackbar_content.dart";
 import 'package:provider/provider.dart';
 
 class FormWidget extends StatelessWidget {
@@ -248,7 +248,18 @@ class FormWidget extends StatelessWidget {
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text("Please provide profile image."),
+                            elevation: 0,
+                            backgroundColor: Colors.transparent,
+                            behavior: SnackBarBehavior.floating,
+                            content: AwesomeSnackbarContent(
+                              title: "Error",
+                              message: "Please provider a profile picture.",
+                              messageFontSize: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .fontSize,
+                              contentType: ContentType.failure,
+                            ),
                           ),
                         );
                       }
