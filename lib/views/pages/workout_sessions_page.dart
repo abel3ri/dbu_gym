@@ -8,12 +8,12 @@ class WorkoutSessionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 24),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 24),
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary.darken(15),
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
+            topLeft: Radius.circular(32),
+            topRight: Radius.circular(32),
           )),
       child: Column(
         // mainAxisSize: MainAxisSize.min,
