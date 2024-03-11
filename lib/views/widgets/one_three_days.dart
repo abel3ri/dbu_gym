@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dbu_gym/providers/pricing_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,8 @@ class OneThreeCarouselSlider extends StatelessWidget {
           alignment: Alignment(0, 0.7),
           children: [
             Card(
-              elevation: 0.5,
+              elevation: 0,
+              color: Theme.of(context).colorScheme.background.darken(3),
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: Column(

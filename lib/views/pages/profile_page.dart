@@ -38,6 +38,13 @@ class ProfilePage extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else {
+            final fullName =
+                "${snapshot.data!.firstName.capitalize} ${snapshot.data!.lastName.capitalize}";
+            final gymEndDate = snapshot.data!.gymEndDate;
+            final gymStartDate = snapshot.data!.gymStartDate;
+            final email = snapshot.data!.email;
+            final numWorkoutDays = snapshot.data!.numWorkoutDays;
+            final workoutPlan = snapshot.data!.subscribedWorkoutType;
             return LayoutBuilder(
               builder: (context, constraints) => Container(
                 padding: EdgeInsets.symmetric(
@@ -64,17 +71,19 @@ class ProfilePage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "${snapshot.data!.firstName.capitalize} ${snapshot.data!.lastName.capitalize}",
+                              fullName.length > 15
+                                  ? fullName.substring(0, 13) + "..."
+                                  : fullName,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headlineLarge!
+                                  .headlineMedium!
                                   .copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
                             SizedBox(width: constraints.maxWidth * 0.04),
                             Text(
-                              snapshot.data!.email,
+                              email,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!
@@ -104,14 +113,14 @@ class ProfilePage extends StatelessWidget {
                               ProfilePageRow(
                                 title: "Gym Start Date",
                                 data: DateFormat.yMMMd("en-US").format(
-                                  DateTime.parse(snapshot.data!.gymStartDate),
+                                  DateTime.parse(gymStartDate),
                                 ),
                               ),
                               SizedBox(height: constraints.maxHeight * 0.04),
                               ProfilePageRow(
                                 title: "Gym End Date",
                                 data: DateFormat.yMMMd("en-US").format(
-                                  DateTime.parse(snapshot.data!.gymEndDate),
+                                  DateTime.parse(gymEndDate),
                                 ),
                               ),
                             ],
@@ -136,15 +145,13 @@ class ProfilePage extends StatelessWidget {
                             children: [
                               ProfilePageRow(
                                   title: "Number of Workout Days",
-                                  data: snapshot.data!.numWorkoutDays ==
-                                          'oneThree'
+                                  data: numWorkoutDays == 'oneThree'
                                       ? "1-3 Days"
                                       : "4-6 Days"),
-                              if (snapshot.data!.numWorkoutDays ==
-                                  'oneThree') ...[
+                              if (numWorkoutDays == 'oneThree') ...[
                                 SizedBox(height: constraints.maxHeight * 0.02),
                                 Image.asset(
-                                  'assets/images/${snapshot.data!.subscribedWorkoutType}.png',
+                                  'assets/images/${workoutPlan}.png',
                                   width: constraints.maxWidth * 0.9,
                                   height: constraints.maxHeight * 0.35,
                                 ),
@@ -155,11 +162,9 @@ class ProfilePage extends StatelessWidget {
                                 Row(
                                   children: [
                                     Image.asset(
-                                      'assets/images/${snapshot.data!.subscribedWorkoutType.split("_")[0]}.png',
+                                      'assets/images/${workoutPlan.split("_")[0]}.png',
                                       // aerobics asset image is a bir large, so check if the plan has aerobics and render different image width size
-                                      width: snapshot
-                                                  .data!.subscribedWorkoutType
-                                                  .split("_")[0] ==
+                                      width: workoutPlan.split("_")[0] ==
                                               'aerobics'
                                           ? constraints.maxWidth * 0.3
                                           : constraints.maxWidth * 0.35,
@@ -177,7 +182,7 @@ class ProfilePage extends StatelessWidget {
                                       ),
                                     ),
                                     Image.asset(
-                                      'assets/images/${snapshot.data!.subscribedWorkoutType.split("_")[1]}.png',
+                                      'assets/images/${workoutPlan.split("_")[1]}.png',
                                       width: constraints.maxWidth * 0.35,
                                       height: constraints.maxHeight * 0.35,
                                     ),
@@ -187,7 +192,7 @@ class ProfilePage extends StatelessWidget {
                               SizedBox(height: constraints.maxHeight * 0.04),
                               ProfilePageRow(
                                 title: "Workout Plan Type",
-                                data: snapshot.data!.subscribedWorkoutType
+                                data: workoutPlan
                                     .replaceAll("_", " & ")
                                     .capitalize,
                               ),
