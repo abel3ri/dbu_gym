@@ -1,4 +1,6 @@
 import 'package:dbu_gym/controllers/user_controller.dart';
+import 'package:dbu_gym/models/gym_user.dart';
+import 'package:dbu_gym/utils/extension.dart';
 import 'package:dbu_gym/views/widgets/profile_page_row.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -38,13 +40,15 @@ class ProfilePage extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else {
+            final GymUser user = (snapshot.data!.asRight as GymUser);
             final fullName =
-                "${snapshot.data!.firstName.capitalize} ${snapshot.data!.lastName.capitalize}";
-            final gymEndDate = snapshot.data!.gymEndDate;
-            final gymStartDate = snapshot.data!.gymStartDate;
-            final email = snapshot.data!.email;
-            final numWorkoutDays = snapshot.data!.numWorkoutDays;
-            final workoutPlan = snapshot.data!.subscribedWorkoutType;
+                "${user.firstName.capitalize} ${user.lastName.capitalize}";
+            final gymEndDate = user.gymEndDate;
+            final gymStartDate = user.gymStartDate;
+            final email = user.email;
+            final numWorkoutDays = user.numWorkoutDays;
+            final workoutPlan = user.subscribedWorkoutType;
+            final profileImageUrl = user.profileImageUrl;
             return LayoutBuilder(
               builder: (context, constraints) => Container(
                 padding: EdgeInsets.symmetric(
@@ -62,7 +66,7 @@ class ProfilePage extends StatelessWidget {
                           child: CircleAvatar(
                             radius: 50,
                             backgroundImage: snapshot.hasData
-                                ? NetworkImage(snapshot.data!.profileImageUrl)
+                                ? NetworkImage(profileImageUrl)
                                 : null,
                           ),
                         ),
@@ -156,8 +160,7 @@ class ProfilePage extends StatelessWidget {
                                   height: constraints.maxHeight * 0.35,
                                 ),
                               ],
-                              if (snapshot.data!.numWorkoutDays ==
-                                  'fourSix') ...[
+                              if (numWorkoutDays == 'fourSix') ...[
                                 SizedBox(height: constraints.maxHeight * 0.02),
                                 Row(
                                   children: [
