@@ -4,6 +4,7 @@ import 'package:dbu_gym/views/pages/workout_sessions_page.dart';
 import 'package:dbu_gym/views/widgets/four_six_days.dart';
 import 'package:dbu_gym/views/widgets/one_three_days.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -14,6 +15,18 @@ class PricingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final pricingProvider = Provider.of<PricingProvider>(context);
     return Scaffold(
+      appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
+        title: Text("Pricing and Workout Sessions"),
+        titleTextStyle: Theme.of(context).textTheme.bodyLarge,
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            GoRouter.of(context).pop();
+          },
+          icon: Icon(Icons.arrow_back_ios_new),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: SingleChildScrollView(
@@ -21,7 +34,7 @@ class PricingPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 36),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
