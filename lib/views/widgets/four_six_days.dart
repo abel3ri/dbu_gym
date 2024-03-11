@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dbu_gym/providers/pricing_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,8 @@ class FourSixCarouselSlider extends StatelessWidget {
           alignment: Alignment(0, 0.7),
           children: [
             Card(
-              elevation: 0.5,
+              elevation: 0,
+              color: Theme.of(context).colorScheme.background.darken(3),
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: Column(
@@ -46,6 +48,7 @@ class FourSixCarouselSlider extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    // if its bundled offer it will have tow images (eg cardio + strength)
                     if (pricingContent['4-6Days']![index]['imagePath'].length >
                         1)
                       Row(
@@ -60,7 +63,7 @@ class FourSixCarouselSlider extends StatelessWidget {
                               height: pricingContent['4-6Days']![index]
                                           ['imagePath'][0]!
                                       .toString()
-                                      .contains("_3")
+                                      .contains("aerobics")
                                   ? constraints.maxHeight * 0.31
                                   : constraints.maxHeight * 0.4,
                             ),

@@ -46,9 +46,14 @@ class OneThreeCarouselSlider extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    // since the aerobics image is a bit to large in height compared to the other two im decreasing the height of that particular image
                     Image.asset(
                       pricingContent['1-3Days']![index]['imagePath']!,
-                      height: constraints.maxHeight * 0.6,
+                      height: pricingContent['1-3Days']![index]['imagePath']!
+                              .toString()
+                              .contains("aerobics")
+                          ? constraints.maxHeight * 0.5
+                          : constraints.maxHeight * 0.6,
                     ),
                     Expanded(child: SizedBox()),
                     Row(
