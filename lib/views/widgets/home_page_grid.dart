@@ -42,10 +42,11 @@ class HomePageGrid extends StatelessWidget {
             GoRouter.of(context).pushNamed("exercise-category");
           },
           child: Card(
-            elevation: 0.8,
+            elevation: 1,
+            surfaceTintColor: Colors.transparent,
             color: categoryName == "difficulty"
                 ? difficultyCategoryColors[index].darken(20)
-                : null,
+                : Theme.of(context).colorScheme.background.darken(3),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(4)),
             ),
