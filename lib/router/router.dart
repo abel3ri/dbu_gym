@@ -1,5 +1,6 @@
 import "package:dbu_gym/views/pages/exercise_details_page.dart";
 import "package:dbu_gym/views/pages/exxercise_category_page.dart";
+import "package:dbu_gym/views/pages/faq_page.dart";
 import "package:dbu_gym/views/pages/home_page.dart";
 import "package:dbu_gym/views/pages/pricing_page.dart";
 import "package:dbu_gym/views/pages/profile_page.dart";
@@ -57,7 +58,12 @@ class AppRouter {
         path: "/profile",
         name: "profile",
         builder: (context, state) => ProfilePage(),
-      )
+      ),
+      GoRoute(
+        path: "/faq",
+        name: "faq",
+        builder: (context, state) => FAQPage(),
+      ),
     ],
     errorBuilder: (context, state) => PageNotFound(),
   );
