@@ -1,6 +1,8 @@
 import "package:dbu_gym/controllers/user_controller.dart";
+import "package:dbu_gym/models/gym_user.dart";
 import "package:dbu_gym/providers/theme_provider.dart";
 import "package:dbu_gym/utils/constants.dart";
+import "package:dbu_gym/utils/extension.dart";
 import "package:flex_color_scheme/flex_color_scheme.dart";
 import "package:flutter/material.dart";
 import "package:flutter_zoom_drawer/flutter_zoom_drawer.dart";
@@ -59,15 +61,29 @@ class AppZoomDrawer extends StatelessWidget {
                       if (auth.currentUser != null) ...[
                         FutureBuilder(
                           future: getUserData(),
-                          builder: (context, snapshot) => CircleAvatar(
-                            radius: 35,
-                            child: CircleAvatar(
-                              radius: 30,
-                              backgroundImage: snapshot.hasData
-                                  ? NetworkImage(snapshot.data!.profileImageUrl)
-                                  : null,
-                            ),
-                          ),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting)
+                              return CircleAvatar(
+                                  radius: 35,
+                                  child: CircleAvatar(
+                                    radius: 30,
+                                    child: Icon(Icons.person),
+                                  ));
+
+                            final String imageUrl =
+                                (snapshot.data!.asRight as GymUser)
+                                    .profileImageUrl;
+                            return CircleAvatar(
+                              radius: 35,
+                              child: CircleAvatar(
+                                radius: 30,
+                                backgroundImage: snapshot.hasData
+                                    ? NetworkImage(imageUrl)
+                                    : null,
+                              ),
+                            );
+                          },
                         ),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.01),
@@ -128,9 +144,6 @@ class AppZoomDrawer extends StatelessWidget {
                         leading: Icon(Icons.question_mark),
                         titleTextStyle: Theme.of(context).textTheme.bodyMedium,
                         title: Text("FAQs"),
-                        onTap: () {
-                          GoRouter.of(context).pushNamed("faq");
-                        },
                       ),
                       if (auth.currentUser != null)
                         ListTile(
