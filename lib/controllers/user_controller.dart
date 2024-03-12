@@ -7,15 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 
-Future<Either<String, int>> getData() async {
-  try {
-    int data = await Future.delayed(Duration.zero, () => 21);
-    return right(data);
-  } catch (err) {
-    return left(err.toString());
-  }
-}
-
 Future<Either<CustomError, String>> signUpLoginController({
   required FormProvider formProvider,
   required BuildContext context,
