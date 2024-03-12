@@ -50,12 +50,14 @@ class AppZoomDrawer extends StatelessWidget {
                     children: [
                       Text(
                         "Settings",
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .copyWith(
                               color: Theme.of(context).colorScheme.primary,
                               fontWeight: FontWeight.bold,
                             ),
                       ),
-                      Divider(),
                       SizedBox(
                           height: MediaQuery.of(context).size.height * 0.05),
                       if (auth.currentUser != null) ...[
@@ -65,11 +67,12 @@ class AppZoomDrawer extends StatelessWidget {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting)
                               return CircleAvatar(
-                                  radius: 35,
-                                  child: CircleAvatar(
-                                    radius: 30,
-                                    child: Icon(Icons.person),
-                                  ));
+                                radius: 35,
+                                child: CircleAvatar(
+                                  radius: 30,
+                                  child: CircularProgressIndicator(),
+                                ),
+                              );
 
                             final String imageUrl =
                                 (snapshot.data!.asRight as GymUser)
@@ -141,6 +144,9 @@ class AppZoomDrawer extends StatelessWidget {
                           title: Text("Manage Subscription"),
                         ),
                       ListTile(
+                        onTap: () {
+                          GoRouter.of(context).pushNamed("faq");
+                        },
                         leading: Icon(Icons.question_mark),
                         titleTextStyle: Theme.of(context).textTheme.bodyMedium,
                         title: Text("FAQs"),
@@ -189,11 +195,10 @@ class AppZoomDrawer extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Divider(
-                        thickness: 0.5,
-                      ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          GoRouter.of(context).pushNamed("contact-dev");
+                        },
                         child: Text(
                           "Contact Developer",
                           style: Theme.of(context)
