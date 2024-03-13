@@ -16,16 +16,18 @@ class BMIProvider with ChangeNotifier {
   }
 
   String bmiMessageMap(double bmi) {
-    if (bmi > 22) {
-      return "It seems you are over weight, you should take less calorie foods.";
-    } else if (bmi < 18) {
-      return "It seems you are under weight, you should take more calorie foods.";
+    if (bmi >= 30) {
+      return "Your BMI result indicates you are in the obese category. Start taking less calorie foods and make our gym your new home starting from now! 😤";
+    } else if (bmi >= 25 && bmi <= 29.9) {
+      return "Your BMI result indicates you are in the over weight category. It is recommended to take less calorie food. Try to take short walk after meals, it doesn't hurt 😉";
+    } else if (bmi >= 18.5 && bmi <= 24.9) {
+      return "Great! Your BMI indicates a healthy weight. Keep doing what you're doing! 👍";
     }
-    return "You are in good shape. Keep doing what you're doing.";
+    return "Your BMI result indicates you are in the underweight category. All you need is food and our GYM 😉";
   }
 
   TextEditingController get weightController => _weightController;
   TextEditingController get heightController => _heightController;
   GlobalKey<FormState> get formKey => _formKey;
-  double get bmi => _bmi;
+  String get bmi => _bmi.toStringAsFixed(2);
 }
