@@ -163,31 +163,31 @@ class ProfilePage extends StatelessWidget {
                               if (numWorkoutDays == 'fourSix') ...[
                                 SizedBox(height: constraints.maxHeight * 0.02),
                                 Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Image.asset(
-                                      'assets/images/${workoutPlan.split("_")[0]}.png',
-                                      // aerobics asset image is a bir large, so check if the plan has aerobics and render different image width size
-                                      width: workoutPlan.split("_")[0] ==
-                                              'aerobics'
-                                          ? constraints.maxWidth * 0.3
-                                          : constraints.maxWidth * 0.35,
-                                      height: constraints.maxHeight * 0.35,
-                                    ),
-                                    SizedBox(
-                                      width: constraints.maxWidth * 0.14,
-                                      child: Center(
-                                        child: Text(
-                                          "&",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                          ),
-                                        ),
+                                    FittedBox(
+                                      fit: BoxFit.fitWidth,
+                                      child: Image.asset(
+                                        'assets/images/${workoutPlan.split("_")[0]}.png',
+                                        // aerobics asset image is a bir large, so check if the plan has aerobics and render different image width size
+                                        width: workoutPlan.split("_")[0] ==
+                                                'aerobics'
+                                            ? constraints.maxWidth * 0.3
+                                            : constraints.maxWidth * 0.35,
+                                        height: constraints.maxHeight * 0.35,
                                       ),
                                     ),
-                                    Image.asset(
-                                      'assets/images/${workoutPlan.split("_")[1]}.png',
-                                      width: constraints.maxWidth * 0.35,
-                                      height: constraints.maxHeight * 0.35,
+                                    Center(
+                                      child: Text("&"),
+                                    ),
+                                    FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Image.asset(
+                                        'assets/images/${workoutPlan.split("_")[1]}.png',
+                                        width: constraints.maxWidth * 0.35,
+                                        height: constraints.maxHeight * 0.35,
+                                      ),
                                     ),
                                   ],
                                 ),
