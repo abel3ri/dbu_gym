@@ -38,8 +38,11 @@ class SearchPage extends SearchDelegate {
     return ListView.builder(
       physics: BouncingScrollPhysics(),
       itemCount: searchResults.length,
+      padding: EdgeInsets.symmetric(horizontal: 8),
       itemBuilder: (context, index) => Card(
-        elevation: 0.8,
+        elevation: 0,
+        surfaceTintColor: Colors.transparent,
+        color: Theme.of(context).colorScheme.background.darken(3),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(8))),
         child: ListTile(
@@ -85,8 +88,11 @@ class SearchPage extends SearchDelegate {
     return ListView.builder(
       physics: BouncingScrollPhysics(),
       itemCount: searchResults.length,
+      padding: EdgeInsets.symmetric(horizontal: 8),
       itemBuilder: (context, index) => Card(
-        elevation: 0.8,
+        elevation: 0,
+        surfaceTintColor: Colors.transparent,
+        color: Theme.of(context).colorScheme.background.darken(3),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(8))),
         child: ListTile(
