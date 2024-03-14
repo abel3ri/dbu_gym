@@ -99,7 +99,7 @@ class HomePage extends StatelessWidget {
             backgroundColor: Theme.of(context).colorScheme.primary,
             foregroundColor: Colors.white,
             onPressed: () {
-              print("FAB");
+              GoRouter.of(context).pushNamed("chat");
             },
           ),
           body: SafeArea(

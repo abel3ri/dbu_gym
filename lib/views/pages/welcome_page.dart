@@ -72,7 +72,7 @@ class WelcomePage extends StatelessWidget {
                               carouselContent[index]['headline'],
                               style: Theme.of(context)
                                   .textTheme
-                                  .headlineSmall!
+                                  .titleLarge!
                                   .copyWith(
                                     color: Theme.of(context)
                                         .scaffoldBackgroundColor,
