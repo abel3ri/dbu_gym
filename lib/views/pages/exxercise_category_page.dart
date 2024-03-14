@@ -210,7 +210,12 @@ class ExerciseCategory extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         itemBuilder: (context, index) {
                           return Card(
-                            elevation: 0.8,
+                            elevation: 0,
+                            surfaceTintColor: Colors.transparent,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .background
+                                .darken(3),
                             shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(8))),
