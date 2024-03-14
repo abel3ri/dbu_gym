@@ -11,7 +11,7 @@ class BMIProvider with ChangeNotifier {
   void calcBMI() {
     _bmi = (double.parse(_weightController.text)) /
         (pow(double.parse(_heightController.text), 2));
-
+    _bmi.isNaN ? _bmi = 0 : null;
     notifyListeners();
   }
 
