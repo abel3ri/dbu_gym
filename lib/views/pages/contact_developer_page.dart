@@ -1,6 +1,7 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactDeveloperPage extends StatelessWidget {
   const ContactDeveloperPage({super.key});
@@ -9,9 +10,10 @@ class ContactDeveloperPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Get in touch."),
+        title: Text("Get in touch"),
         titleTextStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
               color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.bold,
             ),
         centerTitle: true,
         surfaceTintColor: Colors.transparent,
@@ -24,57 +26,65 @@ class ContactDeveloperPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-            ContactPageListTile(
-              title: "abelmerete@yahoo.com",
-              icon: Icons.email,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+          Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: MediaQuery.of(context).size.height * 0.3,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Theme.of(context).colorScheme.primary.darken(20),
+              ),
+              // padding: EdgeInsets.symmetric(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ContactIcon(icon: Icons.phone),
+                  ContactIcon(icon: Icons.telegram),
+                  ContactIcon(icon: Icons.email),
+                ],
+              ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-            ContactPageListTile(
-              title: "+251963647311",
-              icon: Icons.phone,
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-            ContactPageListTile(
-              title: "@a_be_l",
-              icon: Icons.telegram,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
 
 // ignore: must_be_immutable
-class ContactPageListTile extends StatelessWidget {
-  String title;
+class ContactIcon extends StatelessWidget {
   IconData icon;
-  ContactPageListTile({
+  ContactIcon({
     super.key,
-    required this.title,
     required this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      leading: Icon(icon, color: Theme.of(context).colorScheme.primary),
-      title: Text(
-        title,
-        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-            // color: Colors.white,
+    return CircleAvatar(
+      radius: 40,
+      foregroundColor: Colors.transparent,
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      child: IconButton(
+        onPressed: () async {
+          await launchUrl(
+            Uri.parse(
+              icon == Icons.email
+                  ? "mailto:abelmerete@yahoo.com?subject=Forwarded from gym app"
+                  : icon == Icons.telegram
+                      ? "https://t.me/@a_be_l"
+                      : "tel:+251963647311",
             ),
+          );
+        },
+        icon: Icon(icon),
+        iconSize: 56,
+        color: Colors.white,
       ),
-      tileColor: Theme.of(context).colorScheme.background.darken(10),
     );
   }
 }
