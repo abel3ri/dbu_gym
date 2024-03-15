@@ -16,10 +16,10 @@ class ImagePickSelector extends StatelessWidget {
           GestureDetector(
             onTap: () async {
               final res = await pickImageFromGallery();
-              res.fold((l) => print(l), (r) {
+              res.fold((l) => print(l), (image) {
                 GoRouter.of(context).pop();
                 Provider.of<ProfileImageProvider>(context, listen: false)
-                    .setImagePathAndName(r.path, r.name);
+                    .setImagePathAndName(image.path, image.name);
               });
             },
             child: Column(
@@ -35,10 +35,10 @@ class ImagePickSelector extends StatelessWidget {
           GestureDetector(
             onTap: () async {
               final res = await pickImageFromCamera();
-              res.fold((l) => print(l), (r) {
+              res.fold((l) => print(l), (image) {
                 GoRouter.of(context).pop();
                 Provider.of<ProfileImageProvider>(context, listen: false)
-                    .setImagePathAndName(r.path, r.name);
+                    .setImagePathAndName(image.path, image.name);
               });
             },
             child: Column(
