@@ -152,7 +152,9 @@ class ProfilePage extends StatelessWidget {
                                   data: numWorkoutDays == 'oneThree'
                                       ? "1-3 Days"
                                       : "4-6 Days"),
-                              if (numWorkoutDays == 'oneThree') ...[
+                              // Since 4-6 Strength has on image only display it as 1-3 images are displayed
+                              if (numWorkoutDays == 'oneThree' ||
+                                  workoutPlan == 'strength') ...[
                                 SizedBox(height: constraints.maxHeight * 0.02),
                                 Image.asset(
                                   'assets/images/${workoutPlan}.png',
@@ -160,7 +162,9 @@ class ProfilePage extends StatelessWidget {
                                   height: constraints.maxHeight * 0.35,
                                 ),
                               ],
-                              if (numWorkoutDays == 'fourSix') ...[
+                              // show image row only if workout days == 4-6 and not stregth plan
+                              if (numWorkoutDays == 'fourSix' &&
+                                  workoutPlan != 'strength') ...[
                                 SizedBox(height: constraints.maxHeight * 0.02),
                                 Row(
                                   mainAxisAlignment:
