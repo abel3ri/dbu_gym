@@ -93,15 +93,6 @@ class HomePage extends StatelessWidget {
       mainScreen: DefaultTabController(
         length: 2,
         child: Scaffold(
-          floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.chat_rounded),
-            shape: CircleBorder(),
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            foregroundColor: Colors.white,
-            onPressed: () {
-              GoRouter.of(context).pushNamed("chat");
-            },
-          ),
           body: SafeArea(
             child: Column(
               children: [

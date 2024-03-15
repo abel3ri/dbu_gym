@@ -1,4 +1,3 @@
-import "package:dbu_gym/views/pages/chat_page.dart";
 import "package:dbu_gym/views/pages/contact_developer_page.dart";
 import "package:dbu_gym/views/pages/exercise_details_page.dart";
 import "package:dbu_gym/views/pages/exxercise_category_page.dart";
@@ -70,11 +69,6 @@ class AppRouter {
         path: "/contact-dev",
         name: "contact-dev",
         builder: (context, state) => ContactDeveloperPage(),
-      ),
-      GoRoute(
-        path: "/chat",
-        name: "chat",
-        builder: (context, state) => ChatPage(),
       ),
     ],
     errorBuilder: (context, state) => PageNotFound(),
