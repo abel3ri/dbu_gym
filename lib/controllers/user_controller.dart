@@ -29,32 +29,35 @@ Future<Either<CustomError, String>> signUpLoginController({
 
       res = await user.signUpUserWithEmailAndPassword();
 
-      return res.isLeft()
-          ? left(
-              CustomError(
-                errorTitle: (res.asLeft as CustomError).errorTitle,
-                errorBody: (res.asLeft as CustomError).errorBody,
-              ),
-            )
-          : right("Success.");
+      if (res.isLeft()) {
+        return left(
+          CustomError(
+            errorTitle: (res.asLeft as CustomError).errorTitle,
+            errorBody: (res.asLeft as CustomError).errorBody,
+          ),
+        );
+      } else {
+        return right("Success.");
+      }
     } else {
-      // Login
+      // Login controller
       res = await GymUser.signInUserWithEmailAndPassword(
         email: formProvider.emailController.text,
         password: formProvider.passwordController.text,
       );
 
-      return res.isLeft()
-          ? left(
-              CustomError(
-                errorTitle: (res.asLeft as CustomError).errorTitle,
-                errorBody: (res.asLeft as CustomError).errorBody,
-              ),
-            )
-          : right("Success.");
+      if (res.isLeft()) {
+        return left(
+          CustomError(
+            errorTitle: (res.asLeft as CustomError).errorTitle,
+            errorBody: (res.asLeft as CustomError).errorBody,
+          ),
+        );
+      } else {
+        return right("Success.");
+      }
     }
   } on FirebaseAuthException catch (err) {
-    print(err);
     return left(
       CustomError(errorTitle: "Authentication error", errorBody: err.message!),
     );
@@ -96,5 +99,4 @@ Future<Either<CustomError, GymUser>> getUserData() async {
       ),
     );
   }
-  // return null;
 }
