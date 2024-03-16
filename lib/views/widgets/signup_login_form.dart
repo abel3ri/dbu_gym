@@ -141,6 +141,14 @@ class FormWidget extends StatelessWidget {
                     formType: formType,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  FormInputField(
+                    controller: formProvider.phoneNumberController,
+                    labelText: "Phone number",
+                    prefixIcon: Icon(Icons.phone),
+                    showPassword: formProvider.showPassword,
+                    formType: formType,
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   Stack(
                     alignment: Alignment(-0.8, 1),
                     children: [

@@ -52,18 +52,29 @@ class FormInputField extends StatelessWidget {
           : false,
       // Change text input action for email input (always) and password input (if we are in the sign up page)
       textInputAction: (labelText == "E-mail" ||
-              (formType == "Sign up" && labelText == "Password"))
+              (formType == "Sign up" && labelText == "Password") ||
+              labelText == 'Re-enter password')
           ? TextInputAction.next
           : TextInputAction.done,
+      keyboardType: labelText == 'E-mail'
+          ? TextInputType.emailAddress
+          : ['Password', "Re-enter password"].contains(labelText)
+              ? TextInputType.visiblePassword
+              : labelText == 'Phone number'
+                  ? TextInputType.phone
+                  : null,
+
       validator: labelText == "E-mail"
           ? emailValidator
           : labelText.contains("name")
               ? nameValidator
-              : (value) => passwordValidator(
-                    value: value,
-                    context: context,
-                    formType: formType,
-                  ),
+              : labelText == 'Phone number'
+                  ? phoneNumberValidator
+                  : (value) => passwordValidator(
+                        value: value,
+                        context: context,
+                        formType: formType,
+                      ),
     );
   }
 }

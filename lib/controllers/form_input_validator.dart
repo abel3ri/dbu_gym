@@ -62,3 +62,8 @@ String? dropDownFormFieldValidator(String? value) {
     return "Please provide this field.";
   return null;
 }
+
+String? phoneNumberValidator(String? value) {
+  if (value!.isEmpty) return "Please provide a phone number.";
+  return null;
+}

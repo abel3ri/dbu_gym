@@ -25,6 +25,7 @@ Future<Either<CustomError, String>> signUpLoginController({
         numWorkoutDays: formProvider.selectedWorkoutDays,
         subscribedWorkoutType: formProvider.preferedWorkoutType,
         profileImageUrl: formProvider.profileImageUrl,
+        phoneNumber: formProvider.phoneNumberController.text,
       );
 
       res = await user.signUpUserWithEmailAndPassword();
@@ -85,6 +86,7 @@ Future<Either<CustomError, GymUser>> getUserData() async {
       numWorkoutDays: userData['numWorkoutDays'],
       subscribedWorkoutType: userData['subscribedWorkoutType'],
       profileImageUrl: userData['profileImageUrl'],
+      phoneNumber: userData['phoneNumber'],
     );
     return right(user);
   } on FirebaseException catch (err) {

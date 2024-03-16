@@ -18,6 +18,7 @@ class FormProvider with ChangeNotifier {
   final _endDateController = TextEditingController();
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
   bool _isAuthenticating = false;
   bool _hasDateInputError = false;
   String _dateInputErrorStr = '';
@@ -95,6 +96,7 @@ class FormProvider with ChangeNotifier {
   TextEditingController get endDateController => _endDateController;
   TextEditingController get firstNameController => _firstNameController;
   TextEditingController get lastNameController => _lastNameController;
+  TextEditingController get phoneNumberController => _phoneNumberController;
   GlobalKey<FormState> get loginFormKey => _loginFormKey;
   GlobalKey<FormState> get signUpFormKey => _signUpFormKey;
   bool get hasDateInputError => _hasDateInputError;
