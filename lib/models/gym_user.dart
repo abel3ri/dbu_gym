@@ -14,6 +14,9 @@ class GymUser {
   late String subscribedWorkoutType;
   late String profileImageUrl;
   late String phoneNumber;
+  DateTime createdAt = DateTime.now();
+  String hasPaid = 'pending';
+  List<String> paymentHistory = [];
 
   GymUser({
     required this.firstName,
@@ -41,14 +44,17 @@ class GymUser {
         await db.collection("users").doc(user.uid).set({
           "id": user.uid,
           "fullName": "${firstName} ${lastName}",
-          "email": email,
-          "password": password,
-          "gymStartDate": gymStartDate,
-          "gymEndDate": gymEndDate,
-          "numWorkoutDays": numWorkoutDays,
-          "subscribedWorkoutType": subscribedWorkoutType,
-          "profileImageUrl": profileImageUrl,
-          "phoneNumber": phoneNumber,
+          "email": this.email,
+          "password": this.password,
+          "gymStartDate": this.gymStartDate,
+          "gymEndDate": this.gymEndDate,
+          "numWorkoutDays": this.numWorkoutDays,
+          "subscribedWorkoutType": this.subscribedWorkoutType,
+          "profileImageUrl": this.profileImageUrl,
+          "phoneNumber": this.phoneNumber,
+          "createdAt": this.createdAt,
+          "hasPaid": this.hasPaid,
+          "paymentHistory": this.paymentHistory,
         });
         return right(user);
       }
