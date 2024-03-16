@@ -78,6 +78,11 @@ String? dropDownFormFieldValidator(String? value) {
 
 String? phoneNumberValidator(String? value) {
   if (value!.isEmpty) return "Please provide a phone number.";
+  if (value.length != 10)
+    return "Please enter valid phone number e.g. 0909090909";
+  if (value.substring(0, 2) != '09') return "Phone number must start with 09";
+
+  ;
   return null;
 }
 
