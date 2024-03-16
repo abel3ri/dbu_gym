@@ -11,6 +11,7 @@ class FormInputField extends StatelessWidget {
     required this.prefixIcon,
     required this.controller,
     required this.validator,
+    this.hintText,
     this.formType = "",
   });
 
@@ -19,6 +20,7 @@ class FormInputField extends StatelessWidget {
   final Icon prefixIcon;
   final TextEditingController controller;
   String formType;
+  String? hintText;
   String? Function(String? value) validator;
 
   @override
@@ -30,6 +32,10 @@ class FormInputField extends StatelessWidget {
         labelStyle: TextStyle(color: Colors.grey),
         prefixIcon: prefixIcon,
         prefixIconColor: Colors.grey,
+        hintText: hintText,
+        hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              color: Colors.grey,
+            ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: Theme.of(context).colorScheme.primary,

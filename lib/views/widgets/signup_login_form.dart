@@ -128,6 +128,7 @@ class _FormWidgetState extends State<FormWidget> {
                     children: [
                       Flexible(
                         child: FormInputField(
+                          hintText: "e.g. Abebe",
                           labelText: "First name",
                           prefixIcon: Icon(Icons.person),
                           controller: _firstNameController,
@@ -139,6 +140,7 @@ class _FormWidgetState extends State<FormWidget> {
                       ),
                       Flexible(
                         child: FormInputField(
+                          hintText: "e.g. Bekele",
                           labelText: "Last name",
                           prefixIcon: Icon(Icons.person),
                           controller: _lastNameController,
@@ -150,6 +152,7 @@ class _FormWidgetState extends State<FormWidget> {
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 ],
                 FormInputField(
+                  hintText: "e.g. abebebekele@example.com",
                   controller: _emailController,
                   labelText: "E-mail",
                   prefixIcon: Icon(Icons.email),
@@ -207,6 +210,7 @@ class _FormWidgetState extends State<FormWidget> {
                   ],
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   FormInputField(
+                    hintText: "e.g. 0909090909",
                     controller: _phoneNumberController,
                     labelText: "Phone number",
                     prefixIcon: Icon(Icons.phone),
