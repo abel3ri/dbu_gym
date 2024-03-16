@@ -5,18 +5,9 @@ import 'package:provider/provider.dart';
 
 void clearFormInputs(BuildContext context) {
   final formProvider = Provider.of<FormProvider>(context, listen: false);
-  formProvider.emailController.clear();
-  formProvider.passwordController.clear();
-  formProvider.rePasswordController.clear();
-  formProvider.startDateController.clear();
-  formProvider.endDateController.clear();
-  formProvider.firstNameController.clear();
-  formProvider.lastNameController.clear();
   formProvider.setSelectedWorkoutDays("default");
-  Provider.of<ProfileImageProvider>(context, listen: false).setImagePathAndName(
-    null,
-    null,
-  );
+  Provider.of<ProfileImageProvider>(context, listen: false)
+      .setImagePathAndName(null, null);
   formProvider.toggleDateInputSuccess();
   formProvider.setDateInputStr("");
 }

@@ -74,7 +74,7 @@ class ContactIcon extends StatelessWidget {
           await launchUrl(
             Uri.parse(
               icon == Icons.email
-                  ? "mailto:abelmerete@yahoo.com?subject=Forwarded from gym app"
+                  ? "mailto:abelhabteyohannes@gmail.com?subject=Forwarded from gym app"
                   : icon == Icons.telegram
                       ? "https://t.me/@a_be_l"
                       : "tel:+251963647311",

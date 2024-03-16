@@ -14,9 +14,9 @@ class GymUser {
   late String subscribedWorkoutType;
   late String profileImageUrl;
   late String phoneNumber;
-  DateTime createdAt = DateTime.now();
-  String hasPaid = 'pending';
-  List<String> paymentHistory = [];
+  late DateTime createdAt;
+  String hasPaid;
+  late List<String> paymentHistory;
 
   GymUser({
     required this.firstName,
@@ -29,6 +29,9 @@ class GymUser {
     required this.subscribedWorkoutType,
     required this.profileImageUrl,
     required this.phoneNumber,
+    this.hasPaid = 'pending',
+    required this.paymentHistory,
+    required this.createdAt,
   });
 
   Future<Either<CustomError, User>> signUpUserWithEmailAndPassword() async {

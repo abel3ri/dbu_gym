@@ -14,10 +14,10 @@ class SignUpPage extends StatelessWidget {
         surfaceTintColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
-            FocusManager.instance.primaryFocus!.unfocus();
-            GoRouter.of(context).pushReplacementNamed("welcome");
             // clear form inputs when user taps the back btn
             clearFormInputs(context);
+            FocusManager.instance.primaryFocus!.unfocus();
+            GoRouter.of(context).pushReplacementNamed("welcome");
           },
           icon: Icon(Icons.arrow_back_ios_new),
           style: ButtonStyle(

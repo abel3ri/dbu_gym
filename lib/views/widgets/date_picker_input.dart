@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:dbu_gym/controllers/form_input_validator.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,11 +8,13 @@ class DatePickerInputField extends StatelessWidget {
   String labelText;
   String helpText;
   TextEditingController controller;
+  String? Function(String? value) validator;
   DatePickerInputField({
     super.key,
     required this.controller,
     required this.labelText,
     required this.helpText,
+    required this.validator,
   });
 
   @override
@@ -50,24 +51,12 @@ class DatePickerInputField extends StatelessWidget {
           String picked_date =
               "${date!.year.toString().padLeft(2, "0")}-${date.month.toString().padLeft(2, "0")}-${date.day.toString().padLeft(2, "0")}";
 
-          Provider.of<FormProvider>(context, listen: false)
-              .setDateInputValue(picked_date, labelText);
+          controller.text = picked_date;
         } catch (e) {
           print(e.toString());
         }
       },
-      validator: (value) {
-        if (value!.isEmpty) return "${labelText} is required.";
-
-        if (formProvider.startDateController.text.isNotEmpty &&
-            formProvider.endDateController.text.isNotEmpty)
-          return dateValidator(
-            context: context,
-            startDate: DateTime.parse(formProvider.startDateController.text),
-            endDate: DateTime.parse(formProvider.endDateController.text),
-          );
-        return null;
-      },
+      validator: validator,
     );
   }
 }

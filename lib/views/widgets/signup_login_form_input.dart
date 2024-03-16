@@ -1,6 +1,4 @@
 // ignore_for_file: must_be_immutable
-
-import 'package:dbu_gym/controllers/form_input_validator.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +10,7 @@ class FormInputField extends StatelessWidget {
     required this.labelText,
     required this.prefixIcon,
     required this.controller,
+    required this.validator,
     this.formType = "",
   });
 
@@ -20,6 +19,7 @@ class FormInputField extends StatelessWidget {
   final Icon prefixIcon;
   final TextEditingController controller;
   String formType;
+  String? Function(String? value) validator;
 
   @override
   Widget build(BuildContext context) {
@@ -63,18 +63,7 @@ class FormInputField extends StatelessWidget {
               : labelText == 'Phone number'
                   ? TextInputType.phone
                   : null,
-
-      validator: labelText == "E-mail"
-          ? emailValidator
-          : labelText.contains("name")
-              ? nameValidator
-              : labelText == 'Phone number'
-                  ? phoneNumberValidator
-                  : (value) => passwordValidator(
-                        value: value,
-                        context: context,
-                        formType: formType,
-                      ),
+      validator: validator,
     );
   }
 }

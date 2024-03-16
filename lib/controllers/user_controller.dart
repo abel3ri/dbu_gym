@@ -1,67 +1,63 @@
 import 'package:dbu_gym/models/gym_user.dart';
-import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/utils/error.dart';
 import 'package:dbu_gym/utils/extension.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 
-Future<Either<CustomError, String>> signUpLoginController({
-  required FormProvider formProvider,
-  required BuildContext context,
-  required formType,
+Future<Either<CustomError, String>> signUpController({
+  required GymUser user,
 }) async {
   Either<CustomError, User> res;
   try {
-    if (formType == "Sign up") {
-      GymUser user = GymUser(
-        firstName: formProvider.firstNameController.text,
-        lastName: formProvider.lastNameController.text,
-        email: formProvider.emailController.text,
-        password: formProvider.passwordController.text,
-        gymStartDate: formProvider.startDateController.text,
-        gymEndDate: formProvider.endDateController.text,
-        numWorkoutDays: formProvider.selectedWorkoutDays,
-        subscribedWorkoutType: formProvider.preferedWorkoutType,
-        profileImageUrl: formProvider.profileImageUrl,
-        phoneNumber: formProvider.phoneNumberController.text,
+    res = await user.signUpUserWithEmailAndPassword();
+
+    if (res.isLeft()) {
+      return left(
+        CustomError(
+          errorTitle: (res.asLeft as CustomError).errorTitle,
+          errorBody: (res.asLeft as CustomError).errorBody,
+        ),
       );
-
-      res = await user.signUpUserWithEmailAndPassword();
-
-      if (res.isLeft()) {
-        return left(
-          CustomError(
-            errorTitle: (res.asLeft as CustomError).errorTitle,
-            errorBody: (res.asLeft as CustomError).errorBody,
-          ),
-        );
-      } else {
-        return right("Success.");
-      }
     } else {
-      // Login controller
-      res = await GymUser.signInUserWithEmailAndPassword(
-        email: formProvider.emailController.text,
-        password: formProvider.passwordController.text,
-      );
-
-      if (res.isLeft()) {
-        return left(
-          CustomError(
-            errorTitle: (res.asLeft as CustomError).errorTitle,
-            errorBody: (res.asLeft as CustomError).errorBody,
-          ),
-        );
-      } else {
-        return right("Success.");
-      }
+      return right("Success.");
     }
   } on FirebaseAuthException catch (err) {
     return left(
       CustomError(errorTitle: "Authentication error", errorBody: err.message!),
     );
+  } catch (err) {
+    return left(
+      CustomError(
+        errorTitle: "Authentication error",
+        errorBody: err.toString(),
+      ),
+    );
+  }
+}
+
+Future<Either<CustomError, String>> loginController({
+  required String email,
+  required String password,
+}) async {
+  try {
+    Either<CustomError, User> res;
+    // Login controller
+    res = await GymUser.signInUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+
+    if (res.isLeft()) {
+      return left(
+        CustomError(
+          errorTitle: (res.asLeft as CustomError).errorTitle,
+          errorBody: (res.asLeft as CustomError).errorBody,
+        ),
+      );
+    } else {
+      return right("Success.");
+    }
   } catch (err) {
     return left(
       CustomError(
@@ -87,6 +83,9 @@ Future<Either<CustomError, GymUser>> getUserData() async {
       subscribedWorkoutType: userData['subscribedWorkoutType'],
       profileImageUrl: userData['profileImageUrl'],
       phoneNumber: userData['phoneNumber'],
+      createdAt: DateTime.now(),
+      paymentHistory: [],
+      hasPaid: userData['hasPaid'],
     );
     return right(user);
   } on FirebaseException catch (err) {

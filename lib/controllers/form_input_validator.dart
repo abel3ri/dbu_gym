@@ -10,43 +10,56 @@ String? emailValidator(String? value) {
   return null;
 }
 
-String? passwordValidator({
-  required String? value,
-  required String formType,
-  required BuildContext context,
-}) {
-  final formProvider = Provider.of<FormProvider>(context, listen: false);
+String? passwordValidator(String? value) {
   if (value!.isEmpty) return "Please provide a password.";
-
   if (value.length < 8) return "Password must be at least 8 characters";
-  if (formType == "Sign up" &&
-      formProvider.passwordController.text !=
-          formProvider.rePasswordController.text) {
-    return "Password do not match.";
-  }
   return null;
 }
 
 String? dateValidator({
-  required DateTime startDate,
-  required DateTime endDate,
+  required String startDate,
+  required String endDate,
   required BuildContext context,
 }) {
+  // parse string dates to actual DateTime objs
+  DateTime sDate = DateTime.parse(startDate);
+  DateTime eDate = DateTime.parse(endDate);
+  print((eDate.millisecondsSinceEpoch - sDate.millisecondsSinceEpoch) /
+      (1000 * 60 * 60 * 24).toInt());
   final formProvider = Provider.of<FormProvider>(context, listen: false);
-  if (startDate.isBefore(DateTime.fromMillisecondsSinceEpoch(
-          DateTime.now().millisecondsSinceEpoch - 24 * 60 * 60 * 1000)) ||
-      endDate.isBefore(DateTime.now())) {
+  if (sDate.isBefore(DateTime.fromMillisecondsSinceEpoch(
+      DateTime.now().millisecondsSinceEpoch - 24 * 60 * 60 * 1000))) {
     formProvider.toggleDateInputError();
-    formProvider.setDateInputStr("Invalid Date Entered.");
+    formProvider
+        .setDateInputStr("Gym start date shouldn't preceed today's date.");
+    return "";
+  }
+  if (eDate.isBefore(DateTime.fromMillisecondsSinceEpoch(
+      DateTime.now().millisecondsSinceEpoch - 24 * 60 * 60 * 1000))) {
+    formProvider.toggleDateInputError();
+    formProvider
+        .setDateInputStr("Gym end date shouldn't preceed today's date.");
+    return "";
+  }
+  if ((eDate.millisecondsSinceEpoch - sDate.millisecondsSinceEpoch) /
+          (1000 * 60 * 60 * 24).toInt() !=
+      30) {
+    formProvider.toggleDateInputError();
+    formProvider.setDateInputStr("The date difference should be 30 days.");
     return "";
   }
 
-  if (startDate.isAfter(endDate)) {
+  if (sDate.isAfter(eDate)) {
     formProvider.toggleDateInputError();
     formProvider.setDateInputStr("Start Date should not exceed End Date.");
     return "";
   }
   formProvider.toggleDateInputSuccess();
+  return null;
+}
+
+String? dateInputValidator(String? value, String inputName) {
+  if (value!.isEmpty) return "${inputName} is required.";
   return null;
 }
 
@@ -66,4 +79,19 @@ String? dropDownFormFieldValidator(String? value) {
 String? phoneNumberValidator(String? value) {
   if (value!.isEmpty) return "Please provide a phone number.";
   return null;
+}
+
+// check if password and re entered password are the same
+void passRepassValidator({
+  required TextEditingController passController,
+  required TextEditingController rePassController,
+  required BuildContext context,
+}) {
+  if (passController.text != rePassController.text) {
+    Provider.of<FormProvider>(context, listen: false)
+        .sethasPassRepassInputError(true);
+  } else {
+    Provider.of<FormProvider>(context, listen: false)
+        .sethasPassRepassInputError(false);
+  }
 }

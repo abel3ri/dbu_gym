@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:dbu_gym/controllers/form_input_validator.dart';
 import 'package:dbu_gym/controllers/user_controller.dart';
+import 'package:dbu_gym/models/gym_user.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/utils/clear_form_inputs.dart';
@@ -13,16 +14,42 @@ import 'package:dbu_gym/views/widgets/date_picker_input.dart';
 import 'package:dbu_gym/views/widgets/signup_form_drop_down_btn.dart';
 import 'package:dbu_gym/views/widgets/signup_login_form_input.dart';
 import 'package:flutter/material.dart';
-import 'package:fpdart/fpdart.dart';
+import 'package:fpdart/fpdart.dart' hide State;
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class FormWidget extends StatelessWidget {
+class FormWidget extends StatefulWidget {
   String formType;
 
   FormWidget({
     required this.formType,
   });
+
+  @override
+  State<FormWidget> createState() => _FormWidgetState();
+}
+
+class _FormWidgetState extends State<FormWidget> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _rePasswordController = TextEditingController();
+  final _startDateController = TextEditingController();
+  final _endDateController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _rePasswordController.dispose();
+    _startDateController.dispose();
+    _endDateController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _phoneNumberController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +58,7 @@ class FormWidget extends StatelessWidget {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       padding: EdgeInsets.only(
-        top: formType == "Login"
+        top: widget.formType == "Login"
             ? MediaQuery.of(context).size.height * 0.1
             : MediaQuery.of(context).size.height * 0.05,
       ),
@@ -39,7 +66,9 @@ class FormWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            formType == "Login" ? "Welcome back!" : "It won't take long!",
+            widget.formType == "Login"
+                ? "Welcome back!"
+                : "It won't take long!",
             style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   color: Theme.of(context).primaryColor,
                   fontWeight: FontWeight.bold,
@@ -47,13 +76,13 @@ class FormWidget extends StatelessWidget {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.03),
           Text(
-            formType == "Login" ? "Login" : "Sign up",
+            widget.formType == "Login" ? "Login" : "Sign up",
             style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-          if (formType == "Sign up")
+          if (widget.formType == "Sign up")
             Stack(
               alignment: Alignment(1.2, 1.2),
               children: [
@@ -87,13 +116,13 @@ class FormWidget extends StatelessWidget {
             ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           Form(
-            key: formType == "Login"
+            key: widget.formType == "Login"
                 ? formProvider.loginFormKey
                 : formProvider.signUpFormKey,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (formType == "Sign up") ...[
+                if (widget.formType == "Sign up") ...[
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   Row(
                     children: [
@@ -101,7 +130,8 @@ class FormWidget extends StatelessWidget {
                         child: FormInputField(
                           labelText: "First name",
                           prefixIcon: Icon(Icons.person),
-                          controller: formProvider.firstNameController,
+                          controller: _firstNameController,
+                          validator: nameValidator,
                         ),
                       ),
                       SizedBox(
@@ -111,7 +141,8 @@ class FormWidget extends StatelessWidget {
                         child: FormInputField(
                           labelText: "Last name",
                           prefixIcon: Icon(Icons.person),
-                          controller: formProvider.lastNameController,
+                          controller: _lastNameController,
+                          validator: nameValidator,
                         ),
                       ),
                     ],
@@ -119,34 +150,69 @@ class FormWidget extends StatelessWidget {
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 ],
                 FormInputField(
-                  controller: formProvider.emailController,
+                  controller: _emailController,
                   labelText: "E-mail",
                   prefixIcon: Icon(Icons.email),
+                  validator: emailValidator,
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 FormInputField(
-                  controller: formProvider.passwordController,
+                  controller: _passwordController,
                   labelText: "Password",
                   prefixIcon: Icon(Icons.password),
                   showPassword: formProvider.showPassword,
-                  formType: formType,
+                  formType: widget.formType,
+                  validator: passwordValidator,
                 ),
-                if (formType == "Sign up") ...[
+                if (formProvider.hasPassRepassInputError) ...[
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                    child: Align(
+                      alignment: Alignment.centerLeft.add(Alignment(0.15, 0)),
+                      child: Text(
+                        "Password do not match.",
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              color: Theme.of(context).colorScheme.error,
+                            ),
+                      ),
+                    ),
+                  ),
+                ],
+                if (widget.formType == "Sign up") ...[
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   FormInputField(
-                    controller: formProvider.rePasswordController,
+                    controller: _rePasswordController,
                     labelText: "Re-enter password",
                     prefixIcon: Icon(Icons.password),
                     showPassword: formProvider.showPassword,
-                    formType: formType,
+                    formType: widget.formType,
+                    validator: passwordValidator,
                   ),
+                  if (formProvider.hasPassRepassInputError) ...[
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                      child: Align(
+                        alignment: Alignment.centerLeft.add(Alignment(0.15, 0)),
+                        child: Text(
+                          "Password do not match.",
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    color: Theme.of(context).colorScheme.error,
+                                  ),
+                        ),
+                      ),
+                    ),
+                  ],
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   FormInputField(
-                    controller: formProvider.phoneNumberController,
+                    controller: _phoneNumberController,
                     labelText: "Phone number",
                     prefixIcon: Icon(Icons.phone),
                     showPassword: formProvider.showPassword,
-                    formType: formType,
+                    formType: widget.formType,
+                    validator: phoneNumberValidator,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   Stack(
@@ -156,9 +222,15 @@ class FormWidget extends StatelessWidget {
                         children: [
                           Flexible(
                             child: DatePickerInputField(
-                              controller: formProvider.startDateController,
+                              controller: _startDateController,
                               labelText: "Gym Start Date",
                               helpText: "Start date of your gym plan",
+                              validator: (value) {
+                                return dateInputValidator(
+                                  value,
+                                  "Gym Start Date",
+                                );
+                              },
                             ),
                           ),
                           SizedBox(
@@ -166,9 +238,15 @@ class FormWidget extends StatelessWidget {
                           ),
                           Flexible(
                             child: DatePickerInputField(
-                              controller: formProvider.endDateController,
+                              controller: _endDateController,
                               labelText: "Gym End Date",
                               helpText: "End date of your gym plan",
+                              validator: (value) {
+                                return dateInputValidator(
+                                  value,
+                                  "Gym End Date",
+                                );
+                              },
                             ),
                           ),
                         ],
@@ -224,7 +302,7 @@ class FormWidget extends StatelessWidget {
                   )
                 ],
                 if (formProvider.selectedWorkoutDays != "default" &&
-                    formType == 'Sign up') ...[
+                    widget.formType == 'Sign up') ...[
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.02,
                   ),
@@ -241,15 +319,14 @@ class FormWidget extends StatelessWidget {
                         ? FocusManager.instance.primaryFocus!.unfocus()
                         : null;
 
-                    if (formType == "Login") {
+                    if (widget.formType == "Login") {
                       // valid login inputs
                       if (formProvider.loginFormKey.currentState!.validate()) {
                         formProvider.setIsAuthtentcating(true);
                         Either<CustomError, String> authRes =
-                            await signUpLoginController(
-                          formProvider: formProvider,
-                          context: context,
-                          formType: formType,
+                            await loginController(
+                          email: _emailController.text,
+                          password: _passwordController.text,
                         );
 
                         authRes.fold((err) {
@@ -264,6 +341,22 @@ class FormWidget extends StatelessWidget {
                         // clear form input only when user is redirected to splash page
                       }
                     } else {
+                      /// check if password and re enter password input have the same
+                      /// value
+                      passRepassValidator(
+                        passController: _passwordController,
+                        rePassController: _rePasswordController,
+                        context: context,
+                      );
+
+                      if (_startDateController.text.isNotEmpty &&
+                          _endDateController.text.isNotEmpty)
+                        dateValidator(
+                          startDate: _startDateController.text,
+                          endDate: _endDateController.text,
+                          context: context,
+                        );
+
                       if (imageProvider.imagePath == null) {
                         // if the form is sign up form and user didn't provide profile image, show an error snackbar
                         CustomError error = CustomError(
@@ -274,6 +367,8 @@ class FormWidget extends StatelessWidget {
                       }
                       // valid sign up inputs
                       if (formProvider.signUpFormKey.currentState!.validate() &&
+                          !formProvider.hasPassRepassInputError &&
+                          !formProvider.hasDateInputError &&
                           imageProvider.imagePath != null) {
                         formProvider.setIsAuthtentcating(true);
                         // set image profile field from image provider
@@ -288,12 +383,24 @@ class FormWidget extends StatelessWidget {
                         storageRes.fold((err) {
                           err.showError(context);
                         }, (r) => null);
-
+                        GymUser user = GymUser(
+                          firstName: _firstNameController.text,
+                          lastName: _lastNameController.text,
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                          gymStartDate: _startDateController.text,
+                          gymEndDate: _endDateController.text,
+                          numWorkoutDays: formProvider.selectedWorkoutDays,
+                          subscribedWorkoutType:
+                              formProvider.preferedWorkoutType,
+                          profileImageUrl: formProvider.profileImageUrl,
+                          phoneNumber: _phoneNumberController.text,
+                          createdAt: DateTime.now(),
+                          paymentHistory: [],
+                        );
                         Either<CustomError, String> authRes =
-                            await signUpLoginController(
-                          formProvider: formProvider,
-                          context: context,
-                          formType: formType,
+                            await signUpController(
+                          user: user,
                         );
                         authRes.fold((err) {
                           err.showError(context);
@@ -319,23 +426,24 @@ class FormWidget extends StatelessWidget {
                             strokeWidth: 3,
                           ),
                         )
-                      : Text(formType == "Login" ? "Login" : "Sign up"),
+                      : Text(widget.formType == "Login" ? "Login" : "Sign up"),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(formType == "Login"
+                    Text(widget.formType == "Login"
                         ? "Don't have an account?"
                         : "Already have an account?"),
                     TextButton(
                       onPressed: () {
-                        formType == "Login"
+                        widget.formType == "Login"
                             ? GoRouter.of(context)
                                 .pushReplacementNamed("signup")
                             : GoRouter.of(context)
                                 .pushReplacementNamed("login");
                       },
-                      child: Text(formType == "Login" ? "Sign up" : "Login"),
+                      child: Text(
+                          widget.formType == "Login" ? "Sign up" : "Login"),
                     ),
                   ],
                 ),

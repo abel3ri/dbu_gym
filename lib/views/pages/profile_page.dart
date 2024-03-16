@@ -45,10 +45,15 @@ class ProfilePage extends StatelessWidget {
                 "${user.firstName.capitalize} ${user.lastName.capitalize}";
             final gymEndDate = user.gymEndDate;
             final gymStartDate = user.gymStartDate;
-            final email = user.email;
+            final email = user.email.length >= 15
+                ? '${user.email.split("@")[0].substring(0, 7)}...@${user.email.split("@")[1]}'
+                : user.email;
             final numWorkoutDays = user.numWorkoutDays;
             final workoutPlan = user.subscribedWorkoutType;
             final profileImageUrl = user.profileImageUrl;
+            final phoneNumber = user.phoneNumber;
+            final createdAt = user.createdAt;
+
             return LayoutBuilder(
               builder: (context, constraints) => Container(
                 padding: EdgeInsets.symmetric(
@@ -70,7 +75,7 @@ class ProfilePage extends StatelessWidget {
                                 : null,
                           ),
                         ),
-                        SizedBox(width: constraints.maxWidth * 0.06),
+                        SizedBox(width: constraints.maxWidth * 0.05),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -86,11 +91,43 @@ class ProfilePage extends StatelessWidget {
                                   ),
                             ),
                             SizedBox(width: constraints.maxWidth * 0.04),
+                            SizedBox(height: constraints.maxHeight * 0.004),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  email,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                                Text(" | "),
+                                Text(
+                                  phoneNumber,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: constraints.maxHeight * 0.004),
                             Text(
-                              email,
+                              "Joined ${DateFormat.yMMMd("en-US").format(createdAt)}",
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyMedium!
+                                  .bodySmall!
                                   .copyWith(
                                     color:
                                         Theme.of(context).colorScheme.primary,
