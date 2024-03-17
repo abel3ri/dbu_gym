@@ -8,6 +8,7 @@ import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/firebase_options.dart';
 import 'package:dbu_gym/providers/pricing_provider.dart';
 import 'package:dbu_gym/providers/theme_provider.dart';
+import 'package:dbu_gym/providers/user_provider.dart';
 import 'package:dbu_gym/router/router.dart';
 import 'package:dbu_gym/utils/loadExercie.dart';
 import 'package:dbu_gym/utils/theme.dart';
@@ -44,6 +45,7 @@ void main(List<String> args) async {
         ChangeNotifierProvider(
             create: (context) => ThemeProvider(prefs: prefs)),
         ChangeNotifierProvider(create: (context) => BMIProvider()),
+        ChangeNotifierProvider(create: (context) => UserProvider()),
       ],
       child: Builder(builder: (context) {
         // get the current selected theme and update the theme based on user selection

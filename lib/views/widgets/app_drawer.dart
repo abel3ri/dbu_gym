@@ -1,6 +1,7 @@
 import "package:dbu_gym/controllers/user_controller.dart";
 import "package:dbu_gym/models/gym_user.dart";
 import "package:dbu_gym/providers/theme_provider.dart";
+import "package:dbu_gym/providers/user_provider.dart";
 import "package:dbu_gym/utils/constants.dart";
 import "package:dbu_gym/utils/extension.dart";
 import "package:flex_color_scheme/flex_color_scheme.dart";
@@ -10,7 +11,7 @@ import "package:go_router/go_router.dart";
 import "package:provider/provider.dart";
 
 // ignore: must_be_immutable
-class AppZoomDrawer extends StatelessWidget {
+class AppZoomDrawer extends StatefulWidget {
   Widget mainScreen;
   Widget? title;
   List<Widget>? appBarActions;
@@ -23,7 +24,25 @@ class AppZoomDrawer extends StatelessWidget {
   });
 
   @override
+  State<AppZoomDrawer> createState() => _AppZoomDrawerState();
+}
+
+class _AppZoomDrawerState extends State<AppZoomDrawer> {
+  @override
+  void initState() {
+    if (auth.currentUser != null)
+      getUserData().then((value) {
+        final user = value.asRight as GymUser;
+        Provider.of<UserProvider>(context, listen: false).setUser(user);
+      });
+    print("INIT STATE CALLED");
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print("WIDGET BUILD CALLED");
+    final userProvider = Provider.of<UserProvider>(context);
     ZoomDrawerController zoomDrawerController = ZoomDrawerController();
     return ZoomDrawer(
       controller: zoomDrawerController,
@@ -44,175 +63,171 @@ class AppZoomDrawer extends StatelessWidget {
                 bottom: MediaQuery.of(context).size.height * 0.01,
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      Text(
-                        "Settings",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(
-                              color: Theme.of(context).colorScheme.primary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.05),
-                      if (auth.currentUser != null) ...[
-                        FutureBuilder(
-                          future: getUserData(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting)
-                              return CircleAvatar(
-                                radius: 35,
-                                child: CircleAvatar(
-                                  radius: 30,
-                                  child: CircularProgressIndicator(),
-                                ),
-                              );
-
-                            final String imageUrl =
-                                (snapshot.data!.asRight as GymUser)
-                                    .profileImageUrl;
-                            return CircleAvatar(
-                              radius: 35,
-                              child: CircleAvatar(
-                                radius: 30,
-                                backgroundImage: snapshot.hasData
-                                    ? NetworkImage(imageUrl)
-                                    : null,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          "Settings",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontWeight: FontWeight.bold,
                               ),
-                            );
-                          },
                         ),
                         SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
+                            height: MediaQuery.of(context).size.height * 0.05),
+                        if (auth.currentUser != null) ...[
+                          CircleAvatar(
+                            radius: 35,
+                            child: CircleAvatar(
+                              radius: 30,
+                              backgroundImage: userProvider.user != null
+                                  ? NetworkImage(
+                                      userProvider.user!.profileImageUrl,
+                                    )
+                                  : null,
+                              child: userProvider.user == null
+                                  ? Center(
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : null,
+                            ),
+                          ),
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.01),
+                          ListTile(
+                            leading: Icon(Icons.person),
+                            onTap: () {
+                              GoRouter.of(context).pushNamed("profile");
+                            },
+                            titleTextStyle:
+                                Theme.of(context).textTheme.bodyMedium,
+                            title: Text("Profile"),
+                          ),
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.01),
+                        ],
                         ListTile(
-                          leading: Icon(Icons.person),
+                          leading: Icon(Provider.of<ThemeProvider>(context)
+                                      .getCurrentThemeMode() ==
+                                  'dark'
+                              ? Icons.dark_mode
+                              : Icons.light_mode),
+                          titleTextStyle:
+                              Theme.of(context).textTheme.bodyMedium,
+                          title: Text("Theme"),
+                          trailing: DropdownButton(
+                            elevation: 0,
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            value: Provider.of<ThemeProvider>(context)
+                                .getCurrentThemeMode(),
+                            style: Theme.of(context).textTheme.bodySmall,
+                            items: [
+                              DropdownMenuItem(
+                                child: Text("System"),
+                                value: "system",
+                              ),
+                              DropdownMenuItem(
+                                child: Text("Light"),
+                                value: "light",
+                              ),
+                              DropdownMenuItem(
+                                child: Text("Dark"),
+                                value: "dark",
+                              ),
+                            ],
+                            onChanged: (value) {
+                              Provider.of<ThemeProvider>(context, listen: false)
+                                  .changeSelectedTheme(value!);
+                            },
+                          ),
+                        ),
+                        if (auth.currentUser != null)
+                          ListTile(
+                            leading: Icon(Icons.money),
+                            titleTextStyle:
+                                Theme.of(context).textTheme.bodyMedium,
+                            title: Text("Manage Subscription"),
+                          ),
+                        ListTile(
                           onTap: () {
-                            GoRouter.of(context).pushNamed("profile");
+                            GoRouter.of(context).pushNamed("faq");
                           },
+                          leading: Icon(Icons.question_mark),
                           titleTextStyle:
                               Theme.of(context).textTheme.bodyMedium,
-                          title: Text("Profile"),
+                          title: Text("FAQs"),
                         ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01),
+                        if (auth.currentUser != null)
+                          ListTile(
+                            onTap: () async {
+                              await auth.signOut();
+                              GoRouter.of(context)
+                                  .pushReplacementNamed("splash");
+                            },
+                            textColor: Theme.of(context).colorScheme.error,
+                            iconColor: Theme.of(context).colorScheme.error,
+                            leading: Icon(Icons.logout_outlined),
+                            titleTextStyle: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                            title: Text("Logout"),
+                          ),
                       ],
-                      ListTile(
-                        leading: Icon(Provider.of<ThemeProvider>(context)
-                                    .getCurrentThemeMode() ==
-                                'dark'
-                            ? Icons.dark_mode
-                            : Icons.light_mode),
-                        titleTextStyle: Theme.of(context).textTheme.bodyMedium,
-                        title: Text("Theme"),
-                        trailing: DropdownButton(
-                          elevation: 0,
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          value: Provider.of<ThemeProvider>(context)
-                              .getCurrentThemeMode(),
-                          style: Theme.of(context).textTheme.bodySmall,
-                          items: [
-                            DropdownMenuItem(
-                              child: Text("System"),
-                              value: "system",
-                            ),
-                            DropdownMenuItem(
-                              child: Text("Light"),
-                              value: "light",
-                            ),
-                            DropdownMenuItem(
-                              child: Text("Dark"),
-                              value: "dark",
-                            ),
-                          ],
-                          onChanged: (value) {
-                            Provider.of<ThemeProvider>(context, listen: false)
-                                .changeSelectedTheme(value!);
-                          },
-                        ),
-                      ),
-                      if (auth.currentUser != null)
-                        ListTile(
-                          leading: Icon(Icons.money),
-                          titleTextStyle:
-                              Theme.of(context).textTheme.bodyMedium,
-                          title: Text("Manage Subscription"),
-                        ),
-                      ListTile(
-                        onTap: () {
-                          GoRouter.of(context).pushNamed("faq");
-                        },
-                        leading: Icon(Icons.question_mark),
-                        titleTextStyle: Theme.of(context).textTheme.bodyMedium,
-                        title: Text("FAQs"),
-                      ),
-                      if (auth.currentUser != null)
-                        ListTile(
-                          onTap: () async {
-                            await auth.signOut();
-                            GoRouter.of(context).pushReplacementNamed("splash");
-                          },
-                          textColor: Theme.of(context).colorScheme.error,
-                          iconColor: Theme.of(context).colorScheme.error,
-                          leading: Icon(Icons.logout_outlined),
-                          titleTextStyle:
-                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    ),
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "V 1.0.0",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),
-                          title: Text("Logout"),
+                            ),
+                            SizedBox(width: 12),
+                            Text(
+                              "DBU Gym",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                            ),
+                          ],
                         ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "V 1.0.0",
+                        TextButton(
+                          onPressed: () {
+                            GoRouter.of(context).pushNamed("contact-dev");
+                          },
+                          child: Text(
+                            "Contact Developer",
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyMedium!
+                                .bodySmall!
                                 .copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                          SizedBox(width: 12),
-                          Text(
-                            "DBU Gym",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  fontWeight: FontWeight.bold,
                                   color: Theme.of(context).colorScheme.primary,
                                 ),
                           ),
-                        ],
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          GoRouter.of(context).pushNamed("contact-dev");
-                        },
-                        child: Text(
-                          "Contact Developer",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                      ],
+                    ),
+                  ]),
             ),
           ),
         ),
@@ -227,12 +242,12 @@ class AppZoomDrawer extends StatelessWidget {
               },
               icon: Icon(Icons.sort),
             ),
-            actions: appBarActions,
-            title: title,
+            actions: widget.appBarActions,
+            title: widget.title,
             titleTextStyle: Theme.of(context).textTheme.bodyLarge,
             // centerTitle: true,
           ),
-          body: mainScreen,
+          body: widget.mainScreen,
         );
       }),
     );
