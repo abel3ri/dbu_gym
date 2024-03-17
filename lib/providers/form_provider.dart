@@ -1,7 +1,7 @@
 import 'dart:io';
 
+import 'package:dbu_gym/models/error.dart';
 import 'package:dbu_gym/utils/constants.dart';
-import 'package:dbu_gym/utils/error.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';

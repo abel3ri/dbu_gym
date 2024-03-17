@@ -1,6 +1,6 @@
+import 'package:dbu_gym/models/error.dart';
 import 'package:dbu_gym/models/gym_user.dart';
 import 'package:dbu_gym/utils/constants.dart';
-import 'package:dbu_gym/utils/error.dart';
 import 'package:dbu_gym/utils/extension.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
