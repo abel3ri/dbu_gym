@@ -34,14 +34,13 @@ class _AppZoomDrawerState extends State<AppZoomDrawer> {
       getUserData().then((value) {
         final user = value.asRight as GymUser;
         Provider.of<UserProvider>(context, listen: false).setUser(user);
+        setState(() {});
       });
-    print("INIT STATE CALLED");
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("WIDGET BUILD CALLED");
     final userProvider = Provider.of<UserProvider>(context);
     ZoomDrawerController zoomDrawerController = ZoomDrawerController();
     return ZoomDrawer(
