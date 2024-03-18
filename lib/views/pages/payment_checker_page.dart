@@ -1,6 +1,7 @@
 import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/providers/payment_upload_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
+import 'package:dbu_gym/views/pages/home_page.dart';
 import 'package:dbu_gym/views/pages/image_pick_selector.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -148,7 +149,11 @@ class PaymentCheckerPage extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(height: 8),
-                                    Text(value.imageName!),
+                                    Text(
+                                      value.imageName!,
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
                                   ],
                                 )
                               : null,
@@ -199,9 +204,7 @@ class PaymentCheckerPage extends StatelessWidget {
               child: Text("Payment approve pending"),
             );
           // GoRouter.of(context).pushReplacementNamed("home");
-          return Center(
-            child: Text("Redirecting to home page..."),
-          );
+          return HomePage();
         },
       ),
     );
