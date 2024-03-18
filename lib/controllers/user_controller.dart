@@ -85,14 +85,16 @@ Future<Either<CustomError, GymUser>> getUserData() async {
       phoneNumber: userData['phoneNumber'],
       createdAt: DateTime.now(),
       paymentHistory: [],
-      hasPaid: userData['hasPaid'],
+      paymentStatus: userData['paymentStatus'],
     );
     return right(user);
   } on FirebaseException catch (err) {
+    print("FIRESTORE ERROR: ${err.message}");
     return left(
       CustomError(errorTitle: "Fetching err", errorBody: err.message!),
     );
   } catch (err) {
+    print("APP ERROR: ${err}");
     return left(
       CustomError(
         errorTitle: "Fetching error",

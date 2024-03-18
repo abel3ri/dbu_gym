@@ -15,7 +15,7 @@ class GymUser {
   late String profileImageUrl;
   late String phoneNumber;
   late DateTime createdAt;
-  String hasPaid;
+  String paymentStatus;
   late List<String> paymentHistory;
 
   GymUser({
@@ -29,7 +29,7 @@ class GymUser {
     required this.subscribedWorkoutType,
     required this.profileImageUrl,
     required this.phoneNumber,
-    this.hasPaid = 'pending',
+    this.paymentStatus = 'notPaid',
     required this.paymentHistory,
     required this.createdAt,
   });
@@ -56,7 +56,7 @@ class GymUser {
           "profileImageUrl": this.profileImageUrl,
           "phoneNumber": this.phoneNumber,
           "createdAt": this.createdAt,
-          "hasPaid": this.hasPaid,
+          "paymentStatus": this.paymentStatus,
           "paymentHistory": this.paymentHistory,
         });
         return right(user);

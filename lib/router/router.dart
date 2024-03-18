@@ -11,6 +11,7 @@ import "package:go_router/go_router.dart";
 import "package:dbu_gym/views/pages/login_page.dart";
 import "package:dbu_gym/views/pages/not_found_page.dart";
 import 'package:dbu_gym/views/pages/sign_up_page.dart';
+import 'package:dbu_gym/views/pages/payment_checker_page.dart';
 
 class AppRouter {
   static final router = GoRouter(
@@ -69,6 +70,11 @@ class AppRouter {
         path: "/contact-dev",
         name: "contact-dev",
         builder: (context, state) => ContactDeveloperPage(),
+      ),
+      GoRoute(
+        path: "/payment-upload",
+        name: "payment-upload",
+        builder: (context, state) => PaymentCheckerPage(),
       ),
     ],
     errorBuilder: (context, state) => PageNotFound(),

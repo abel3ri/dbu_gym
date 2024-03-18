@@ -146,13 +146,36 @@ class _AppZoomDrawerState extends State<AppZoomDrawer> {
                             },
                           ),
                         ),
-                        if (auth.currentUser != null)
+                        if (auth.currentUser != null) ...[
                           ListTile(
-                            leading: Icon(Icons.money),
+                            leading: Icon(Icons.bolt),
                             titleTextStyle:
                                 Theme.of(context).textTheme.bodyMedium,
                             title: Text("Manage Subscription"),
                           ),
+                          if (userProvider.user != null &&
+                                  userProvider.user!.paymentStatus ==
+                                      'pending' ||
+                              userProvider.user!.paymentStatus == 'notPaid')
+                            ListTile(
+                              onTap: () {
+                                GoRouter.of(context)
+                                    .pushReplacementNamed("payment-upload");
+                              },
+                              trailing: Text("new"),
+                              leadingAndTrailingTextStyle: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                              leading: Icon(Icons.money),
+                              titleTextStyle:
+                                  Theme.of(context).textTheme.bodyMedium,
+                              title: Text("Payment"),
+                            ),
+                        ],
                         ListTile(
                           onTap: () {
                             GoRouter.of(context).pushNamed("faq");
