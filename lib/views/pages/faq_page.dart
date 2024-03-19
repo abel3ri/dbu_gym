@@ -73,7 +73,7 @@ class FAQPage extends StatelessWidget {
                 title: "Is there after gym shower?",
                 body: FAQBody(
                   bodyText:
-                      "Yes, although it is occupied most of the time but if you're an insider, we recommend you to take shower from your dormitory's block.",
+                      "Yes, but it is occupied most of the time. If you're an insider, we recommend you to take shower from your dormitory's block.",
                 ),
               ),
               SizedBox(
