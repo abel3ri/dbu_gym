@@ -154,9 +154,9 @@ class _AppZoomDrawerState extends State<AppZoomDrawer> {
                             title: Text("Manage Subscription"),
                           ),
                           if (userProvider.user != null &&
-                                  userProvider.user!.paymentStatus ==
-                                      'pending' ||
-                              userProvider.user!.paymentStatus == 'notPaid')
+                              ['pending', 'notPaid'].contains(
+                                userProvider.user!.paymentStatus,
+                              ))
                             ListTile(
                               onTap: () {
                                 GoRouter.of(context)
