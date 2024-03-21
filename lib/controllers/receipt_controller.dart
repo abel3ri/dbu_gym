@@ -9,6 +9,7 @@ import 'package:fpdart/fpdart.dart';
 Future<Either<CustomError, bool>> uploadPaymentReceipt({
   required String imageUrl,
   required String imageName,
+  required String userName,
 }) async {
   try {
     // set the payment status propery to pending

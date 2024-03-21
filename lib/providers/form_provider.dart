@@ -66,6 +66,7 @@ class FormProvider with ChangeNotifier {
       UploadTask uploadTask = ref.putFile(profileImage);
       final snapshot = await uploadTask.whenComplete(() => {});
       _profileImageUrl = await snapshot.ref.getDownloadURL();
+
       notifyListeners();
       return right(_profileImageUrl!);
     } on FirebaseException catch (err) {

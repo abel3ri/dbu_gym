@@ -4,8 +4,8 @@ import 'package:dbu_gym/controllers/receipt_controller.dart';
 import 'package:dbu_gym/models/error.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/providers/payment_upload_provider.dart';
+import 'package:dbu_gym/providers/user_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
-import 'package:dbu_gym/utils/extension.dart';
 import 'package:dbu_gym/views/pages/home_page.dart';
 import 'package:dbu_gym/views/pages/image_pick_selector.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -19,6 +19,8 @@ class PaymentCheckerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final imageProvider = Provider.of<ProfileImageProvider>(context);
+    final paymentProvider = Provider.of<PaymentUploadProvider>(context);
     return Scaffold(
       body: StreamBuilder(
         stream: db.collection("users").doc(auth.currentUser!.uid).snapshots(),
@@ -27,11 +29,13 @@ class PaymentCheckerPage extends StatelessWidget {
             return Center(
               child: CircularProgressIndicator(),
             );
+          if (snapshot.hasError) {
+            CustomError(errorTitle: "Error", errorBody: "Connection Problem")
+                .showError(context);
+          }
           final paymentStatus = snapshot.data!.data()!['paymentStatus'];
 
           if (paymentStatus == 'notPaid') {
-            final imageProvider = Provider.of<ProfileImageProvider>(context);
-            final paymentProvider = Provider.of<PaymentUploadProvider>(context);
             return SafeArea(
               child: SingleChildScrollView(
                 padding: EdgeInsets.only(
@@ -61,17 +65,18 @@ class PaymentCheckerPage extends StatelessWidget {
                             child: Column(
                               children: [
                                 Text(
-                                  "Debre Berhan University Athletics Club",
+                                  "Debre Berhan University Athletics Club"
+                                      .toUpperCase(),
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    letterSpacing: 1.1,
+                                    color: Colors.white,
                                   ),
                                 ),
                                 Text(
                                   "ደብረ ብርሃን ዩኒቨርሲቲ አትሌቲክስ ክለብ",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    letterSpacing: 1.1,
+                                    color: Colors.white,
                                   ),
                                 ),
                                 SizedBox(
@@ -90,6 +95,7 @@ class PaymentCheckerPage extends StatelessWidget {
                                           .copyWith(
                                             fontWeight: FontWeight.bold,
                                             letterSpacing: 1.3,
+                                            color: Colors.white,
                                           ),
                                     ),
                                     Image.asset(
@@ -107,12 +113,12 @@ class PaymentCheckerPage extends StatelessWidget {
                           height: MediaQuery.of(context).size.height * 0.04,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 10),
+                          padding: const EdgeInsets.only(left: 12),
                           child: Text(
                             "Required steps.",
                             style: Theme.of(context)
                                 .textTheme
-                                .headlineMedium!
+                                .headlineSmall!
                                 .copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -124,7 +130,12 @@ class PaymentCheckerPage extends StatelessWidget {
                         EasyStepper(
                           activeStep: paymentProvider.activeIndex,
                           alignment: Alignment.topLeft,
+                          unreachedStepIconColor:
+                              Theme.of(context).colorScheme.primary,
+                          unreachedStepTextColor:
+                              Theme.of(context).colorScheme.primary,
                           showLoadingAnimation: false,
+                          enableStepTapping: false,
                           onStepReached: (index) {
                             paymentProvider.setIndex(index);
                           },
@@ -202,13 +213,16 @@ class PaymentCheckerPage extends StatelessWidget {
                               paymentProvider.toggleIsLoading(true);
                               Either<CustomError, bool> res =
                                   await uploadPaymentReceipt(
-                                imageUrl: imageProvider.imagePath!,
-                                imageName: imageProvider.imageName!,
+                                      imageUrl: imageProvider.imagePath!,
+                                      imageName: imageProvider.imageName!,
+                                      userName:
+                                          '${Provider.of<UserProvider>(context, listen: false).user!.firstName}-${Provider.of<UserProvider>(context, listen: false).user!.lastName}');
+                              res.fold(
+                                (err) {
+                                  err.showError(context);
+                                },
+                                (r) => null,
                               );
-                              if (res.isLeft()) {
-                                (res.asLeft as CustomError).showError(context);
-                                paymentProvider.toggleIsLoading(false);
-                              }
                               paymentProvider.toggleIsLoading(false);
                             },
                             child: paymentProvider.isLoading
@@ -228,7 +242,7 @@ class PaymentCheckerPage extends StatelessWidget {
               ),
             );
           }
-          if (paymentStatus == 'pending')
+          if (paymentStatus == 'pending') {
             return Center(
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -248,7 +262,9 @@ class PaymentCheckerPage extends StatelessWidget {
                 ),
               ),
             );
-          // GoRouter.of(context).pushReplacementNamed("home");
+          }
+
+          // imageProvider.setImagePathAndName(null, null);
           return HomePage();
         },
       ),

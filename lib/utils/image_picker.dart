@@ -17,6 +17,7 @@ Future<Either<String, XFile>> pickImageFromGallery() async {
     XFile? image = await ImagePicker()
         .pickImage(source: ImageSource.gallery, imageQuality: 25);
     if (image == null) return left("Image not selected!");
+    print(image.path);
     return right(image);
   } catch (err) {
     throw left(err.toString());

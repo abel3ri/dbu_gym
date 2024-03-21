@@ -365,7 +365,7 @@ class _FormWidgetState extends State<FormWidget> {
                         // if the form is sign up form and user didn't provide profile image, show an error snackbar
                         CustomError error = CustomError(
                           errorTitle: "Error",
-                          errorBody: "Please provider a profile picture",
+                          errorBody: "Please provide a profile picture",
                         );
                         error.showError(context);
                       }
@@ -383,10 +383,11 @@ class _FormWidgetState extends State<FormWidget> {
                           imageProvider.imagePath!,
                           imageProvider.imageName!,
                         );
-                        // show error is setProfileImageUrl returns an error
+                        // show error if setProfileImageUrl returns an error
                         storageRes.fold((err) {
                           err.showError(context);
                         }, (r) => null);
+
                         GymUser user = GymUser(
                           firstName: _firstNameController.text,
                           lastName: _lastNameController.text,
@@ -410,7 +411,8 @@ class _FormWidgetState extends State<FormWidget> {
                           err.showError(context);
                           formProvider.setIsAuthtentcating(false);
                         }, (r) {
-                          GoRouter.of(context).pushReplacementNamed("splash");
+                          GoRouter.of(context)
+                              .pushReplacementNamed("payment-upload");
                           formProvider.setIsAuthtentcating(false);
                           // clear form inputs only if user is redirected to spalsh page
                           clearFormInputs(context);
