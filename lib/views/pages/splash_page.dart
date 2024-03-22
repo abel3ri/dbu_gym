@@ -1,5 +1,5 @@
 import 'package:dbu_gym/utils/constants.dart';
-import 'package:dbu_gym/views/pages/home_page.dart';
+import 'package:dbu_gym/views/pages/payment_checker_page.dart';
 import 'package:dbu_gym/views/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ class SplashPage extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting)
             return Center(child: CircularProgressIndicator());
           if (snapshot.data == null) return WelcomePage();
-          return HomePage();
+          return PaymentCheckerPage();
         },
       ),
     );
