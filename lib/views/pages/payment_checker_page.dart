@@ -243,6 +243,8 @@ class PaymentCheckerPage extends StatelessWidget {
             );
           }
           if (paymentStatus == 'pending') {
+            // imageProvider.setImagePathAndName(null, null);
+            // imageProvider.dispose();
             return Center(
               child: Padding(
                 padding: EdgeInsets.symmetric(

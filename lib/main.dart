@@ -24,7 +24,7 @@ void main(List<String> args) async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // get shared preferences instacne
+  // get shared preferences instance
   final prefs = await SharedPreferences.getInstance();
   // check if the app is running for the first time (i.e. key -> theme = null)
   // if so set theme to system else do nothing

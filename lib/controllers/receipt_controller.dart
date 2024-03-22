@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dbu_gym/models/error.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -22,7 +21,8 @@ Future<Either<CustomError, bool>> uploadPaymentReceipt({
 
     await db.collection("users").doc(auth.currentUser!.uid).update({
       "paymentStatus": "pending",
-      "paymentHistory": FieldValue.arrayUnion([paymentReceiptUrl])
+      "pendingReceiptUrl": paymentReceiptUrl,
+      // "paymentHistory": FieldValue.arrayUnion([paymentReceiptUrl])
     });
     return right(true);
   } on FirebaseException catch (err) {

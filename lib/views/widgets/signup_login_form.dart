@@ -152,7 +152,7 @@ class _FormWidgetState extends State<FormWidget> {
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 ],
                 FormInputField(
-                  hintText: "e.g. abebebekele@example.com",
+                  hintText: "e.g. abebe@example.com",
                   controller: _emailController,
                   labelText: "E-mail",
                   prefixIcon: Icon(Icons.email),
