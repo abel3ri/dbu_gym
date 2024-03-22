@@ -54,7 +54,7 @@ class _FormWidgetState extends State<FormWidget> {
   @override
   Widget build(BuildContext context) {
     final formProvider = Provider.of<FormProvider>(context);
-    final imageProvider = Provider.of<ProfileImageProvider>(context);
+    final imageProvider = Provider.of<AppImageProvider>(context);
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       padding: EdgeInsets.only(
@@ -97,6 +97,7 @@ class _FormWidgetState extends State<FormWidget> {
                 ),
                 GestureDetector(
                   onTap: () {
+                    formProvider.setSelectedImagePicker("profilePicture");
                     showModalBottomSheet(
                       showDragHandle: true,
                       constraints: BoxConstraints.tight(Size(
@@ -267,6 +268,71 @@ class _FormWidgetState extends State<FormWidget> {
                     ],
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  Container(
+                    decoration: BoxDecoration(
+                      color:
+                          Theme.of(context).colorScheme.primary.withAlpha(20),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "I'm an",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                          ),
+                        ),
+                        RadioMenuButton(
+                          value: "insider",
+                          groupValue: formProvider.affiliationStatus,
+                          onChanged: (value) {
+                            formProvider.setAffiliationStatus(value!);
+                          },
+                          child: Text("Insider"),
+                        ),
+                        RadioMenuButton(
+                          value: "outsider",
+                          groupValue: formProvider.affiliationStatus,
+                          onChanged: (value) {
+                            formProvider.setAffiliationStatus(value!);
+                          },
+                          child: Text("Outsider"),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  if (formProvider.affiliationStatus == 'insider') ...[
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          formProvider.setSelectedImagePicker("idPicture");
+                          showModalBottomSheet(
+                            showDragHandle: true,
+                            constraints: BoxConstraints.tight(Size(
+                                MediaQuery.of(context).size.width,
+                                MediaQuery.of(context).size.height * 0.3)),
+                            context: context,
+                            builder: (context) => ImagePickSelector(),
+                          );
+                        },
+                        child: Text("Select ID Picture"),
+                      ),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                    if (imageProvider.idImagePath != null)
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.file(File(imageProvider.idImagePath!)),
+                      ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  ],
                   DropdownButtonFormField(
                     value: "default",
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(

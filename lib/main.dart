@@ -36,7 +36,7 @@ void main(List<String> args) async {
       providers: [
         ChangeNotifierProvider(create: (context) => CarouselProvider()),
         ChangeNotifierProvider(create: (context) => FormProvider()),
-        ChangeNotifierProvider(create: (context) => ProfileImageProvider()),
+        ChangeNotifierProvider(create: (context) => AppImageProvider()),
         ChangeNotifierProvider(create: (context) => PricingProvider()),
         ChangeNotifierProvider(create: (context) => HomePageGridProvider()),
         ChangeNotifierProvider(

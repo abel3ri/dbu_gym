@@ -19,7 +19,7 @@ class PaymentCheckerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageProvider = Provider.of<ProfileImageProvider>(context);
+    final imageProvider = Provider.of<AppImageProvider>(context);
     final paymentProvider = Provider.of<PaymentUploadProvider>(context);
     return Scaffold(
       body: StreamBuilder(

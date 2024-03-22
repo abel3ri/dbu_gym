@@ -17,6 +17,8 @@ class FormProvider with ChangeNotifier {
   String? _preferedWorkoutType;
   String? _profileImageUrl;
   bool _hasPassRepassInputError = false;
+  String _affiliationStatus = 'default';
+  String? _selectedImagePicker;
 
   void toggleShowPassword() {
     _showPassword = !_showPassword;
@@ -58,6 +60,16 @@ class FormProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void setAffiliationStatus(String value) {
+    _affiliationStatus = value;
+    notifyListeners();
+  }
+
+  void setSelectedImagePicker(String value) {
+    _selectedImagePicker = value;
+    notifyListeners();
+  }
+
   Future<Either<CustomError, String>> setProfileImageUrl(
       String imageUrl, String imageName) async {
     try {
@@ -87,4 +99,6 @@ class FormProvider with ChangeNotifier {
   String get profileImageUrl => _profileImageUrl!;
   String? get dateInputErrorStr => _dateInputErrorStr;
   bool get hasPassRepassInputError => _hasPassRepassInputError;
+  String get affiliationStatus => _affiliationStatus;
+  String? get selectImagePicker => _selectedImagePicker;
 }

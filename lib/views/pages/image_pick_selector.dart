@@ -1,3 +1,4 @@
+import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/utils/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,8 @@ class ImagePickSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final imageProvider = Provider.of<AppImageProvider>(context);
+    final formProvider = Provider.of<FormProvider>(context);
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -18,9 +21,12 @@ class ImagePickSelector extends StatelessWidget {
               final res = await pickImageFromGallery();
               res.fold((l) => print(l), (image) {
                 GoRouter.of(context).pop();
-
-                Provider.of<ProfileImageProvider>(context, listen: false)
-                    .setImagePathAndName(image.path, image.name);
+                // separte the image provider for id image and profile image
+                if (formProvider.selectImagePicker == 'profilePicture') {
+                  imageProvider.setImagePathAndName(image.path, image.name);
+                } else {
+                  imageProvider.setIdImagePathAndName(image.path, image.name);
+                }
               });
             },
             child: Column(
@@ -38,9 +44,13 @@ class ImagePickSelector extends StatelessWidget {
               final res = await pickImageFromCamera();
               res.fold((l) => print(l), (image) {
                 GoRouter.of(context).pop();
-                print(image.path);
-                Provider.of<ProfileImageProvider>(context, listen: false)
-                    .setImagePathAndName(image.path, image.name);
+
+                // separte the image provider for id image and profile image
+                if (formProvider.selectImagePicker == 'profilePicture') {
+                  imageProvider.setImagePathAndName(image.path, image.name);
+                } else {
+                  imageProvider.setIdImagePathAndName(image.path, image.name);
+                }
               });
             },
             child: Column(
