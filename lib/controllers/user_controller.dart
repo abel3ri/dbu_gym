@@ -86,6 +86,7 @@ Future<Either<CustomError, GymUser>> getUserData() async {
       createdAt: DateTime.now(),
       paymentHistory: [],
       paymentStatus: userData['paymentStatus'],
+      affiliationStatus: userData['affiliationStatus'],
     );
     return right(user);
   } on FirebaseException catch (err) {
