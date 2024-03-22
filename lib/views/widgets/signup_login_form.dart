@@ -307,6 +307,18 @@ class _FormWidgetState extends State<FormWidget> {
                       ],
                     ),
                   ),
+                  if (formProvider.affiliationStatusError != null) ...[
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                    Align(
+                      alignment: Alignment.centerLeft.add(Alignment(0.15, 0)),
+                      child: Text(
+                        formProvider.affiliationStatusError!,
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              color: Theme.of(context).colorScheme.error,
+                            ),
+                      ),
+                    ),
+                  ],
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   if (formProvider.affiliationStatus == 'insider') ...[
                     Center(
@@ -419,6 +431,8 @@ class _FormWidgetState extends State<FormWidget> {
                         context: context,
                       );
 
+                      affiliationStatusValidator(context);
+
                       if (_startDateController.text.isNotEmpty &&
                           _endDateController.text.isNotEmpty)
                         dateValidator(
@@ -439,7 +453,8 @@ class _FormWidgetState extends State<FormWidget> {
                       if (formProvider.signUpFormKey.currentState!.validate() &&
                           !formProvider.hasPassRepassInputError &&
                           !formProvider.hasDateInputError &&
-                          imageProvider.imagePath != null) {
+                          imageProvider.imagePath != null &&
+                          formProvider.affiliationStatusError == null) {
                         formProvider.setIsAuthtentcating(true);
                         // set image profile field from image provider
 
@@ -468,6 +483,7 @@ class _FormWidgetState extends State<FormWidget> {
                           phoneNumber: _phoneNumberController.text,
                           createdAt: DateTime.now(),
                           paymentHistory: [],
+                          affiliationStatus: formProvider.affiliationStatus,
                         );
                         Either<CustomError, String> authRes =
                             await signUpController(

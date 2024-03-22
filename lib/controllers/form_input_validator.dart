@@ -1,4 +1,5 @@
 import "package:dbu_gym/providers/form_provider.dart";
+import "package:dbu_gym/providers/image_provider.dart";
 import "package:email_validator/email_validator.dart";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
@@ -98,5 +99,18 @@ void passRepassValidator({
   } else {
     Provider.of<FormProvider>(context, listen: false)
         .sethasPassRepassInputError(false);
+  }
+}
+
+void affiliationStatusValidator(BuildContext context) {
+  final formProvider = Provider.of<FormProvider>(context, listen: false);
+  final imageProvider = Provider.of<AppImageProvider>(context, listen: false);
+  if (formProvider.affiliationStatus.isEmpty) {
+    formProvider.setAffiliationStatusError("Please choose one of the two");
+  } else if (formProvider.affiliationStatus == 'insider' &&
+      imageProvider.idImagePath == null) {
+    formProvider.setAffiliationStatusError("Please provide ID picture.");
+  } else {
+    formProvider.setAffiliationStatusError(null);
   }
 }

@@ -12,6 +12,7 @@ class FormProvider with ChangeNotifier {
   bool _showPassword = false;
   bool _isAuthenticating = false;
   bool _hasDateInputError = false;
+  String? _affiliationStatusError;
   String _dateInputErrorStr = '';
   String _selectedWorkoutDays = 'default';
   String? _preferedWorkoutType;
@@ -70,6 +71,11 @@ class FormProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void setAffiliationStatusError(String? errorMessage) {
+    _affiliationStatusError = errorMessage;
+    notifyListeners();
+  }
+
   Future<Either<CustomError, String>> setProfileImageUrl(
       String imageUrl, String imageName) async {
     try {
@@ -101,4 +107,5 @@ class FormProvider with ChangeNotifier {
   bool get hasPassRepassInputError => _hasPassRepassInputError;
   String get affiliationStatus => _affiliationStatus;
   String? get selectImagePicker => _selectedImagePicker;
+  String? get affiliationStatusError => _affiliationStatusError;
 }
