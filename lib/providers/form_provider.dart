@@ -16,10 +16,11 @@ class FormProvider with ChangeNotifier {
   String _dateInputErrorStr = '';
   String _selectedWorkoutDays = 'default';
   String? _preferedWorkoutType;
-  String? _profileImageUrl;
   bool _hasPassRepassInputError = false;
   String _affiliationStatus = 'default';
   String? _selectedImagePicker;
+  String? _profileImageUrl;
+  String? _idImageUrl;
 
   void toggleShowPassword() {
     _showPassword = !_showPassword;
@@ -76,7 +77,7 @@ class FormProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Either<CustomError, String>> setProfileImageUrl(
+  Future<Either<CustomError, String>> uploadProfileImage(
       String imageUrl, String imageName) async {
     try {
       File profileImage = File(imageUrl);
@@ -87,6 +88,25 @@ class FormProvider with ChangeNotifier {
 
       notifyListeners();
       return right(_profileImageUrl!);
+    } on FirebaseException catch (err) {
+      return left(
+          CustomError(errorTitle: "Storage error", errorBody: err.message!));
+    } catch (err) {
+      return left(CustomError(errorTitle: "Error", errorBody: err.toString()));
+    }
+  }
+
+  Future<Either<CustomError, String>> uploadIdImage(
+      String imageUrl, String imageName) async {
+    try {
+      File idImage = File(imageUrl);
+      Reference ref = storage.ref().child("insider_id/${imageName}");
+      UploadTask uploadTask = ref.putFile(idImage);
+      final snapshot = await uploadTask.whenComplete(() => {});
+      _idImageUrl = await snapshot.ref.getDownloadURL();
+
+      notifyListeners();
+      return right(_idImageUrl!);
     } on FirebaseException catch (err) {
       return left(
           CustomError(errorTitle: "Storage error", errorBody: err.message!));
@@ -108,4 +128,5 @@ class FormProvider with ChangeNotifier {
   String get affiliationStatus => _affiliationStatus;
   String? get selectImagePicker => _selectedImagePicker;
   String? get affiliationStatusError => _affiliationStatusError;
+  String? get idImageUrl => _idImageUrl;
 }

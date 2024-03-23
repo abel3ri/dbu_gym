@@ -105,7 +105,7 @@ void passRepassValidator({
 void affiliationStatusValidator(BuildContext context) {
   final formProvider = Provider.of<FormProvider>(context, listen: false);
   final imageProvider = Provider.of<AppImageProvider>(context, listen: false);
-  if (formProvider.affiliationStatus.isEmpty) {
+  if (formProvider.affiliationStatus == 'default') {
     formProvider.setAffiliationStatusError("Please choose one of the two");
   } else if (formProvider.affiliationStatus == 'insider' &&
       imageProvider.idImagePath == null) {

@@ -16,6 +16,7 @@ class GymUser {
   late String phoneNumber;
   late DateTime createdAt;
   late String affiliationStatus;
+  String? idImageUrl;
   String paymentStatus;
   late List<String> paymentHistory;
 
@@ -34,6 +35,7 @@ class GymUser {
     required this.paymentHistory,
     required this.createdAt,
     required this.affiliationStatus,
+    required this.idImageUrl,
   });
 
   Future<Either<CustomError, User>> signUpUserWithEmailAndPassword() async {
@@ -50,7 +52,6 @@ class GymUser {
           "id": user.uid,
           "fullName": "${firstName} ${lastName}",
           "email": this.email,
-          "password": this.password,
           "gymStartDate": this.gymStartDate,
           "gymEndDate": this.gymEndDate,
           "numWorkoutDays": this.numWorkoutDays,
@@ -61,6 +62,7 @@ class GymUser {
           "paymentStatus": this.paymentStatus,
           "paymentHistory": this.paymentHistory,
           "affiliationStatus": this.affiliationStatus,
+          "idImageUrl": this.idImageUrl,
         });
         return right(user);
       }

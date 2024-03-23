@@ -1,9 +1,6 @@
-import "package:dbu_gym/controllers/user_controller.dart";
-import "package:dbu_gym/models/gym_user.dart";
 import "package:dbu_gym/providers/theme_provider.dart";
 import "package:dbu_gym/providers/user_provider.dart";
 import "package:dbu_gym/utils/constants.dart";
-import "package:dbu_gym/utils/extension.dart";
 import "package:flex_color_scheme/flex_color_scheme.dart";
 import "package:flutter/material.dart";
 import "package:flutter_zoom_drawer/flutter_zoom_drawer.dart";
@@ -11,7 +8,7 @@ import "package:go_router/go_router.dart";
 import "package:provider/provider.dart";
 
 // ignore: must_be_immutable
-class AppZoomDrawer extends StatefulWidget {
+class AppZoomDrawer extends StatelessWidget {
   Widget mainScreen;
   Widget? title;
   List<Widget>? appBarActions;
@@ -23,22 +20,7 @@ class AppZoomDrawer extends StatefulWidget {
     required this.mainScreen,
   });
 
-  @override
-  State<AppZoomDrawer> createState() => _AppZoomDrawerState();
-}
-
-class _AppZoomDrawerState extends State<AppZoomDrawer> {
-  @override
-  void initState() {
-    if (auth.currentUser != null)
-      getUserData().then((value) {
-        final user = value.asRight as GymUser;
-        Provider.of<UserProvider>(context, listen: false).setUser(user);
-        setState(() {});
-      });
-    super.initState();
-  }
-
+  // @override
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
@@ -153,28 +135,28 @@ class _AppZoomDrawerState extends State<AppZoomDrawer> {
                                 Theme.of(context).textTheme.bodyMedium,
                             title: Text("Manage Subscription"),
                           ),
-                          if (userProvider.user != null &&
-                              ['pending', 'notPaid'].contains(
-                                userProvider.user!.paymentStatus,
-                              ))
-                            ListTile(
-                              onTap: () {
-                                GoRouter.of(context)
-                                    .pushReplacementNamed("payment-upload");
-                              },
-                              trailing: Text("new"),
-                              leadingAndTrailingTextStyle: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                              leading: Icon(Icons.money),
-                              titleTextStyle:
-                                  Theme.of(context).textTheme.bodyMedium,
-                              title: Text("Payment"),
-                            ),
+                          // if (userProvider.user != null &&
+                          //     ['pending', 'notPaid'].contains(
+                          //       userProvider.user!.paymentStatus,
+                          //     ))
+                          //   ListTile(
+                          //     onTap: () {
+                          //       GoRouter.of(context)
+                          //           .pushReplacementNamed("payment-upload");
+                          //     },
+                          //     trailing: Text("new"),
+                          //     leadingAndTrailingTextStyle: Theme.of(context)
+                          //         .textTheme
+                          //         .bodyMedium!
+                          //         .copyWith(
+                          //           color:
+                          //               Theme.of(context).colorScheme.primary,
+                          //         ),
+                          //     leading: Icon(Icons.money),
+                          //     titleTextStyle:
+                          //         Theme.of(context).textTheme.bodyMedium,
+                          //     title: Text("Payment"),
+                          //   ),
                         ],
                         ListTile(
                           onTap: () {
@@ -264,12 +246,12 @@ class _AppZoomDrawerState extends State<AppZoomDrawer> {
               },
               icon: Icon(Icons.sort),
             ),
-            actions: widget.appBarActions,
-            title: widget.title,
+            actions: appBarActions,
+            title: title,
             titleTextStyle: Theme.of(context).textTheme.bodyLarge,
             // centerTitle: true,
           ),
-          body: widget.mainScreen,
+          body: mainScreen,
         );
       }),
     );

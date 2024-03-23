@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:dbu_gym/controllers/receipt_controller.dart';
 import 'package:dbu_gym/models/error.dart';
+import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/providers/payment_upload_provider.dart';
-import 'package:dbu_gym/providers/user_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/views/pages/home_page.dart';
 import 'package:dbu_gym/views/pages/image_pick_selector.dart';
@@ -98,10 +98,21 @@ class PaymentCheckerPage extends StatelessWidget {
                                             color: Colors.white,
                                           ),
                                     ),
-                                    Image.asset(
-                                      "assets/images/cbe_logo.png",
-                                      width: 48,
-                                      height: 48,
+                                    CircleAvatar(
+                                      backgroundColor: Colors.amberAccent,
+                                      radius: 27,
+                                      child: CircleAvatar(
+                                        radius: 26,
+                                        backgroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .primary
+                                            .brighten(100),
+                                        child: Image.asset(
+                                          "assets/images/cbe_logo.png",
+                                          width: 48,
+                                          height: 48,
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -165,7 +176,7 @@ class PaymentCheckerPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    if (imageProvider.imagePath != null) ...[
+                    if (imageProvider.receiptImagePath != null) ...[
                       Container(
                         width: MediaQuery.of(context).size.width * 0.95,
                         decoration: BoxDecoration(
@@ -176,11 +187,13 @@ class PaymentCheckerPage extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.file(File(imageProvider.imagePath!)),
+                              child: Image.file(
+                                File(imageProvider.receiptImagePath!),
+                              ),
                             ),
                             SizedBox(height: 8),
                             Text(
-                              imageProvider.imageName!,
+                              imageProvider.receiptImageName!,
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ],
@@ -194,6 +207,8 @@ class PaymentCheckerPage extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           onPressed: () {
+                            Provider.of<FormProvider>(context, listen: false)
+                                .setSelectedImagePicker("receiptPicture");
                             showModalBottomSheet(
                               showDragHandle: true,
                               constraints: BoxConstraints.tight(Size(
@@ -207,16 +222,15 @@ class PaymentCheckerPage extends StatelessWidget {
                         ),
                         SizedBox(
                             width: MediaQuery.of(context).size.width * 0.02),
-                        if (imageProvider.imagePath != null)
+                        if (imageProvider.receiptImagePath != null)
                           ElevatedButton(
                             onPressed: () async {
                               paymentProvider.toggleIsLoading(true);
                               Either<CustomError, bool> res =
                                   await uploadPaymentReceipt(
-                                      imageUrl: imageProvider.imagePath!,
-                                      imageName: imageProvider.imageName!,
-                                      userName:
-                                          '${Provider.of<UserProvider>(context, listen: false).user!.firstName}-${Provider.of<UserProvider>(context, listen: false).user!.lastName}');
+                                imageUrl: imageProvider.receiptImagePath!,
+                                imageName: imageProvider.receiptImageName!,
+                              );
                               res.fold(
                                 (err) {
                                   err.showError(context);

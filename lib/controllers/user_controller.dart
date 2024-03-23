@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dbu_gym/models/error.dart';
 import 'package:dbu_gym/models/gym_user.dart';
 import 'package:dbu_gym/utils/constants.dart';
@@ -76,18 +77,21 @@ Future<Either<CustomError, GymUser>> getUserData() async {
       firstName: userData['fullName'].split(" ")[0],
       lastName: userData['fullName'].split(" ")[1],
       email: userData['email'],
-      password: userData['password'],
+      password: "",
       gymStartDate: userData['gymStartDate'],
       gymEndDate: userData['gymEndDate'],
       numWorkoutDays: userData['numWorkoutDays'],
       subscribedWorkoutType: userData['subscribedWorkoutType'],
       profileImageUrl: userData['profileImageUrl'],
       phoneNumber: userData['phoneNumber'],
-      createdAt: DateTime.now(),
-      paymentHistory: [],
+      createdAt: DateTime.fromMillisecondsSinceEpoch(
+          (userData['createdAt'] as Timestamp).seconds * 1000),
+      paymentHistory: List<String>.from(userData['paymentHistory']),
       paymentStatus: userData['paymentStatus'],
       affiliationStatus: userData['affiliationStatus'],
+      idImageUrl: userData['idImageUrl'],
     );
+
     return right(user);
   } on FirebaseException catch (err) {
     print("FIRESTORE ERROR: ${err.message}");

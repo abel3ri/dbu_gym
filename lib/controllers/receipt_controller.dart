@@ -8,11 +8,9 @@ import 'package:fpdart/fpdart.dart';
 Future<Either<CustomError, bool>> uploadPaymentReceipt({
   required String imageUrl,
   required String imageName,
-  required String userName,
+  // required String userName,
 }) async {
   try {
-    // set the payment status propery to pending
-
     File paymentReceipt = File(imageUrl);
     Reference ref = storage.ref().child("payment_receipts/${imageName}");
     UploadTask uploadTask = ref.putFile(paymentReceipt);

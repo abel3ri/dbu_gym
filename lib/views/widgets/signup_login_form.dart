@@ -88,10 +88,10 @@ class _FormWidgetState extends State<FormWidget> {
               children: [
                 CircleAvatar(
                   radius: 36,
-                  backgroundImage: imageProvider.imagePath != null
-                      ? FileImage(File(imageProvider.imagePath!))
+                  backgroundImage: imageProvider.profileImagePath != null
+                      ? FileImage(File(imageProvider.profileImagePath!))
                       : null,
-                  child: imageProvider.imagePath == null
+                  child: imageProvider.profileImagePath == null
                       ? Icon(Icons.person, size: 48)
                       : null,
                 ),
@@ -441,7 +441,7 @@ class _FormWidgetState extends State<FormWidget> {
                           context: context,
                         );
 
-                      if (imageProvider.imagePath == null) {
+                      if (imageProvider.profileImagePath == null) {
                         // if the form is sign up form and user didn't provide profile image, show an error snackbar
                         CustomError error = CustomError(
                           errorTitle: "Error",
@@ -453,21 +453,33 @@ class _FormWidgetState extends State<FormWidget> {
                       if (formProvider.signUpFormKey.currentState!.validate() &&
                           !formProvider.hasPassRepassInputError &&
                           !formProvider.hasDateInputError &&
-                          imageProvider.imagePath != null &&
+                          imageProvider.profileImagePath != null &&
                           formProvider.affiliationStatusError == null) {
                         formProvider.setIsAuthtentcating(true);
                         // set image profile field from image provider
 
                         // catch is there is storage uploading error
-                        Either<CustomError, String> storageRes =
-                            await formProvider.setProfileImageUrl(
-                          imageProvider.imagePath!,
-                          imageProvider.imageName!,
+                        Either<CustomError, String> profileUploadRes =
+                            await formProvider.uploadProfileImage(
+                          imageProvider.profileImagePath!,
+                          imageProvider.profileImageName!,
                         );
-                        // show error if setProfileImageUrl returns an error
-                        storageRes.fold((err) {
+                        // show error if profile upload returns an error
+                        profileUploadRes.fold((err) {
                           err.showError(context);
                         }, (r) => null);
+
+                        if (formProvider.affiliationStatus == 'insider') {
+                          Either<CustomError, String> idImageRes =
+                              await formProvider.uploadIdImage(
+                            imageProvider.idImagePath!,
+                            imageProvider.idImageName!,
+                          );
+                          // show error if id upload returns an error
+                          idImageRes.fold((err) {
+                            err.showError(context);
+                          }, (r) => null);
+                        }
 
                         GymUser user = GymUser(
                           firstName: _firstNameController.text,
@@ -484,6 +496,9 @@ class _FormWidgetState extends State<FormWidget> {
                           createdAt: DateTime.now(),
                           paymentHistory: [],
                           affiliationStatus: formProvider.affiliationStatus,
+                          idImageUrl: formProvider.idImageUrl == null
+                              ? "null"
+                              : formProvider.idImageUrl!,
                         );
                         Either<CustomError, String> authRes =
                             await signUpController(
@@ -493,8 +508,7 @@ class _FormWidgetState extends State<FormWidget> {
                           err.showError(context);
                           formProvider.setIsAuthtentcating(false);
                         }, (r) {
-                          GoRouter.of(context)
-                              .pushReplacementNamed("payment-upload");
+                          GoRouter.of(context).pushReplacementNamed("splash");
                           formProvider.setIsAuthtentcating(false);
                           // clear form inputs only if user is redirected to spalsh page
                           clearFormInputs(context);

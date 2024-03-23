@@ -23,9 +23,15 @@ class ImagePickSelector extends StatelessWidget {
                 GoRouter.of(context).pop();
                 // separte the image provider for id image and profile image
                 if (formProvider.selectImagePicker == 'profilePicture') {
-                  imageProvider.setImagePathAndName(image.path, image.name);
-                } else {
+                  imageProvider.setProfileImagePathAndName(
+                      image.path, image.name);
+                } else if (formProvider.selectImagePicker == 'idPicture') {
                   imageProvider.setIdImagePathAndName(image.path, image.name);
+                } else {
+                  imageProvider.setReceiptImagePathAndName(
+                    image.path,
+                    image.name,
+                  );
                 }
               });
             },
@@ -47,9 +53,15 @@ class ImagePickSelector extends StatelessWidget {
 
                 // separte the image provider for id image and profile image
                 if (formProvider.selectImagePicker == 'profilePicture') {
-                  imageProvider.setImagePathAndName(image.path, image.name);
-                } else {
+                  imageProvider.setProfileImagePathAndName(
+                      image.path, image.name);
+                } else if (formProvider.selectImagePicker == 'idPicture') {
                   imageProvider.setIdImagePathAndName(image.path, image.name);
+                } else {
+                  imageProvider.setReceiptImagePathAndName(
+                    image.path,
+                    image.name,
+                  );
                 }
               });
             },

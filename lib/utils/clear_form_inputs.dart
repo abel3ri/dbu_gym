@@ -7,7 +7,7 @@ void clearFormInputs(BuildContext context) {
   final formProvider = Provider.of<FormProvider>(context, listen: false);
   formProvider.setSelectedWorkoutDays("default");
   Provider.of<AppImageProvider>(context, listen: false)
-      .setImagePathAndName(null, null);
+      .setProfileImagePathAndName(null, null);
 
   Provider.of<AppImageProvider>(context, listen: false)
       .setIdImagePathAndName(null, null);
