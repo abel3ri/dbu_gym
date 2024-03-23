@@ -5,6 +5,7 @@ import 'package:dbu_gym/models/error.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/providers/payment_upload_provider.dart';
+import 'package:dbu_gym/utils/clear_form_inputs.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/views/pages/home_page.dart';
 import 'package:dbu_gym/views/pages/image_pick_selector.dart';
@@ -235,7 +236,9 @@ class PaymentCheckerPage extends StatelessWidget {
                                 (err) {
                                   err.showError(context);
                                 },
-                                (r) => null,
+                                (r) {
+                                  clearFormInputs(context);
+                                },
                               );
                               paymentProvider.toggleIsLoading(false);
                             },
@@ -257,8 +260,6 @@ class PaymentCheckerPage extends StatelessWidget {
             );
           }
           if (paymentStatus == 'pending') {
-            // imageProvider.setImagePathAndName(null, null);
-            // imageProvider.dispose();
             return Center(
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -280,7 +281,6 @@ class PaymentCheckerPage extends StatelessWidget {
             );
           }
 
-          // imageProvider.setImagePathAndName(null, null);
           return HomePage();
         },
       ),

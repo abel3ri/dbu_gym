@@ -11,6 +11,10 @@ void clearFormInputs(BuildContext context) {
 
   Provider.of<AppImageProvider>(context, listen: false)
       .setIdImagePathAndName(null, null);
+
+  Provider.of<AppImageProvider>(context, listen: false)
+      .setReceiptImagePathAndName(null, null);
+
   formProvider.toggleDateInputSuccess();
   formProvider.setDateInputStr("");
 }
