@@ -11,7 +11,6 @@ import 'package:dbu_gym/providers/pricing_provider.dart';
 import 'package:dbu_gym/providers/theme_provider.dart';
 import 'package:dbu_gym/providers/user_provider.dart';
 import 'package:dbu_gym/router/router.dart';
-import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/utils/loadExercie.dart';
 import 'package:dbu_gym/utils/theme.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +24,7 @@ void main(List<String> args) async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await auth.signOut();
+
   // get shared preferences instance
   final prefs = await SharedPreferences.getInstance();
   // check if the app is running for the first time (i.e. key -> theme = null)

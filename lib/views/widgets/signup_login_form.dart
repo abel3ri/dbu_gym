@@ -400,7 +400,6 @@ class _FormWidgetState extends State<FormWidget> {
                     FocusManager.instance.primaryFocus!.hasFocus
                         ? FocusManager.instance.primaryFocus!.unfocus()
                         : null;
-
                     if (widget.formType == "Login") {
                       // valid login inputs
                       if (formProvider.loginFormKey.currentState!.validate()) {
