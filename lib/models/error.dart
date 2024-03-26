@@ -15,10 +15,12 @@ class CustomError {
         elevation: 0,
         backgroundColor: Colors.transparent,
         behavior: SnackBarBehavior.floating,
+        duration: Duration(seconds: 10),
         content: AwesomeSnackbarContent(
-            title: errorTitle,
-            message: errorBody,
-            contentType: ContentType.failure),
+          title: errorTitle,
+          message: errorBody,
+          contentType: ContentType.failure,
+        ),
       ),
     );
   }
