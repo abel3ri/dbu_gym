@@ -27,7 +27,9 @@ class ExerciseCategory extends StatelessWidget {
     } else if (categoryName == 'exercise') {
       _imgPath =
           "assets/images/grid_images/${categoryName}/${exercises[0].category.replaceAll(" ", "_")}.png";
-      _text = exercises[0].category;
+      _text = exercises[0].category.length >= 15
+          ? exercises[0].category.substring(0, 11) + "..."
+          : exercises[0].category;
       categoryName = categoryName + " Category";
     } else if (categoryName == 'equipment') {
       _imgPath =

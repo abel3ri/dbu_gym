@@ -274,12 +274,12 @@ class _FormWidgetState extends State<FormWidget> {
                           Theme.of(context).colorScheme.primary.withAlpha(20),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Row(
                       children: [
                         Expanded(
                           child: Text(
-                            "I'm an",
+                            "I'm",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge!
@@ -370,11 +370,11 @@ class _FormWidgetState extends State<FormWidget> {
                       ),
                       DropdownMenuItem(
                         value: "oneThree",
-                        child: Text("1-3 Days"),
+                        child: Text("1-3 Days per Week"),
                       ),
                       DropdownMenuItem(
                         value: "fourSix",
-                        child: Text("4-6 Days"),
+                        child: Text("4-6 Days per Week"),
                       ),
                     ],
                     onChanged: (value) {
