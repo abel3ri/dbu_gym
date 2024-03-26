@@ -1,7 +1,10 @@
+import "package:dbu_gym/models/error.dart";
+import "package:dio/dio.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:flutter/material.dart";
 import "package:firebase_storage/firebase_storage.dart";
+import "package:fpdart/fpdart.dart";
 
 const List<Map<String, dynamic>> carouselContent = [
   {
@@ -252,6 +255,22 @@ const List<Map<String, String>> exerciseTypeCategories = [
     "imagePath": "assets/images/grid_images/exercise/powerlifting.png",
   },
 ];
+
+Future<Either<CustomError, List<Map<String, dynamic>>>> getPriceValue() async {
+  try {
+    Dio dio = Dio();
+    final res = await dio.get("https://thereal3ri.github.io/pricing.json");
+    return Either.right(List<Map<String, dynamic>>.from(res.data));
+  } on DioException catch (err) {
+    return Either.left(
+      CustomError(errorTitle: "Connection Error", errorBody: err.message!),
+    );
+  } catch (err) {
+    return Either.left(
+      CustomError(errorTitle: "Error", errorBody: err.toString()),
+    );
+  }
+}
 
 final FirebaseAuth auth = FirebaseAuth.instance;
 final FirebaseFirestore db = FirebaseFirestore.instance;
