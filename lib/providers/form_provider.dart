@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dbu_gym/models/error.dart';
 import 'package:dbu_gym/utils/constants.dart';
-import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
@@ -77,15 +76,6 @@ class FormProvider with ChangeNotifier {
   void setAffiliationStatusError(String? errorMessage) {
     _affiliationStatusError = errorMessage;
     notifyListeners();
-  }
-
-  void getPriceValue() async {
-    try {
-      Dio dio = Dio();
-      final res = await dio.get("https://thereal3ri.github.io/pricing.json");
-    } catch (err) {
-      print(err.toString());
-    }
   }
 
   Future<Either<CustomError, String>> uploadProfileImage(
