@@ -5,6 +5,7 @@ import 'package:dbu_gym/models/error.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/providers/payment_upload_provider.dart';
+import 'package:dbu_gym/providers/pricing_provider.dart';
 import 'package:dbu_gym/utils/clear_form_inputs.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/views/pages/home_page.dart';
@@ -22,7 +23,45 @@ class PaymentCheckerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final imageProvider = Provider.of<AppImageProvider>(context);
     final paymentProvider = Provider.of<PaymentUploadProvider>(context);
+    final formProvider = Provider.of<FormProvider>(context);
+    final priceProvider = Provider.of<PricingProvider>(context);
+    String priceType = formProvider.affiliationStatus == 'insider'
+        ? 'insidersPrice'
+        : "outsidersPrice";
+
+    String selectedWorkoutDays = formProvider.selectedWorkoutDays == 'oneThree'
+        ? "1-3 Days / Week"
+        : "4-6 Days / Week";
+
+    // get price based on selected workout days, selected plan type
+    final price = formProvider.selectedWorkoutDays == 'oneThree'
+        ? List.from(priceProvider.priceData![0]['1-3Days'])
+            .where(
+              (e) => e["workoutType"] == formProvider.preferedWorkoutType,
+            )
+            .toList()[0][priceType]
+        : List.from(priceProvider.priceData![1]['4-6Days'])
+            .where(
+              (e) => e["workoutType"] == formProvider.preferedWorkoutType,
+            )
+            .toList()[0][priceType];
+
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          formProvider.setSelectedImagePicker("receiptPicture");
+          showModalBottomSheet(
+            showDragHandle: true,
+            constraints: BoxConstraints.tight(Size(
+                MediaQuery.of(context).size.width,
+                MediaQuery.of(context).size.height * 0.3)),
+            context: context,
+            builder: (context) => ImagePickSelector(),
+          );
+        },
+        child: Icon(Icons.add),
+        shape: CircleBorder(),
+      ),
       body: StreamBuilder(
         stream: db.collection("users").doc(auth.currentUser!.uid).snapshots(),
         builder: (context, snapshot) {
@@ -49,92 +88,67 @@ class PaymentCheckerPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Center(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            padding: EdgeInsets.symmetric(vertical: 16),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .darken(10),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Column(
-                              children: [
-                                Text(
-                                  "Debre Berhan University Athletics Club"
-                                      .toUpperCase(),
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
+                          child: PaymentPageCard(
+                            children: [
+                              Text(
+                                "Debre Berhan University Athletics Club"
+                                    .toUpperCase(),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  // color: Colors.white,
                                 ),
-                                Text(
-                                  "ደብረ ብርሃን ዩኒቨርሲቲ አትሌቲክስ ክለብ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
+                              ),
+                              Text(
+                                "ደብረ ብርሃን ዩኒቨርሲቲ አትሌቲክስ ክለብ",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  // color: Colors.white,
                                 ),
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.02,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text(
-                                      "1000025359279",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge!
-                                          .copyWith(
-                                            fontWeight: FontWeight.bold,
-                                            letterSpacing: 1.3,
-                                            color: Colors.white,
-                                          ),
-                                    ),
-                                    CircleAvatar(
-                                      backgroundColor: Colors.amberAccent,
-                                      radius: 27,
-                                      child: CircleAvatar(
-                                        radius: 26,
-                                        backgroundColor: Theme.of(context)
-                                            .colorScheme
-                                            .primary
-                                            .brighten(100),
-                                        child: Image.asset(
-                                          "assets/images/cbe_logo.png",
-                                          width: 48,
-                                          height: 48,
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.02,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    "1000025359279",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          letterSpacing: 1.3,
+                                          // color: Colors.white,
                                         ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                                  ),
+                                  Image.asset(
+                                    "assets/images/cbe_logo.png",
+                                    width: 48,
+                                    height: 48,
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.04,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 12),
-                          child: Text(
-                            "Required steps.",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall!
-                                .copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
+                        Text(
+                          "Required steps",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02,
@@ -175,6 +189,44 @@ class PaymentCheckerPage extends StatelessWidget {
                             ),
                           ],
                         ),
+                        PaymentPageCard(
+                          children: [
+                            Text(
+                              "Your payment details",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.02,
+                            ),
+                            PaymentDetailsRow(
+                              title: "Selected workout plan type",
+                              value:
+                                  formProvider.preferedWorkoutType.capitalize,
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.02,
+                            ),
+                            PaymentDetailsRow(
+                              title: "Selected workout days",
+                              value: selectedWorkoutDays,
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.02,
+                            ),
+                            PaymentDetailsRow(
+                              title: "Total Fee",
+                              value: price,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02,
+                        ),
                       ],
                     ),
                     if (imageProvider.receiptImagePath != null) ...[
@@ -206,21 +258,6 @@ class PaymentCheckerPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            Provider.of<FormProvider>(context, listen: false)
-                                .setSelectedImagePicker("receiptPicture");
-                            showModalBottomSheet(
-                              showDragHandle: true,
-                              constraints: BoxConstraints.tight(Size(
-                                  MediaQuery.of(context).size.width,
-                                  MediaQuery.of(context).size.height * 0.3)),
-                              context: context,
-                              builder: (context) => ImagePickSelector(),
-                            );
-                          },
-                          child: Text("Select receipt"),
-                        ),
                         SizedBox(
                             width: MediaQuery.of(context).size.width * 0.02),
                         if (imageProvider.receiptImagePath != null)
@@ -283,6 +320,74 @@ class PaymentCheckerPage extends StatelessWidget {
 
           return HomePage();
         },
+      ),
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class PaymentDetailsRow extends StatelessWidget {
+  String title;
+  String value;
+  PaymentDetailsRow({
+    super.key,
+    required this.title,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium!
+              .copyWith(color: Colors.grey),
+        ),
+        Text(
+          value,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium!
+              .copyWith(color: Theme.of(context).colorScheme.primary),
+        ),
+      ],
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class PaymentPageCard extends StatelessWidget {
+  List<Widget> children;
+  PaymentPageCard({
+    super.key,
+    required this.children,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.9,
+      child: Card(
+        elevation: 3,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        surfaceTintColor: Colors.transparent,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 12,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: children,
+          ),
+        ),
       ),
     );
   }
