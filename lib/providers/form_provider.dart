@@ -22,6 +22,7 @@ class FormProvider with ChangeNotifier {
   String? _profileImageUrl;
   String? _idImageUrl;
   String? _totalFeeAmount;
+  String? _formType;
 
   void toggleShowPassword() {
     _showPassword = !_showPassword;
@@ -78,6 +79,11 @@ class FormProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void setFormType(String formType) {
+    _formType = formType;
+    notifyListeners();
+  }
+
   Future<Either<CustomError, String>> uploadProfileImage(
       String imageUrl, String imageName) async {
     try {
@@ -131,4 +137,5 @@ class FormProvider with ChangeNotifier {
   String? get affiliationStatusError => _affiliationStatusError;
   String? get idImageUrl => _idImageUrl;
   String? get totalFeeAmount => _totalFeeAmount;
+  String? get formType => _formType;
 }

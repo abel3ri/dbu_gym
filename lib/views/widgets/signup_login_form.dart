@@ -39,6 +39,13 @@ class _FormWidgetState extends State<FormWidget> {
   final _lastNameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   @override
+  void initState() {
+    Provider.of<FormProvider>(context, listen: false)
+        .setFormType(widget.formType);
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
@@ -510,7 +517,7 @@ class _FormWidgetState extends State<FormWidget> {
                           GoRouter.of(context).pushReplacementNamed("splash");
                           formProvider.setIsAuthtentcating(false);
                           // clear form inputs only if user is redirected to spalsh page
-                          clearFormInputs(context);
+                          // clearFormInputs(context);
                         });
                       }
                     }

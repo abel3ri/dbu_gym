@@ -6,6 +6,7 @@ import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/providers/payment_upload_provider.dart';
 import 'package:dbu_gym/providers/pricing_provider.dart';
+import 'package:dbu_gym/providers/user_provider.dart';
 import 'package:dbu_gym/utils/clear_form_inputs.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/views/pages/home_page.dart';
@@ -25,26 +26,40 @@ class PaymentCheckerPage extends StatelessWidget {
     final paymentProvider = Provider.of<PaymentUploadProvider>(context);
     final formProvider = Provider.of<FormProvider>(context);
     final priceProvider = Provider.of<PricingProvider>(context);
-    String priceType = formProvider.affiliationStatus == 'insider'
-        ? 'insidersPrice'
-        : "outsidersPrice";
+    final userProvider = Provider.of<UserProvider>(context);
+    String? priceType;
+    String? selectedWorkoutDays;
+    String? price;
+    String? selectedWorkoutType;
+    if (userProvider.user != null) {
+      priceType = userProvider.user!.affiliationStatus == 'insider'
+          ? 'insidersPrice'
+          : "outsidersPrice";
+      selectedWorkoutType = userProvider.user!.subscribedWorkoutType.capitalize;
 
-    String selectedWorkoutDays = formProvider.selectedWorkoutDays == 'oneThree'
-        ? "1-3 Days / Week"
-        : "4-6 Days / Week";
+      selectedWorkoutDays = userProvider.user!.numWorkoutDays == 'oneThree'
+          ? "1-3 Days / Week"
+          : "4-6 Days / Week";
 
-    // get price based on selected workout days, selected plan type
-    final price = formProvider.selectedWorkoutDays == 'oneThree'
-        ? List.from(priceProvider.priceData![0]['1-3Days'])
-            .where(
-              (e) => e["workoutType"] == formProvider.preferedWorkoutType,
-            )
-            .toList()[0][priceType]
-        : List.from(priceProvider.priceData![1]['4-6Days'])
-            .where(
-              (e) => e["workoutType"] == formProvider.preferedWorkoutType,
-            )
-            .toList()[0][priceType];
+      // get price based on selected workout days, selected plan type
+      price = priceProvider.priceData != null
+          ? userProvider.user!.numWorkoutDays == 'oneThree'
+              ? List.from(priceProvider.priceData![0]['1-3Days'])
+                  .where(
+                    (e) =>
+                        e["workoutType"] ==
+                        userProvider.user!.subscribedWorkoutType,
+                  )
+                  .toList()[0][priceType]
+              : List.from(priceProvider.priceData![1]['4-6Days'])
+                  .where(
+                    (e) =>
+                        e["workoutType"] ==
+                        userProvider.user!.subscribedWorkoutType,
+                  )
+                  .toList()[0][priceType]
+          : "Loading...";
+    }
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -205,22 +220,21 @@ class PaymentCheckerPage extends StatelessWidget {
                             ),
                             PaymentDetailsRow(
                               title: "Selected workout plan type",
-                              value:
-                                  formProvider.preferedWorkoutType.capitalize,
+                              value: selectedWorkoutType ?? "Loading...",
                             ),
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.02,
                             ),
                             PaymentDetailsRow(
                               title: "Selected workout days",
-                              value: selectedWorkoutDays,
+                              value: selectedWorkoutDays ?? "Loading...",
                             ),
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.02,
                             ),
                             PaymentDetailsRow(
                               title: "Total Fee",
-                              value: price,
+                              value: price ?? "Loading...",
                             ),
                           ],
                         ),
