@@ -17,17 +17,17 @@ class ExerciseCategory extends StatelessWidget {
     // check if the exercises list is not empty and the category name and assign image path and text dynamically to increase readability of code
 
     String? _imgPath;
-    String? _text;
+    String? _exerciseName;
 
     if (categoryName == 'muscle') {
       _imgPath =
           "assets/images/grid_images/${categoryName}/${exercises[0].primaryMuscle.replaceAll(" ", "_")}.png";
-      _text = exercises[0].primaryMuscle;
+      _exerciseName = exercises[0].primaryMuscle;
       categoryName = categoryName + " Group";
     } else if (categoryName == 'exercise') {
       _imgPath =
           "assets/images/grid_images/${categoryName}/${exercises[0].category.replaceAll(" ", "_")}.png";
-      _text = exercises[0].category.length >= 15
+      _exerciseName = exercises[0].category.length >= 15
           ? exercises[0].category.substring(0, 11) + "..."
           : exercises[0].category;
       categoryName = categoryName + " Category";
@@ -35,11 +35,11 @@ class ExerciseCategory extends StatelessWidget {
       _imgPath =
           "assets/images/grid_images/${categoryName}/${exercises[0].equipment!.replaceAll(' ', '_')}.png";
 
-      _text = exercises[0].equipment ?? 'Not Required';
+      _exerciseName = exercises[0].equipment ?? 'Not Required';
       categoryName = categoryName + " Name";
     } else {
       _imgPath = "assets/images/grid_images/equipment/placeholder.png";
-      _text = exercises[0].level;
+      _exerciseName = exercises[0].level;
       categoryName = categoryName + " Level";
     }
 
@@ -109,21 +109,25 @@ class ExerciseCategory extends StatelessWidget {
                                     .titleMedium!
                                     .copyWith(
                                       fontWeight: FontWeight.bold,
-                                      fontSize:
-                                          _text.length >= 15 ? 12.5 : null,
+                                      fontSize: _exerciseName.length >= 15
+                                          ? 12.5
+                                          : null,
                                       letterSpacing: 2,
                                     ),
                               ),
                               Text(
-                                _text.toUpperCase(),
+                                _exerciseName.toUpperCase(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!
                                     .copyWith(
                                       fontWeight: FontWeight.bold,
-                                      letterSpacing:
-                                          _text.length <= 12 ? 2.5 : null,
-                                      fontSize: _text.length >= 15 ? 14 : null,
+                                      letterSpacing: _exerciseName.length <= 12
+                                          ? 2.5
+                                          : null,
+                                      fontSize: _exerciseName.length >= 15
+                                          ? 14
+                                          : null,
                                       // color: Colors.white,
                                     ),
                               ),
