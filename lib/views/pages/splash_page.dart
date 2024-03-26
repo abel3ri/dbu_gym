@@ -1,6 +1,7 @@
 import 'package:dbu_gym/controllers/user_controller.dart';
 import 'package:dbu_gym/models/error.dart';
 import 'package:dbu_gym/models/gym_user.dart';
+import 'package:dbu_gym/providers/pricing_provider.dart';
 import 'package:dbu_gym/providers/user_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/views/pages/payment_checker_page.dart';
@@ -18,8 +19,10 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   @override
-  void initState() {
-    if (auth.currentUser != null)
+  void didChangeDependencies() {
+    /// load user data only if there is an authenticated user and the user -> UserProvider is null (if user -> UserPovider is not null ? userdata is already loadded)
+    if (auth.currentUser != null &&
+        Provider.of<UserProvider>(context).user == null)
       getUserData().then((Either<CustomError, GymUser> value) {
         value.fold((error) {
           error.showError(context);
@@ -28,7 +31,20 @@ class _SplashPageState extends State<SplashPage> {
           setState(() {});
         });
       });
-    super.initState();
+
+    /// get dynamic price data instead of hard coded one that may change overtime
+    /// send get request only if the current price data is null
+    if (Provider.of<PricingProvider>(context, listen: false).priceData == null)
+      getPriceValue().then((value) {
+        value.fold((err) {
+          err.showError(context);
+        }, (workoutPriceData) {
+          Provider.of<PricingProvider>(context, listen: false)
+              .setPriceData(workoutPriceData);
+          setState(() {});
+        });
+      });
+    super.didChangeDependencies();
   }
 
   @override
