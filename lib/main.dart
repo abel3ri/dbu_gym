@@ -30,7 +30,8 @@ void main(List<String> args) async {
   // check if the app is running for the first time (i.e. key -> theme = null)
   // if so set theme to system else do nothing
   prefs.getString("theme") == null ? prefs.setString("theme", "system") : null;
-  final allExercises = await loadExercises();
+  final res = await loadExercises();
+
   await dotenv.load(fileName: ".env");
   runApp(
     MultiProvider(
@@ -41,7 +42,7 @@ void main(List<String> args) async {
         ChangeNotifierProvider(create: (context) => PricingProvider()),
         ChangeNotifierProvider(create: (context) => HomePageGridProvider()),
         ChangeNotifierProvider(
-          create: (context) => ExercisesProvider(allExercises: allExercises),
+          create: (context) => ExercisesProvider(allExercises: res),
         ),
         ChangeNotifierProvider(create: (context) => ExerciseProvider()),
         ChangeNotifierProvider(

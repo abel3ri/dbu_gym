@@ -1,9 +1,12 @@
 // import 'package:dbu_gym/models/exercise.dart';
+import 'package:dbu_gym/models/error.dart';
 import 'package:dbu_gym/models/exercise.dart';
+import 'package:dbu_gym/utils/extension.dart';
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
 
 class ExercisesProvider with ChangeNotifier {
-  List<dynamic> allExercises = [];
+  Either<CustomError, List<dynamic>> allExercises;
   ExercisesProvider({
     required this.allExercises,
   });
@@ -39,10 +42,10 @@ class ExercisesProvider with ChangeNotifier {
   }
 
   void getExercises() {
+    List exercisesArray = this.allExercises.asRight as List;
     try {
       if (_categoryName == "muscle") {
-        _exercises = this
-            .allExercises
+        _exercises = exercisesArray
             .where((e) {
               return List.from(e['primaryMuscles'])[0] == _searchParamter;
             })
@@ -53,8 +56,7 @@ class ExercisesProvider with ChangeNotifier {
             .toList();
         notifyListeners();
       } else if (_categoryName == "difficulty") {
-        _exercises = this
-            .allExercises
+        _exercises = exercisesArray
             .where((e) {
               return e['level'] == _searchParamter;
             })
@@ -65,8 +67,7 @@ class ExercisesProvider with ChangeNotifier {
             .toList();
         notifyListeners();
       } else if (_categoryName == 'exercise') {
-        _exercises = this
-            .allExercises
+        _exercises = exercisesArray
             .where((e) {
               return e['category'] == _searchParamter;
             })
@@ -77,8 +78,7 @@ class ExercisesProvider with ChangeNotifier {
             .toList();
         notifyListeners();
       } else {
-        _exercises = this
-            .allExercises
+        _exercises = exercisesArray
             .where((e) {
               if (e['equipment'] != null)
                 return e['equipment'] == _searchParamter;
@@ -104,7 +104,7 @@ class ExercisesProvider with ChangeNotifier {
       "expert": 3,
     };
     if (sortValue == 'name') {
-       _exercises!.sort((a, b) => a.name.compareTo(b.name));
+      _exercises!.sort((a, b) => a.name.compareTo(b.name));
       notifyListeners();
     } else if (sortValue == 'level-asc') {
       _exercises!.sort((a, b) => difficultyLevelToNum[a.level]!

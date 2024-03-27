@@ -3,6 +3,7 @@ import 'package:dbu_gym/providers/exercise_provider.dart';
 import 'package:dbu_gym/providers/exercises_provider.dart';
 import 'package:dbu_gym/providers/home_page_grid_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
+import 'package:dbu_gym/utils/extension.dart';
 import 'package:dbu_gym/views/pages/calc_bmi_page.dart';
 import 'package:dbu_gym/views/pages/search_page.dart';
 import 'package:dbu_gym/views/widgets/app_drawer.dart';
@@ -26,11 +27,12 @@ class HomePage extends StatelessWidget {
     return AppZoomDrawer(
       title: GestureDetector(
         onTap: () async {
+          List allExercises = exercisesProvider.allExercises.asRight;
           try {
             final Exercise exercise = await showSearch(
               context: context,
               delegate: SearchPage(
-                exercises: exercisesProvider.allExercises
+                exercises: allExercises
                     .map((e) => exercisesProvider.dynamicToExerciseMapper(e))
                     .toList(),
               ),
