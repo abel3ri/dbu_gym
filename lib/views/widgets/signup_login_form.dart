@@ -38,12 +38,6 @@ class _FormWidgetState extends State<FormWidget> {
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
-  @override
-  void initState() {
-    Provider.of<FormProvider>(context, listen: false)
-        .setFormType(widget.formType);
-    super.initState();
-  }
 
   @override
   void dispose() {
