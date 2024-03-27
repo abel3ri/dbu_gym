@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 Future<Either<String, XFile>> pickImageFromCamera() async {
   try {
     XFile? image = await ImagePicker()
-        .pickImage(source: ImageSource.camera, imageQuality: 25);
+        .pickImage(source: ImageSource.camera, imageQuality: 15);
     if (image == null) return left("Image not selected!");
     return right(image);
   } catch (err) {
@@ -15,7 +15,7 @@ Future<Either<String, XFile>> pickImageFromCamera() async {
 Future<Either<String, XFile>> pickImageFromGallery() async {
   try {
     XFile? image = await ImagePicker()
-        .pickImage(source: ImageSource.gallery, imageQuality: 25);
+        .pickImage(source: ImageSource.gallery, imageQuality: 15);
     if (image == null) return left("Image not selected!");
     print(image.path);
     return right(image);
