@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:io';
-
 import 'package:dbu_gym/controllers/form_input_validator.dart';
 import 'package:dbu_gym/controllers/user_controller.dart';
 import 'package:dbu_gym/models/error.dart';
