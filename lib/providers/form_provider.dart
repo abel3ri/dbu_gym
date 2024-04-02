@@ -83,7 +83,10 @@ class FormProvider with ChangeNotifier {
     _formType = formType;
     notifyListeners();
   }
-
+  /// upload profile image to firebase storage
+  /// get download url for the uploaded image 
+  /// return download url to be stored to cloud firestore
+  /// profile_images -> bucket 
   Future<Either<CustomError, String>> uploadProfileImage(
       String imageUrl, String imageName) async {
     try {
