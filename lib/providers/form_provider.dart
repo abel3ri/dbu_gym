@@ -106,6 +106,9 @@ class FormProvider with ChangeNotifier {
     }
   }
 
+  /// upload insider id image to firebase storage insider_id/image_name
+  /// get image download url to store it into cloud firestore
+  /// if the task succeds update _idImageUrl var to notify listenere
   Future<Either<CustomError, String>> uploadIdImage(
       String imageUrl, String imageName) async {
     try {
