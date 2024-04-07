@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PaymentUploadProvider with ChangeNotifier {
+  /// index for payment upload page slider
   int _activeIndex = 0;
   bool isLoading = false;
 
@@ -9,6 +10,7 @@ class PaymentUploadProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  /// show CPI once the user taps upload receipt btn
   void toggleIsLoading(bool value) {
     isLoading = value;
     notifyListeners();
