@@ -15,7 +15,7 @@ class ExercisesProvider with ChangeNotifier {
   String? _categoryName;
   List<Exercise>? _exercises;
 
-  // Generic mapper function after filtering all exercises
+  // Generic mapper function to map exercises array
   Exercise dynamicToExerciseMapper(Map<dynamic, dynamic> exercise) {
     return Exercise(
       name: exercise['name'] as String,
@@ -40,7 +40,7 @@ class ExercisesProvider with ChangeNotifier {
     _categoryName = value;
     notifyListeners();
   }
-
+// filter exercises based selected category 
   void getExercises() {
     List exercisesArray = this.allExercises.asRight as List;
     try {
