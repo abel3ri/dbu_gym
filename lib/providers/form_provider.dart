@@ -83,7 +83,10 @@ class FormProvider with ChangeNotifier {
     _formType = formType;
     notifyListeners();
   }
-
+  /// upload profile image to firebase storage
+  /// get download url for the uploaded image 
+  /// return download url to be stored to cloud firestore
+  /// profile_images -> bucket 
   Future<Either<CustomError, String>> uploadProfileImage(
       String imageUrl, String imageName) async {
     try {
@@ -103,6 +106,9 @@ class FormProvider with ChangeNotifier {
     }
   }
 
+  /// upload insider id image to firebase storage insider_id/image_name
+  /// get image download url to store it into cloud firestore
+  /// if the task succeds update _idImageUrl var to notify listenere
   Future<Either<CustomError, String>> uploadIdImage(
       String imageUrl, String imageName) async {
     try {
