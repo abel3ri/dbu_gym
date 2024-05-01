@@ -12,6 +12,7 @@ class GymUser {
   late String gymEndDate;
   late String numWorkoutDays;
   late String subscribedWorkoutType;
+
   late String profileImageUrl;
   late String phoneNumber;
   late DateTime createdAt;
@@ -56,7 +57,7 @@ class GymUser {
           "gymEndDate": this.gymEndDate,
           "numWorkoutDays": this.numWorkoutDays,
           "subscribedWorkoutType": this.subscribedWorkoutType,
-          "profileImageUrl": this.profileImageUrl,
+          // "profileImageUrl": this.profileImageUrl,
           "phoneNumber": this.phoneNumber,
           "createdAt": this.createdAt,
           "paymentStatus": this.paymentStatus,

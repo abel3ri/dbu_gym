@@ -275,3 +275,5 @@ Future<Either<CustomError, List<Map<String, dynamic>>>> getPriceValue() async {
 final FirebaseAuth auth = FirebaseAuth.instance;
 final FirebaseFirestore db = FirebaseFirestore.instance;
 final FirebaseStorage storage = FirebaseStorage.instance;
+final String profileImageUrl =
+    "https://firebasestorage.googleapis.com/v0/b/dbugym.appspot.com/o/profile_images%2Fnaruto_on_muscles.jpg?alt=media&token=3f0d674d-9c43-4025-89e3-c021b04f0cc9";

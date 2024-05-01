@@ -82,7 +82,7 @@ Future<Either<CustomError, GymUser>> getUserData() async {
       gymEndDate: userData['gymEndDate'],
       numWorkoutDays: userData['numWorkoutDays'],
       subscribedWorkoutType: userData['subscribedWorkoutType'],
-      profileImageUrl: userData['profileImageUrl'],
+      profileImageUrl: profileImageUrl,
       phoneNumber: userData['phoneNumber'],
       createdAt: DateTime.fromMillisecondsSinceEpoch(
           (userData['createdAt'] as Timestamp).seconds * 1000),

@@ -19,7 +19,10 @@ class FormProvider with ChangeNotifier {
   bool _hasPassRepassInputError = false;
   String _affiliationStatus = 'default';
   String? _selectedImagePicker;
-  String? _profileImageUrl;
+  // ****************************** * /
+  // ! To be included in the next update
+  // String? _profileImageUrl;
+  // ****************************** * /
   String? _idImageUrl;
   String? _totalFeeAmount;
   String? _formType;
@@ -83,28 +86,34 @@ class FormProvider with ChangeNotifier {
     _formType = formType;
     notifyListeners();
   }
-  /// upload profile image to firebase storage
-  /// get download url for the uploaded image 
-  /// return download url to be stored to cloud firestore
-  /// profile_images -> bucket 
-  Future<Either<CustomError, String>> uploadProfileImage(
-      String imageUrl, String imageName) async {
-    try {
-      File profileImage = File(imageUrl);
-      Reference ref = storage.ref().child("profile_images/${imageName}");
-      UploadTask uploadTask = ref.putFile(profileImage);
-      final snapshot = await uploadTask.whenComplete(() => {});
-      _profileImageUrl = await snapshot.ref.getDownloadURL();
 
-      notifyListeners();
-      return right(_profileImageUrl!);
-    } on FirebaseException catch (err) {
-      return left(
-          CustomError(errorTitle: "Storage error", errorBody: err.message!));
-    } catch (err) {
-      return left(CustomError(errorTitle: "Error", errorBody: err.toString()));
-    }
-  }
+  /// upload profile image to firebase storage
+  /// get download url for the uploaded image
+  /// return download url to be stored to cloud firestore
+  /// profile_images -> bucket
+
+  // ****************************************************** */
+  // ! To be included in the next update
+
+  // Future<Either<CustomError, String>> uploadProfileImage(
+  //     String imageUrl, String imageName) async {
+  //   try {
+  //     File profileImage = File(imageUrl);
+  //     Reference ref = storage.ref().child("profile_images/${imageName}");
+  //     UploadTask uploadTask = ref.putFile(profileImage);
+  //     final snapshot = await uploadTask.whenComplete(() => {});
+  //     _profileImageUrl = await snapshot.ref.getDownloadURL();
+
+  //     notifyListeners();
+  //     return right(_profileImageUrl!);
+  //   } on FirebaseException catch (err) {
+  //     return left(
+  //         CustomError(errorTitle: "Storage error", errorBody: err.message!));
+  //   } catch (err) {
+  //     return left(CustomError(errorTitle: "Error", errorBody: err.toString()));
+  //   }
+  // }
+  // ****************************************************** */
 
   /// upload insider id image to firebase storage insider_id/image_name
   /// get image download url to store it into cloud firestore
@@ -135,7 +144,10 @@ class FormProvider with ChangeNotifier {
   bool get isAuthenticating => _isAuthenticating;
   String get selectedWorkoutDays => _selectedWorkoutDays;
   String get preferedWorkoutType => _preferedWorkoutType!;
-  String get profileImageUrl => _profileImageUrl!;
+  // ****************************** * /
+  // ! To be included in the next update
+  // String get profileImageUrl => _profileImageUrl!;
+  // ****************************** * /
   String? get dateInputErrorStr => _dateInputErrorStr;
   bool get hasPassRepassInputError => _hasPassRepassInputError;
   String get affiliationStatus => _affiliationStatus;

@@ -8,6 +8,7 @@ import 'package:dbu_gym/models/gym_user.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/utils/clear_form_inputs.dart';
+import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/views/pages/image_pick_selector.dart';
 import 'package:dbu_gym/views/widgets/date_picker_input.dart';
 import 'package:dbu_gym/views/widgets/signup_form_drop_down_btn.dart';
@@ -88,31 +89,34 @@ class _FormWidgetState extends State<FormWidget> {
               children: [
                 CircleAvatar(
                   radius: 36,
-                  backgroundImage: imageProvider.profileImagePath != null
-                      ? FileImage(File(imageProvider.profileImagePath!))
-                      : null,
-                  child: imageProvider.profileImagePath == null
-                      ? Icon(Icons.person, size: 48)
-                      : null,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    formProvider.setSelectedImagePicker("profilePicture");
-                    showModalBottomSheet(
-                      showDragHandle: true,
-                      constraints: BoxConstraints.tight(Size(
-                          MediaQuery.of(context).size.width,
-                          MediaQuery.of(context).size.height * 0.3)),
-                      context: context,
-                      builder: (context) => ImagePickSelector(),
-                    );
-                  },
-                  child: Icon(
-                    Icons.add,
-                    size: 30,
-                    color: Theme.of(context).colorScheme.primary,
+                  backgroundImage: AssetImage(
+                    "assets/images/profile_image/naruto_on_muscles.jpg",
                   ),
-                )
+                  // child: imageProvider.profileImagePath == null
+                  //     ? Icon(Icons.person, size: 48)
+                  //     : null,
+                ),
+                // ******************************************************** */
+                // ! To be included in the next update
+                // GestureDetector(
+                //   onTap: () {
+                //     formProvider.setSelectedImagePicker("profilePicture");
+                //     showModalBottomSheet(
+                //       showDragHandle: true,
+                //       constraints: BoxConstraints.tight(Size(
+                //           MediaQuery.of(context).size.width,
+                //           MediaQuery.of(context).size.height * 0.3)),
+                //       context: context,
+                //       builder: (context) => ImagePickSelector(),
+                //     );
+                //   },
+                //   child: Icon(
+                //     Icons.add,
+                //     size: 30,
+                //     color: Theme.of(context).colorScheme.primary,
+                //   ),
+                // )
+                // ******************************************************** */
               ],
             ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -439,35 +443,39 @@ class _FormWidgetState extends State<FormWidget> {
                           endDate: _endDateController.text,
                           context: context,
                         );
-
-                      if (imageProvider.profileImagePath == null) {
-                        // if the form is sign up form and user didn't provide profile image, show an error snackbar
-                        CustomError error = CustomError(
-                          errorTitle: "Error",
-                          errorBody: "Please provide a profile picture",
-                        );
-                        error.showError(context);
-                      }
+                      // ****************************** * /
+                      // ! To be included in the next update
+                      // if (imageProvider.profileImagePath == null) {
+                      //   // if the form is sign up form and user didn't provide profile image, show an error snackbar
+                      //   CustomError error = CustomError(
+                      //     errorTitle: "Error",
+                      //     errorBody: "Please provide a profile picture",
+                      //   );
+                      //   error.showError(context);
+                      // }
+                      // ****************************** * /
                       // valid sign up inputs
                       if (formProvider.signUpFormKey.currentState!.validate() &&
                           !formProvider.hasPassRepassInputError &&
                           !formProvider.hasDateInputError &&
-                          imageProvider.profileImagePath != null &&
                           formProvider.affiliationStatusError == null) {
                         formProvider.setIsAuthtentcating(true);
                         // set image profile field from image provider
 
                         // catch is there is storage uploading error
-                        Either<CustomError, String> profileUploadRes =
-                            await formProvider.uploadProfileImage(
-                          imageProvider.profileImagePath!,
-                          imageProvider.profileImageName!,
-                        );
-                        // show error if profile upload returns an error
-                        profileUploadRes.fold((err) {
-                          err.showError(context);
-                        }, (r) => null);
+                        // ****************************** * /
+                        // ! To be included in the next update
+                        // Either<CustomError, String> profileUploadRes =
+                        //     await formProvider.uploadProfileImage(
+                        //   imageProvider.profileImagePath!,
+                        //   imageProvider.profileImageName!,
+                        // );
 
+                        // show error if profile upload returns an error
+                        // profileUploadRes.fold((err) {
+                        //   err.showError(context);
+                        // }, (r) => null);
+                        // ****************************** * /
                         if (formProvider.affiliationStatus == 'insider') {
                           Either<CustomError, String> idImageRes =
                               await formProvider.uploadIdImage(
@@ -490,7 +498,7 @@ class _FormWidgetState extends State<FormWidget> {
                           numWorkoutDays: formProvider.selectedWorkoutDays,
                           subscribedWorkoutType:
                               formProvider.preferedWorkoutType,
-                          profileImageUrl: formProvider.profileImageUrl,
+                          profileImageUrl: profileImageUrl,
                           phoneNumber: _phoneNumberController.text,
                           createdAt: DateTime.now(),
                           paymentHistory: [],
