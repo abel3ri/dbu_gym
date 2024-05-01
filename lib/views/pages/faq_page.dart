@@ -134,28 +134,29 @@ class FAQExpansionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ExpansionTile(
-      title: Text(
-        title,
-        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              fontWeight: FontWeight.bold,
-              height: 1.5,
-            ),
+    return Card(
+      child: ExpansionTile(
+        title: Text(
+          title,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                fontWeight: FontWeight.bold,
+                height: 1.5,
+              ),
+        ),
+        children: [body],
+        expandedCrossAxisAlignment: CrossAxisAlignment.start,
+        childrenPadding:
+            EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 16),
+        tilePadding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        collapsedShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.background.darken(3),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        expandedAlignment: Alignment.centerLeft,
       ),
-      children: [body],
-      expandedCrossAxisAlignment: CrossAxisAlignment.start,
-      childrenPadding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 16),
-      tilePadding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      collapsedBackgroundColor:
-          Theme.of(context).colorScheme.background.darken(2),
-      collapsedShape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      backgroundColor: Theme.of(context).colorScheme.background.darken(3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      expandedAlignment: Alignment.centerLeft,
     );
   }
 }
