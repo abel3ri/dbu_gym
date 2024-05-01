@@ -7,14 +7,12 @@ import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/providers/payment_upload_provider.dart';
 import 'package:dbu_gym/providers/pricing_provider.dart';
 import 'package:dbu_gym/providers/user_provider.dart';
-import 'package:dbu_gym/utils/clear_form_inputs.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/views/pages/home_page.dart';
-import 'package:dbu_gym/views/pages/image_pick_selector.dart';
+import 'package:dbu_gym/views/widgets/payment_page_card.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import "package:easy_stepper/easy_stepper.dart";
-import 'package:fpdart/fpdart.dart';
 import 'package:provider/provider.dart';
 
 class PaymentCheckerPage extends StatelessWidget {
@@ -22,11 +20,10 @@ class PaymentCheckerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageProvider = Provider.of<AppImageProvider>(context);
     final paymentProvider = Provider.of<PaymentUploadProvider>(context);
-    final formProvider = Provider.of<FormProvider>(context);
     final priceProvider = Provider.of<PricingProvider>(context);
     final userProvider = Provider.of<UserProvider>(context);
+    final formKey = GlobalKey<FormState>();
     String? priceType;
     String? selectedWorkoutDays;
     String? price;
@@ -62,20 +59,82 @@ class PaymentCheckerPage extends StatelessWidget {
     }
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          formProvider.setSelectedImagePicker("receiptPicture");
+          // *********************************************************** */
+          // ! To be included in the next update
+          // formProvider.setSelectedImagePicker("receiptPicture");
+          // *********************************************************** */
           showModalBottomSheet(
             showDragHandle: true,
-            constraints: BoxConstraints.tight(Size(
-                MediaQuery.of(context).size.width,
-                MediaQuery.of(context).size.height * 0.3)),
+
+            isScrollControlled: true,
+            // useSafeArea: true,
+            // constraints: BoxConstraints.expand(),
             context: context,
-            builder: (context) => ImagePickSelector(),
+            // ************************************ */
+            // ! To be included in the next update
+            // builder: (context) => ImagePickSelector(),
+            // ************************************ */
+            builder: (context) => Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child: Container(
+                padding: EdgeInsets.all(20),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextFormField(
+                        decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                            ),
+                          ),
+                          fillColor: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withAlpha(50),
+                          labelText: "Enter receipt number",
+                          labelStyle: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty)
+                            return "Please provide receipt number";
+                          return null;
+                        },
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      FilledButton(
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {}
+                        },
+                        child: Text("Submit"),
+                        style: ButtonStyle(
+                          shape: MaterialStatePropertyAll(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                          minimumSize:
+                              MaterialStatePropertyAll(Size.fromHeight(40)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           );
         },
-        child: Icon(Icons.add),
-        shape: CircleBorder(),
+        label: Text("Add receipt number"),
+        // shape: CircleBorder(),
       ),
       body: StreamBuilder(
         stream: db.collection("users").doc(auth.currentUser!.uid).snapshots(),
@@ -243,68 +302,71 @@ class PaymentCheckerPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    if (imageProvider.receiptImagePath != null) ...[
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.95,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.file(
-                                File(imageProvider.receiptImagePath!),
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              imageProvider.receiptImageName!,
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.05),
-                    ],
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.02),
-                        if (imageProvider.receiptImagePath != null)
-                          ElevatedButton(
-                            onPressed: () async {
-                              paymentProvider.toggleIsLoading(true);
-                              Either<CustomError, bool> res =
-                                  await uploadPaymentReceipt(
-                                imageUrl: imageProvider.receiptImagePath!,
-                                imageName: imageProvider.receiptImageName!,
-                              );
-                              res.fold(
-                                (err) {
-                                  err.showError(context);
-                                },
-                                (r) {
-                                  clearFormInputs(context);
-                                },
-                              );
-                              paymentProvider.toggleIsLoading(false);
-                            },
-                            child: paymentProvider.isLoading
-                                ? SizedBox(
-                                    height: 16,
-                                    width: 16,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                    ),
-                                  )
-                                : Text("Upload receipt"),
-                          ),
-                      ],
-                    ),
+                    // ************************************************************ */
+                    /// ! To be inlcuded in the next update
+                    // if (imageProvider.receiptImagePath != null) ...[
+                    //   Container(
+                    //     width: MediaQuery.of(context).size.width * 0.95,
+                    //     decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(10),
+                    //     ),
+                    //     child: Column(
+                    //       crossAxisAlignment: CrossAxisAlignment.start,
+                    //       children: [
+                    //         ClipRRect(
+                    //           borderRadius: BorderRadius.circular(8),
+                    //           child: Image.file(
+                    //             File(imageProvider.receiptImagePath!),
+                    //           ),
+                    //         ),
+                    //         SizedBox(height: 8),
+                    //         Text(
+                    //           imageProvider.receiptImageName!,
+                    //           style: Theme.of(context).textTheme.bodySmall,
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    //   SizedBox(
+                    //       height: MediaQuery.of(context).size.height * 0.05),
+                    // ],
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     SizedBox(
+                    //         width: MediaQuery.of(context).size.width * 0.02),
+                    //     if (imageProvider.receiptImagePath != null)
+                    //       ElevatedButton(
+                    //         onPressed: () async {
+                    //           paymentProvider.toggleIsLoading(true);
+                    //           Either<CustomError, bool> res =
+                    //               await uploadPaymentReceipt(
+                    //             imageUrl: imageProvider.receiptImagePath!,
+                    //             imageName: imageProvider.receiptImageName!,
+                    //           );
+                    //           res.fold(
+                    //             (err) {
+                    //               err.showError(context);
+                    //             },
+                    //             (r) {
+                    //               clearFormInputs(context);
+                    //             },
+                    //           );
+                    //           paymentProvider.toggleIsLoading(false);
+                    //         },
+                    //         child: paymentProvider.isLoading
+                    //             ? SizedBox(
+                    //                 height: 16,
+                    //                 width: 16,
+                    //                 child: CircularProgressIndicator(
+                    //                   strokeWidth: 2,
+                    //                 ),
+                    //               )
+                    //             : Text("Upload receipt"),
+                    //       ),
+                    //   ],
+                    // ),
+                    // ******************************************************** */
                   ],
                 ),
               ),
@@ -369,40 +431,6 @@ class PaymentDetailsRow extends StatelessWidget {
               .copyWith(color: Theme.of(context).colorScheme.primary),
         ),
       ],
-    );
-  }
-}
-
-// ignore: must_be_immutable
-class PaymentPageCard extends StatelessWidget {
-  List<Widget> children;
-  PaymentPageCard({
-    super.key,
-    required this.children,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.9,
-      child: Card(
-        elevation: 3,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        surfaceTintColor: Colors.transparent,
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 12,
-            vertical: 12,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: children,
-          ),
-        ),
-      ),
     );
   }
 }
