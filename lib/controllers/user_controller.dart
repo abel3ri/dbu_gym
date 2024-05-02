@@ -86,7 +86,8 @@ Future<Either<CustomError, GymUser>> getUserData() async {
       phoneNumber: userData['phoneNumber'],
       createdAt: DateTime.fromMillisecondsSinceEpoch(
           (userData['createdAt'] as Timestamp).seconds * 1000),
-      paymentHistory: List<String>.from(userData['paymentHistory']),
+      paymentHistory:
+          List<Map<String, dynamic>>.from(userData['paymentHistory']),
       paymentStatus: userData['paymentStatus'],
       affiliationStatus: userData['affiliationStatus'],
       idImageUrl: userData['idImageUrl'],

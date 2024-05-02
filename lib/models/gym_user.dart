@@ -19,7 +19,7 @@ class GymUser {
   late String affiliationStatus;
   String? idImageUrl;
   String paymentStatus;
-  late List<String> paymentHistory;
+  late List<Map<String, dynamic>> paymentHistory;
 
   GymUser({
     required this.firstName,

@@ -134,6 +134,10 @@ class AppZoomDrawer extends StatelessWidget {
                             titleTextStyle:
                                 Theme.of(context).textTheme.bodyMedium,
                             title: Text("Manage Subscription"),
+                            onTap: () {
+                              GoRouter.of(context)
+                                  .pushNamed("manage-subscriptions-page");
+                            },
                           ),
                           // if (userProvider.user != null &&
                           //     ['pending', 'notPaid'].contains(

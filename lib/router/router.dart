@@ -3,6 +3,7 @@ import "package:dbu_gym/views/pages/exercise_details_page.dart";
 import "package:dbu_gym/views/pages/exxercise_category_page.dart";
 import "package:dbu_gym/views/pages/faq_page.dart";
 import "package:dbu_gym/views/pages/home_page.dart";
+import "package:dbu_gym/views/pages/manage_subscription_page.dart";
 import "package:dbu_gym/views/pages/pricing_page.dart";
 import "package:dbu_gym/views/pages/profile_page.dart";
 import "package:dbu_gym/views/pages/splash_page.dart";
@@ -75,6 +76,11 @@ class AppRouter {
         path: "/payment-upload",
         name: "payment-upload",
         builder: (context, state) => PaymentCheckerPage(),
+      ),
+      GoRoute(
+        path: "/manage-subscriptions-page",
+        name: "manage-subscriptions-page",
+        builder: (context, state) => ManageSubscriptionsPage(),
       ),
     ],
     errorBuilder: (context, state) => PageNotFound(),
