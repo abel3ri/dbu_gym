@@ -327,6 +327,9 @@ class PaymentCheckerPage extends StatelessWidget {
                                       validator: (value) {
                                         if (value!.isEmpty)
                                           return "Please provide receipt number";
+                                        if (value.length != 12 ||
+                                            !value.startsWith("FT"))
+                                          return "Please enter a valid receipt number";
                                         return null;
                                       },
                                     ),
