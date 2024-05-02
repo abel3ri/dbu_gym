@@ -78,9 +78,9 @@ class AppRouter {
         builder: (context, state) => PaymentCheckerPage(),
       ),
       GoRoute(
-        path: "/manage-subscriptions-page",
-        name: "manage-subscriptions-page",
-        builder: (context, state) => ManageSubscriptionsPage(),
+        path: "/manage-subscription-page",
+        name: "manage-subscription-page",
+        builder: (context, state) => ManageSubscriptionPage(),
       ),
     ],
     errorBuilder: (context, state) => PageNotFound(),

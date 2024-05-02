@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:dbu_gym/providers/bmi_provider.dart';
 import 'package:dbu_gym/providers/carousel_provider.dart';
 import 'package:dbu_gym/providers/exercise_provider.dart';
@@ -8,6 +10,7 @@ import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/firebase_options.dart';
 import 'package:dbu_gym/providers/payment_upload_provider.dart';
 import 'package:dbu_gym/providers/pricing_provider.dart';
+import 'package:dbu_gym/providers/subscription_provider.dart';
 import 'package:dbu_gym/providers/theme_provider.dart';
 import 'package:dbu_gym/providers/user_provider.dart';
 import 'package:dbu_gym/router/router.dart';
@@ -50,6 +53,7 @@ void main(List<String> args) async {
         ChangeNotifierProvider(create: (context) => BMIProvider()),
         ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => PaymentUploadProvider()),
+        ChangeNotifierProvider(create: (context) => SubscriptionProvider()),
       ],
       child: Builder(builder: (context) {
         // get the current selected theme and update the theme based on user selection
