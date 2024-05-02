@@ -1,5 +1,5 @@
 import 'package:dbu_gym/providers/bmi_provider.dart';
-import 'package:dbu_gym/views/widgets/bmi_input_field.dart';
+import 'package:dbu_gym/views/widgets/input_fields/bmi_input_field.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

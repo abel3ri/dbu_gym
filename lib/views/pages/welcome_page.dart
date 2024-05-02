@@ -1,7 +1,7 @@
 import 'package:dbu_gym/providers/carousel_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/views/widgets/app_drawer.dart';
-import 'package:dbu_gym/views/widgets/signup_login_button.dart';
+import 'package:dbu_gym/views/widgets/btns/signup_login_button.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:go_router/go_router.dart';

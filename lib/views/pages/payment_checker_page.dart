@@ -5,7 +5,7 @@ import 'package:dbu_gym/providers/pricing_provider.dart';
 import 'package:dbu_gym/providers/user_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/views/pages/home_page.dart';
-import 'package:dbu_gym/views/widgets/payment_page_card.dart';
+import 'package:dbu_gym/views/widgets/cards/payment_page_card.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import "package:easy_stepper/easy_stepper.dart";
