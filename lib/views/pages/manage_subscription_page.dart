@@ -39,6 +39,14 @@ class ManageSubscriptionPage extends StatelessWidget {
           Tooltip(
             message:
                 "Please refer to the gym manager if you intend to update your gym plan.",
+            textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Colors.white,
+                  height: 1.8,
+                ),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary.darken(20),
+              borderRadius: BorderRadius.circular(4),
+            ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Icon(Icons.help),
@@ -90,7 +98,7 @@ class ManageSubscriptionPage extends StatelessWidget {
               itemCount: userProvider.user!.paymentHistory.length,
               itemBuilder: (context, index) {
                 return Card(
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.primary.darken(20),
                   elevation: 10,
                   margin: EdgeInsets.only(bottom: 8),
                   child: Column(
