@@ -39,7 +39,7 @@ Future<Either<CustomError, String>> uploadReceiptNumber(
   try {
     await db.collection("users").doc(uid).update(
       {
-        "paymentHistory": FieldValue.arrayUnion(
+        "pendingPayments": FieldValue.arrayUnion(
           [
             {
               "date": DateTime.now(),
@@ -50,7 +50,7 @@ Future<Either<CustomError, String>> uploadReceiptNumber(
         "paymentStatus": "pending",
       },
     );
-    return right("Uploading receipt success.");
+    return right("Upload receipt success.");
   } on FirebaseException catch (err) {
     return left(
       CustomError(
