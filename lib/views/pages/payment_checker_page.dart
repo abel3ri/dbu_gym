@@ -151,7 +151,7 @@ class PaymentCheckerPage extends StatelessWidget {
                         onStepReached: (index) {
                           paymentProvider.setIndex(index);
                         },
-                        internalPadding: 48,
+                        internalPadding: 72,
                         steps: [
                           EasyStep(
                             icon: Icon(Icons.payment),
@@ -160,7 +160,7 @@ class PaymentCheckerPage extends StatelessWidget {
                           ),
                           EasyStep(
                             icon: Icon(Icons.upload),
-                            title: "Upload receipt",
+                            title: "Upload receipt number",
                             finishIcon: Icon(Icons.done),
                           ),
                           EasyStep(
@@ -331,8 +331,12 @@ class PaymentCheckerPage extends StatelessWidget {
                                         if (value!.isEmpty)
                                           return "Please provide receipt number";
                                         if (value.length != 12 ||
-                                            !value.startsWith("FT"))
+                                            !value
+                                                .toUpperCase()
+                                                .startsWith("FT")) {
+                                          print(value.toUpperCase());
                                           return "Please enter a valid receipt number";
+                                        }
                                         return null;
                                       },
                                     ),
@@ -347,7 +351,8 @@ class PaymentCheckerPage extends StatelessWidget {
                                               await uploadReceiptNumber(
                                             uid: auth.currentUser!.uid,
                                             receipt: paymentProvider
-                                                .receiptController.text,
+                                                .receiptController.text
+                                                .toUpperCase(),
                                           );
                                           paymentProvider.toggleIsLoading();
                                           res.fold(

@@ -32,7 +32,6 @@ void main(List<String> args) async {
   // if so set theme to system else do nothing
   prefs.getString("theme") == null ? prefs.setString("theme", "system") : null;
   final res = await loadExercises();
-
   await dotenv.load(fileName: ".env");
   runApp(
     MultiProvider(
