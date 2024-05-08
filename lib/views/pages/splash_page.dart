@@ -56,6 +56,9 @@ class _SplashPageState extends State<SplashPage> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting)
             return Center(child: CircularProgressIndicator());
+          if (snapshot.hasError) {
+            return Center(child: Text("Connection problem"));
+          }
           if (snapshot.data == null) return WelcomePage();
           return PaymentCheckerPage();
         },

@@ -167,7 +167,7 @@ class _FormWidgetState extends State<FormWidget> {
                 FormInputField(
                   controller: _passwordController,
                   labelText: "Password",
-                  prefixIcon: Icon(Icons.password),
+                  prefixIcon: Icon(Icons.lock),
                   showPassword: formProvider.showPassword,
                   formType: widget.formType,
                   validator: passwordValidator,
@@ -192,7 +192,7 @@ class _FormWidgetState extends State<FormWidget> {
                   FormInputField(
                     controller: _rePasswordController,
                     labelText: "Re-enter password",
-                    prefixIcon: Icon(Icons.password),
+                    prefixIcon: Icon(Icons.lock),
                     showPassword: formProvider.showPassword,
                     formType: widget.formType,
                     validator: passwordValidator,

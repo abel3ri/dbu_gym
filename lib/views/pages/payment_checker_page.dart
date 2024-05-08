@@ -66,6 +66,9 @@ class PaymentCheckerPage extends StatelessWidget {
           if (snapshot.hasError) {
             CustomError(errorTitle: "Error", errorBody: "Connection Problem")
                 .showError(context);
+            return Center(
+              child: Text("Connection Problem"),
+            );
           }
           final paymentStatus = snapshot.data!.data()!['paymentStatus'];
 
