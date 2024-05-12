@@ -91,6 +91,7 @@ Future<Either<CustomError, GymUser>> getUserData() async {
       paymentStatus: userData['paymentStatus'],
       affiliationStatus: userData['affiliationStatus'],
       idImageUrl: userData['idImageUrl'],
+      monthlyFee: userData['monthlyFee'],
     );
 
     return right(user);

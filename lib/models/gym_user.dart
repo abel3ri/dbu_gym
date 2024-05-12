@@ -17,6 +17,7 @@ class GymUser {
   late String phoneNumber;
   late DateTime createdAt;
   late String affiliationStatus;
+  late String monthlyFee;
   String? idImageUrl;
   String paymentStatus;
   late List<Map<String, dynamic>> paymentHistory;
@@ -37,6 +38,7 @@ class GymUser {
     required this.createdAt,
     required this.affiliationStatus,
     required this.idImageUrl,
+    required this.monthlyFee,
   });
 
   Future<Either<CustomError, User>> signUpUserWithEmailAndPassword() async {
@@ -64,6 +66,7 @@ class GymUser {
           "paymentHistory": this.paymentHistory,
           "affiliationStatus": this.affiliationStatus,
           "idImageUrl": this.idImageUrl,
+          "monthlyFee": this.monthlyFee,
         });
         return right(user);
       }
