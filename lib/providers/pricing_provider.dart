@@ -4,7 +4,7 @@ class PricingProvider with ChangeNotifier {
   int _activeIndex = 0;
   bool _oneThreeDays = true;
   bool _fourSixDays = false;
-  List<Map<String, dynamic>>? _priceData;
+  Map<String, dynamic>? _priceData;
 
   void changeActiveIndex(int index) {
     _activeIndex = index;
@@ -23,7 +23,7 @@ class PricingProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setPriceData(List<Map<String, dynamic>> priceData) {
+  void setPriceData(Map<String, dynamic> priceData) {
     _priceData = priceData;
     notifyListeners();
   }
@@ -31,5 +31,5 @@ class PricingProvider with ChangeNotifier {
   bool get oneThreeDays => _oneThreeDays;
   bool get fourSixDays => _fourSixDays;
   int get activeIndex => _activeIndex;
-  List<Map<String, dynamic>>? get priceData => _priceData;
+  Map<String, dynamic>? get priceData => _priceData;
 }

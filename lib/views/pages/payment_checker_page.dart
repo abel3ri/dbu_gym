@@ -1,7 +1,6 @@
 import 'package:dbu_gym/controllers/receipt_controller.dart';
 import 'package:dbu_gym/models/error.dart';
 import 'package:dbu_gym/providers/payment_upload_provider.dart';
-import 'package:dbu_gym/providers/pricing_provider.dart';
 import 'package:dbu_gym/providers/user_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/views/pages/home_page.dart';
@@ -18,41 +17,17 @@ class PaymentCheckerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final paymentProvider = Provider.of<PaymentUploadProvider>(context);
-    final priceProvider = Provider.of<PricingProvider>(context);
     final userProvider = Provider.of<UserProvider>(context);
     final formKey = GlobalKey<FormState>();
-    String? priceType;
     String? selectedWorkoutDays;
     String? price;
     String? selectedWorkoutType;
     if (userProvider.user != null) {
-      priceType = userProvider.user!.affiliationStatus == 'insider'
-          ? 'insidersPrice'
-          : "outsidersPrice";
       selectedWorkoutType = userProvider.user!.subscribedWorkoutType.capitalize;
-
       selectedWorkoutDays = userProvider.user!.numWorkoutDays == 'oneThree'
           ? "1-3 Days / Week"
           : "4-6 Days / Week";
-
-      // get price based on selected workout days, selected plan type
-      price = priceProvider.priceData != null
-          ? userProvider.user!.numWorkoutDays == 'oneThree'
-              ? List.from(priceProvider.priceData![0]['1-3Days'])
-                  .where(
-                    (e) =>
-                        e["workoutType"] ==
-                        userProvider.user!.subscribedWorkoutType,
-                  )
-                  .toList()[0][priceType]
-              : List.from(priceProvider.priceData![1]['4-6Days'])
-                  .where(
-                    (e) =>
-                        e["workoutType"] ==
-                        userProvider.user!.subscribedWorkoutType,
-                  )
-                  .toList()[0][priceType]
-          : "Loading...";
+      price = userProvider.user!.monthlyFee;
     }
 
     return Scaffold(

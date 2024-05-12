@@ -4,6 +4,7 @@ import 'package:dbu_gym/models/gym_user.dart';
 import 'package:dbu_gym/providers/pricing_provider.dart';
 import 'package:dbu_gym/providers/user_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
+import 'package:dbu_gym/utils/get_pricing_data.dart';
 import 'package:dbu_gym/views/pages/payment_checker_page.dart';
 import 'package:dbu_gym/views/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class _SplashPageState extends State<SplashPage> {
     /// get dynamic price data instead of hard coded one that may change overtime
     /// send get request only if the current price data is null
     if (Provider.of<PricingProvider>(context, listen: false).priceData == null)
-      getPriceValue().then((value) {
+      getPricingContent().then((value) {
         value.fold((err) {
           err.showError(context);
         }, (workoutPriceData) {

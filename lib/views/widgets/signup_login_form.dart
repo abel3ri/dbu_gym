@@ -7,6 +7,7 @@ import 'package:dbu_gym/models/error.dart';
 import 'package:dbu_gym/models/gym_user.dart';
 import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
+import 'package:dbu_gym/providers/pricing_provider.dart';
 import 'package:dbu_gym/utils/clear_form_inputs.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/views/pages/image_pick_selector.dart';
@@ -56,6 +57,7 @@ class _FormWidgetState extends State<FormWidget> {
   Widget build(BuildContext context) {
     final formProvider = Provider.of<FormProvider>(context);
     final imageProvider = Provider.of<AppImageProvider>(context);
+    final pricingProvider = Provider.of<PricingProvider>(context);
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       padding: EdgeInsets.only(
@@ -506,6 +508,13 @@ class _FormWidgetState extends State<FormWidget> {
                           idImageUrl: formProvider.idImageUrl == null
                               ? "null"
                               : formProvider.idImageUrl!,
+                          monthlyFee: pricingProvider.priceData![formProvider
+                                          .selectedWorkoutDays ==
+                                      'oneThree'
+                                  ? "1-3Days"
+                                  : "4-6Days"][formProvider.preferedWorkoutType]
+                              [formProvider.affiliationStatus],
+//       [affiliationStatus],
                         );
                         Either<CustomError, String> authRes =
                             await signUpController(
