@@ -15,7 +15,7 @@ class CustomError {
         elevation: 0,
         backgroundColor: Colors.transparent,
         behavior: SnackBarBehavior.floating,
-        duration: Duration(seconds: 10),
+        duration: Duration(seconds: 6),
         content: AwesomeSnackbarContent(
           title: errorTitle,
           message: errorBody,
