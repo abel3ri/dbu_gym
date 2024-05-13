@@ -14,6 +14,7 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _emailController = TextEditingController();
+  bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -80,9 +81,16 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 ElevatedButton.icon(
                   onPressed: () async {
+                    setState(() {
+                      _isLoading = true;
+                    });
                     if (_formKey.currentState!.validate()) {
                       await auth.sendPasswordResetEmail(
-                          email: _emailController.text);
+                        email: _emailController.text,
+                      );
+                      setState(() {
+                        _isLoading = false;
+                      });
                       GoRouter.of(context).pop();
                       SuccessMessage(
                         successTitle: "Success",
@@ -91,7 +99,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     }
                   },
                   icon: Icon(Icons.send),
-                  label: Text("Reset password"),
+                  label: _isLoading
+                      ? Container(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(),
+                        )
+                      : Text("Reset password"),
                 )
               ],
             )),
