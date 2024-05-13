@@ -546,6 +546,22 @@ class _FormWidgetState extends State<FormWidget> {
                         )
                       : Text(widget.formType == "Login" ? "Login" : "Sign up"),
                 ),
+                if (widget.formType == "Login") ...[
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          GoRouter.of(context).pushNamed("forgot-password");
+                        },
+                        child: Text(
+                          "Forgot your password?",
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
