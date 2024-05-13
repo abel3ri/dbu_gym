@@ -68,6 +68,7 @@ class GymUser {
           "idImageUrl": this.idImageUrl,
           "monthlyFee": this.monthlyFee,
         });
+        await user.sendEmailVerification();
         return right(user);
       }
       ;

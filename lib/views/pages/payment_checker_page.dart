@@ -4,6 +4,7 @@ import 'package:dbu_gym/providers/payment_upload_provider.dart';
 import 'package:dbu_gym/providers/user_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/views/pages/home_page.dart';
+import 'package:dbu_gym/views/pages/welcome_page.dart';
 import 'package:dbu_gym/views/widgets/cards/payment_page_card.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,7 @@ class PaymentCheckerPage extends StatelessWidget {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: StreamBuilder(
         stream: db.collection("users").doc(auth.currentUser!.uid).snapshots(),
         builder: (context, snapshot) {
@@ -45,6 +47,11 @@ class PaymentCheckerPage extends StatelessWidget {
               child: Text("Connection Problem"),
             );
           }
+          if (snapshot.data!.data() == null) {
+            auth.signOut();
+            return WelcomePage();
+          }
+
           final paymentStatus = snapshot.data!.data()!['paymentStatus'];
 
           if (paymentStatus == 'notPaid') {

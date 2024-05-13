@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dbu_gym/providers/user_provider.dart';
+import 'package:dbu_gym/utils/constants.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -76,6 +77,10 @@ class ManageSubscriptionPage extends StatelessWidget {
                     title: "Number of workout days",
                     value: numOfWorkoutDays,
                   ),
+                  CardRow(
+                    title: "Monthly Fee",
+                    value: userProvider.user!.monthlyFee,
+                  ),
                 ],
               ),
             ),
@@ -92,43 +97,65 @@ class ManageSubscriptionPage extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
-              itemCount: userProvider.user!.paymentHistory.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  color: Theme.of(context).colorScheme.primary.darken(20),
-                  elevation: 10,
-                  margin: EdgeInsets.only(bottom: 8),
-                  child: Column(
-                    children: [
-                      CardRow(
-                        title: "Payment date",
-                        titleTextStyle:
-                            Theme.of(context).textTheme.bodyMedium!.copyWith(
+            FutureBuilder(
+              future: db.collection("users").doc(auth.currentUser!.uid).get(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text("Error loading payment history data"),
+                  );
+                }
+                final user = snapshot.data!.data();
+
+                // print(user!['paymentHistory']);
+                return ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: List.from(user!['paymentHistory']).length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      color: Theme.of(context).colorScheme.primary.darken(20),
+                      elevation: 10,
+                      margin: EdgeInsets.only(bottom: 8),
+                      child: Column(
+                        children: [
+                          CardRow(
+                            title: "Payment date",
+                            titleTextStyle: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
-                        value: DateFormat.yMMMd("en-US").format(
-                          (userProvider.user!.paymentHistory[index]['date']
-                                  as Timestamp)
-                              .toDate(),
-                        ),
-                      ),
-                      CardRow(
-                        title: "Payment receipt number",
-                        titleTextStyle:
-                            Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            value: DateFormat.yMMMd("en-US").format(
+                              (user['paymentHistory'][index]['date']
+                                      as Timestamp)
+                                  .toDate(),
+                            ),
+                          ),
+                          CardRow(
+                            title: "Payment receipt number",
+                            titleTextStyle: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
-                        value: userProvider
-                            .user!.paymentHistory[index]['receiptNumber']
-                            .toUpperCase(),
+                            value: user['paymentHistory'][index]
+                                    ['receiptNumber']
+                                .toUpperCase(),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    );
+                  },
                 );
               },
             ),

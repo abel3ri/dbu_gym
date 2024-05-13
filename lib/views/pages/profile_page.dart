@@ -1,5 +1,6 @@
 import 'package:dbu_gym/models/gym_user.dart';
 import 'package:dbu_gym/providers/user_provider.dart';
+import 'package:dbu_gym/utils/constants.dart';
 import 'package:dbu_gym/views/widgets/profile_page_row.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -69,16 +70,24 @@ class ProfilePage extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        fullName.length > 15
-                            ? fullName.substring(0, 13) + "..."
-                            : fullName,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            fullName.length > 15
+                                ? fullName.substring(0, 13) + "..."
+                                : fullName,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium!
+                                .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          SizedBox(width: constraints.maxWidth * 0.01),
+                          if (auth.currentUser!.emailVerified)
+                            Icon(Icons.verified),
+                        ],
                       ),
                       SizedBox(width: constraints.maxWidth * 0.04),
                       SizedBox(height: constraints.maxHeight * 0.004),
@@ -115,6 +124,32 @@ class ProfilePage extends StatelessWidget {
                               color: Theme.of(context).colorScheme.primary,
                             ),
                       ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.width * 0.01,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          border: Border.all(
+                            color: auth.currentUser!.emailVerified
+                                ? Theme.of(context).colorScheme.primary
+                                : Theme.of(context).colorScheme.error,
+                          ),
+                        ),
+                        child: Text(
+                          auth.currentUser!.emailVerified
+                              ? "E-mail verified"
+                              : "E-mail not verified",
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    fontSize: 10,
+                                  ),
+                        ),
+                      )
                     ],
                   ),
                 ],
