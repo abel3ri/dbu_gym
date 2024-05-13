@@ -86,7 +86,10 @@ class ProfilePage extends StatelessWidget {
                           ),
                           SizedBox(width: constraints.maxWidth * 0.01),
                           if (auth.currentUser!.emailVerified)
-                            Icon(Icons.verified),
+                            Icon(
+                              Icons.verified,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                         ],
                       ),
                       SizedBox(width: constraints.maxWidth * 0.04),
