@@ -2,6 +2,7 @@ import "package:dbu_gym/views/pages/contact_developer_page.dart";
 import "package:dbu_gym/views/pages/exercise_details_page.dart";
 import "package:dbu_gym/views/pages/exxercise_category_page.dart";
 import "package:dbu_gym/views/pages/faq_page.dart";
+import "package:dbu_gym/views/pages/forgot_password_page.dart";
 import "package:dbu_gym/views/pages/home_page.dart";
 import "package:dbu_gym/views/pages/manage_subscription_page.dart";
 import "package:dbu_gym/views/pages/pricing_page.dart";
@@ -81,6 +82,11 @@ class AppRouter {
         path: "/manage-subscription-page",
         name: "manage-subscription-page",
         builder: (context, state) => ManageSubscriptionPage(),
+      ),
+      GoRoute(
+        path: "/forgot-password",
+        name: "forgot-password",
+        builder: (context, state) => ForgotPasswordPage(),
       ),
     ],
     errorBuilder: (context, state) => PageNotFound(),
