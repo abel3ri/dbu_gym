@@ -19,6 +19,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import "package:shared_preferences/shared_preferences.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,6 +58,8 @@ void main(List<String> args) async {
         final selectedTheme =
             Provider.of<ThemeProvider>(context).getCurrentThemeMode();
         return MaterialApp.router(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           routerConfig: AppRouter.router,
           debugShowCheckedModeBanner: false,
           themeMode: selectedTheme == 'system'

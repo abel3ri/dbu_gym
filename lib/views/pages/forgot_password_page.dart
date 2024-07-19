@@ -81,10 +81,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 ElevatedButton.icon(
                   onPressed: () async {
-                    setState(() {
-                      _isLoading = true;
-                    });
                     if (_formKey.currentState!.validate()) {
+                      setState(() {
+                        _isLoading = true;
+                      });
                       await auth.sendPasswordResetEmail(
                         email: _emailController.text,
                       );

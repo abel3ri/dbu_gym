@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dbu_gym/models/error.dart';
 import 'package:dbu_gym/utils/constants.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fpdart/fpdart.dart';
 
 // ********************************************************** */
