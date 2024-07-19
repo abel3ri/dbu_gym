@@ -29,7 +29,7 @@ class WorkoutProgram extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              ...workoutSessionContent[workoutDays]![programName]!.map(
+              ...AppData.workoutSessionContent[workoutDays]![programName]!.map(
                 (content) {
                   return SizedBox(
                     height: MediaQuery.of(context).size.height * 0.04,

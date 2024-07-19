@@ -14,7 +14,7 @@ class OneThreeCarouselSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
-      itemCount: pricingContent["1-3Days"]!.length,
+      itemCount: AppData.pricingContent["1-3Days"]!.length,
       itemBuilder: (context, index, realIndex) {
         return LayoutBuilder(
           builder: (context, constraints) => Stack(
@@ -22,7 +22,7 @@ class OneThreeCarouselSlider extends StatelessWidget {
             children: [
               Card(
                 elevation: 0,
-                color: Theme.of(context).colorScheme.background.darken(3),
+                color: Theme.of(context).scaffoldBackgroundColor.darken(3),
                 child: Padding(
                   padding: const EdgeInsets.all(12),
                   child: Column(
@@ -40,7 +40,8 @@ class OneThreeCarouselSlider extends StatelessWidget {
                           SizedBox(
                               width: MediaQuery.of(context).size.width * 0.02),
                           Text(
-                            pricingContent['1-3Days']![index]['workoutType']!,
+                            AppData.pricingContent['1-3Days']![index]
+                                ['workoutType']!,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
@@ -55,8 +56,9 @@ class OneThreeCarouselSlider extends StatelessWidget {
                           height: MediaQuery.of(context).size.height * 0.04),
                       // since the aerobics image is a bit to large in height compared to the other two im decreasing the height of that particular image
                       Image.asset(
-                        pricingContent['1-3Days']![index]['imagePath']!,
-                        height: pricingContent['1-3Days']![index]['imagePath']!
+                        AppData.pricingContent['1-3Days']![index]['imagePath']!,
+                        height: AppData.pricingContent['1-3Days']![index]
+                                    ['imagePath']!
                                 .toString()
                                 .contains("aerobics")
                             ? constraints.maxHeight * 0.5
@@ -65,7 +67,7 @@ class OneThreeCarouselSlider extends StatelessWidget {
                       Expanded(child: SizedBox()),
                       PriceRow(
                         workoutDays: "1-3Days",
-                        workoutType: (pricingContent['1-3Days']![index]
+                        workoutType: (AppData.pricingContent['1-3Days']![index]
                                 ['workoutType'] as String)
                             .split(" ")
                             .first
@@ -76,7 +78,7 @@ class OneThreeCarouselSlider extends StatelessWidget {
                           height: MediaQuery.of(context).size.height * 0.02),
                       PriceRow(
                         workoutDays: "1-3Days",
-                        workoutType: (pricingContent['1-3Days']![index]
+                        workoutType: (AppData.pricingContent['1-3Days']![index]
                                 ['workoutType'] as String)
                             .split(" ")
                             .first
@@ -88,7 +90,7 @@ class OneThreeCarouselSlider extends StatelessWidget {
                 ),
               ),
               Text(
-                pricingContent["1-3Days"]![index]["noWorkingDays"],
+                AppData.pricingContent["1-3Days"]![index]["noWorkingDays"],
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       fontFamily: "SwankyandMooMoo",
                       fontWeight: FontWeight.bold,

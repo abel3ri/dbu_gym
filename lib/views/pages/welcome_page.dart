@@ -1,5 +1,7 @@
 import 'package:dbu_gym/providers/carousel_provider.dart';
+import 'package:dbu_gym/providers/locale_provider.dart';
 import 'package:dbu_gym/utils/constants.dart';
+import 'package:dbu_gym/utils/context_extension.dart';
 import 'package:dbu_gym/views/widgets/app_drawer.dart';
 import 'package:dbu_gym/views/widgets/btns/signup_login_button.dart';
 import 'package:flutter/material.dart';
@@ -25,11 +27,14 @@ class WelcomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Welcome!",
+                  context.localizations.welcome,
                   style: textTheme.headlineLarge!.copyWith(
                     color: Colors.grey.shade700,
                     fontWeight: FontWeight.bold,
-                    fontSize: 48,
+                    fontSize:
+                        Provider.of<LocaleProvider>(context).locale == 'en'
+                            ? 48
+                            : 38,
                   ),
                 ),
                 Text(
@@ -69,7 +74,7 @@ class WelcomePage extends StatelessWidget {
                             ),
                             width: MediaQuery.of(context).size.width * 0.65,
                             child: Text(
-                              carouselContent[index]['headline'],
+                              AppData.carouselContent[index]['headline'],
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge!
@@ -84,7 +89,7 @@ class WelcomePage extends StatelessWidget {
                             ),
                           ),
                           Image.asset(
-                            "${carouselContent[index]['image_path']}",
+                            "${AppData.carouselContent[index]['image_path']}",
                           ),
                         ],
                       ),
@@ -119,13 +124,13 @@ class WelcomePage extends StatelessWidget {
               children: [
                 TextButton(
                   style: ButtonStyle(
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      shape: WidgetStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ))),
                   onPressed: () {
                     GoRouter.of(context).pushNamed("pricing");
                   },
-                  child: Text("Checkout workout sessions & pricing"),
+                  child: Text(context.localizations.checkoutSessionsPricing),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.012),
                 Row(
@@ -133,6 +138,7 @@ class WelcomePage extends StatelessWidget {
                   children: [
                     SignUpLoginButton(
                       buttonName: "Sign up",
+                      btnText: context.localizations.signup,
                       onPressed: () {
                         GoRouter.of(context).pushNamed("signup");
                       },
@@ -140,6 +146,7 @@ class WelcomePage extends StatelessWidget {
                     SizedBox(width: 8),
                     SignUpLoginButton(
                       buttonName: "Login",
+                      btnText: context.localizations.login,
                       onPressed: () {
                         GoRouter.of(context).pushNamed("login");
                       },

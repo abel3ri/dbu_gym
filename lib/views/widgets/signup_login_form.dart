@@ -91,12 +91,7 @@ class _FormWidgetState extends State<FormWidget> {
               children: [
                 CircleAvatar(
                   radius: 36,
-                  backgroundImage: AssetImage(
-                    "assets/images/profile_image/naruto_on_muscles.jpg",
-                  ),
-                  // child: imageProvider.profileImagePath == null
-                  //     ? Icon(Icons.person, size: 48)
-                  //     : null,
+                  child: Icon(Icons.person),
                 ),
                 // ******************************************************** */
                 // ! To be included in the next update
@@ -533,14 +528,14 @@ class _FormWidgetState extends State<FormWidget> {
                     }
                   },
                   style: ButtonStyle(
-                    fixedSize: MaterialStateProperty.all(Size(120, 44)),
+                    fixedSize: WidgetStateProperty.all(Size(120, 44)),
                   ),
                   child: formProvider.isAuthenticating
                       ? SizedBox(
                           width: 24,
                           height: 24,
                           child: CircularProgressIndicator(
-                            color: Theme.of(context).colorScheme.background,
+                            color: Theme.of(context).scaffoldBackgroundColor,
                             strokeWidth: 3,
                           ),
                         )

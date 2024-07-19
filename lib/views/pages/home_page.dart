@@ -109,13 +109,13 @@ class HomePage extends StatelessWidget {
                     children: [
                       HomePageGrid(
                         category: categoryProvider.selectedCategory == "muscle"
-                            ? muscleGroupCategories
+                            ? AppData.muscleGroupCategories
                             : categoryProvider.selectedCategory == "equipment"
-                                ? equipmentTypeCategories
+                                ? AppData.equipmentTypeCategories
                                 : categoryProvider.selectedCategory ==
                                         'difficulty'
-                                    ? difficultyCategories
-                                    : exerciseTypeCategories,
+                                    ? AppData.difficultyCategories
+                                    : AppData.exerciseTypeCategories,
                       ),
                       Center(
                         child: CalcBMIPage(),

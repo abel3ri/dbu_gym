@@ -99,7 +99,7 @@ class PricingPage extends StatelessWidget {
                       Center(
                         child: AnimatedSmoothIndicator(
                           activeIndex: pricingProvider.activeIndex,
-                          count: pricingContent['1-3Days']!.length,
+                          count: AppData.pricingContent['1-3Days']!.length,
                           effect: ExpandingDotsEffect(
                             activeDotColor:
                                 Theme.of(context).colorScheme.primary,

@@ -1,6 +1,8 @@
+import "package:dbu_gym/providers/locale_provider.dart";
 import "package:dbu_gym/providers/theme_provider.dart";
 import "package:dbu_gym/providers/user_provider.dart";
 import "package:dbu_gym/utils/constants.dart";
+import "package:dbu_gym/utils/context_extension.dart";
 import "package:flex_color_scheme/flex_color_scheme.dart";
 import "package:flutter/material.dart";
 import "package:flutter_zoom_drawer/flutter_zoom_drawer.dart";
@@ -29,10 +31,10 @@ class AppZoomDrawer extends StatelessWidget {
       controller: zoomDrawerController,
       mainScreenTapClose: true,
       slideWidth: MediaQuery.of(context).size.width * 0.8,
-      menuBackgroundColor: Theme.of(context).colorScheme.background.darken(2),
+      menuBackgroundColor: Theme.of(context).scaffoldBackgroundColor.darken(2),
       angle: 0,
       menuScreen: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background.darken(2),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor.darken(2),
         body: SafeArea(
           child: Center(
             child: Container(
@@ -49,7 +51,7 @@ class AppZoomDrawer extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          "Settings",
+                          context.localizations.settings,
                           style: Theme.of(context)
                               .textTheme
                               .headlineMedium!
@@ -101,9 +103,11 @@ class AppZoomDrawer extends StatelessWidget {
                               : Icons.light_mode),
                           titleTextStyle:
                               Theme.of(context).textTheme.bodyMedium,
-                          title: Text("Theme"),
+                          title: Text(context.localizations.theme),
                           trailing: DropdownButton(
                             elevation: 0,
+                            underline: const SizedBox.shrink(),
+                            alignment: Alignment.centerRight,
                             borderRadius: BorderRadius.all(Radius.circular(8)),
                             value: Provider.of<ThemeProvider>(context)
                                 .getCurrentThemeMode(),
@@ -128,6 +132,35 @@ class AppZoomDrawer extends StatelessWidget {
                             },
                           ),
                         ),
+                        ListTile(
+                          leading: Icon(Icons.language),
+                          titleTextStyle:
+                              Theme.of(context).textTheme.bodyMedium,
+                          title: Text(context.localizations.language),
+                          trailing: DropdownButton(
+                            elevation: 0,
+                            underline: const SizedBox.shrink(),
+                            alignment: Alignment.centerRight,
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            value: Provider.of<LocaleProvider>(context).locale,
+                            style: Theme.of(context).textTheme.bodySmall,
+                            items: [
+                              DropdownMenuItem(
+                                child: Text("English"),
+                                value: "en",
+                              ),
+                              DropdownMenuItem(
+                                child: Text("አማርኛ"),
+                                value: "am",
+                              ),
+                            ],
+                            onChanged: (value) {
+                              Provider.of<LocaleProvider>(context,
+                                      listen: false)
+                                  .updateLocale(value!);
+                            },
+                          ),
+                        ),
                         if (auth.currentUser != null) ...[
                           ListTile(
                             leading: Icon(Icons.bolt),
@@ -139,28 +172,6 @@ class AppZoomDrawer extends StatelessWidget {
                                   .pushNamed("manage-subscription-page");
                             },
                           ),
-                          // if (userProvider.user != null &&
-                          //     ['pending', 'notPaid'].contains(
-                          //       userProvider.user!.paymentStatus,
-                          //     ))
-                          //   ListTile(
-                          //     onTap: () {
-                          //       GoRouter.of(context)
-                          //           .pushReplacementNamed("payment-upload");
-                          //     },
-                          //     trailing: Text("new"),
-                          //     leadingAndTrailingTextStyle: Theme.of(context)
-                          //         .textTheme
-                          //         .bodyMedium!
-                          //         .copyWith(
-                          //           color:
-                          //               Theme.of(context).colorScheme.primary,
-                          //         ),
-                          //     leading: Icon(Icons.money),
-                          //     titleTextStyle:
-                          //         Theme.of(context).textTheme.bodyMedium,
-                          //     title: Text("Payment"),
-                          //   ),
                         ],
                         ListTile(
                           onTap: () {
@@ -169,7 +180,7 @@ class AppZoomDrawer extends StatelessWidget {
                           leading: Icon(Icons.question_mark),
                           titleTextStyle:
                               Theme.of(context).textTheme.bodyMedium,
-                          title: Text("FAQs"),
+                          title: Text(context.localizations.faqs),
                         ),
                         if (auth.currentUser != null)
                           ListTile(
@@ -224,7 +235,7 @@ class AppZoomDrawer extends StatelessWidget {
                             GoRouter.of(context).pushNamed("contact-dev");
                           },
                           child: Text(
-                            "Contact Developer",
+                            context.localizations.contactDev,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall!

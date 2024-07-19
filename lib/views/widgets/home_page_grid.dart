@@ -45,8 +45,8 @@ class HomePageGrid extends StatelessWidget {
             elevation: 1,
             surfaceTintColor: Colors.transparent,
             color: categoryName == "difficulty"
-                ? difficultyCategoryColors[index].darken(20)
-                : Theme.of(context).colorScheme.background.darken(3),
+                ? AppData.difficultyCategoryColors[index].darken(20)
+                : Theme.of(context).scaffoldBackgroundColor.darken(3),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(4)),
             ),

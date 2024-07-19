@@ -6,6 +6,7 @@ import 'package:dbu_gym/providers/form_provider.dart';
 import 'package:dbu_gym/providers/home_page_grid_provider.dart';
 import 'package:dbu_gym/providers/image_provider.dart';
 import 'package:dbu_gym/firebase_options.dart';
+import 'package:dbu_gym/providers/locale_provider.dart';
 import 'package:dbu_gym/providers/payment_upload_provider.dart';
 import 'package:dbu_gym/providers/pricing_provider.dart';
 import 'package:dbu_gym/providers/subscription_provider.dart';
@@ -52,14 +53,21 @@ void main(List<String> args) async {
         ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => PaymentUploadProvider()),
         ChangeNotifierProvider(create: (context) => SubscriptionProvider()),
+        ChangeNotifierProvider(
+            create: (context) => LocaleProvider(
+                  prefs: prefs,
+                )),
       ],
       child: Builder(builder: (context) {
         // get the current selected theme and update the theme based on user selection
         final selectedTheme =
             Provider.of<ThemeProvider>(context).getCurrentThemeMode();
+
+        final locale = Provider.of<LocaleProvider>(context).locale;
         return MaterialApp.router(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
+          locale: Locale(locale),
           routerConfig: AppRouter.router,
           debugShowCheckedModeBanner: false,
           themeMode: selectedTheme == 'system'

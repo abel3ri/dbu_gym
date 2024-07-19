@@ -47,15 +47,21 @@ class WorkoutSessionPage extends StatelessWidget {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                 WorkoutProgram(
-                    workoutDays: "monWedFri", programName: "program 1"),
+                  workoutDays: "monWedFri",
+                  programName: "program 1",
+                ),
                 Divider(),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 WorkoutProgram(
-                    workoutDays: "monWedFri", programName: "program 2"),
+                  workoutDays: "monWedFri",
+                  programName: "program 2",
+                ),
                 Divider(),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 WorkoutProgram(
-                    workoutDays: "monWedFri", programName: "program 3"),
+                  workoutDays: "monWedFri",
+                  programName: "program 3",
+                ),
               ],
             ),
           ),
@@ -63,7 +69,7 @@ class WorkoutSessionPage extends StatelessWidget {
           Container(
             padding: EdgeInsets.fromLTRB(8, 12, 8, 8),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             child: Column(
@@ -80,15 +86,21 @@ class WorkoutSessionPage extends StatelessWidget {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                 WorkoutProgram(
-                    programName: "program 1", workoutDays: "tueThuSat"),
+                  programName: "program 1",
+                  workoutDays: "tueThuSat",
+                ),
                 Divider(),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 WorkoutProgram(
-                    programName: "program 2", workoutDays: "tueThuSat"),
+                  programName: "program 2",
+                  workoutDays: "tueThuSat",
+                ),
                 Divider(),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 WorkoutProgram(
-                    programName: "program 3", workoutDays: "tueThuSat"),
+                  programName: "program 3",
+                  workoutDays: "tueThuSat",
+                ),
               ],
             ),
           )

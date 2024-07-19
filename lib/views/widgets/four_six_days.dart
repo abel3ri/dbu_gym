@@ -14,7 +14,7 @@ class FourSixCarouselSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
-      itemCount: pricingContent["4-6Days"]!.length,
+      itemCount: AppData.pricingContent["4-6Days"]!.length,
       itemBuilder: (context, index, realIndex) {
         return LayoutBuilder(
           builder: (context, constraints) => Stack(
@@ -22,7 +22,7 @@ class FourSixCarouselSlider extends StatelessWidget {
             children: [
               Card(
                 elevation: 0,
-                color: Theme.of(context).colorScheme.background.darken(3),
+                color: Theme.of(context).scaffoldBackgroundColor.darken(3),
                 child: Padding(
                   padding: const EdgeInsets.all(12),
                   child: Column(
@@ -40,7 +40,8 @@ class FourSixCarouselSlider extends StatelessWidget {
                           // SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                           SizedBox(width: constraints.maxHeight * 0.02),
                           Text(
-                            pricingContent['4-6Days']![index]['workoutType']!,
+                            AppData.pricingContent['4-6Days']![index]
+                                ['workoutType']!,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
@@ -54,7 +55,7 @@ class FourSixCarouselSlider extends StatelessWidget {
                       SizedBox(
                           height: MediaQuery.of(context).size.height * 0.04),
                       // if its bundled offer it will have tow images (eg cardio + strength)
-                      if (pricingContent['4-6Days']![index]['imagePath']
+                      if (AppData.pricingContent['4-6Days']![index]['imagePath']
                               .length >
                           1)
                         Row(
@@ -64,9 +65,10 @@ class FourSixCarouselSlider extends StatelessWidget {
                             // since pricing image 3 a bit larger in width, im decreasing the width by 5%
                             Expanded(
                               child: Image.asset(
-                                pricingContent['4-6Days']![index]['imagePath']
-                                    [0]!,
-                                height: pricingContent['4-6Days']![index]
+                                AppData.pricingContent['4-6Days']![index]
+                                    ['imagePath'][0]!,
+                                height: AppData
+                                        .pricingContent['4-6Days']![index]
                                             ['imagePath'][0]!
                                         .toString()
                                         .contains("aerobics")
@@ -87,8 +89,8 @@ class FourSixCarouselSlider extends StatelessWidget {
                                     )),
                             Expanded(
                               child: Image.asset(
-                                pricingContent['4-6Days']![index]['imagePath']
-                                    [1]!,
+                                AppData.pricingContent['4-6Days']![index]
+                                    ['imagePath'][1]!,
                                 height: constraints.maxHeight * 0.35,
                               ),
                             ),
@@ -96,13 +98,14 @@ class FourSixCarouselSlider extends StatelessWidget {
                         )
                       else
                         Image.asset(
-                          pricingContent['4-6Days']![index]['imagePath'][0],
+                          AppData.pricingContent['4-6Days']![index]['imagePath']
+                              [0],
                           height: constraints.maxHeight * 0.6,
                         ),
                       Expanded(child: SizedBox()),
                       PriceRow(
                         workoutDays: '4-6Days',
-                        workoutType: (pricingContent['4-6Days']![index]
+                        workoutType: (AppData.pricingContent['4-6Days']![index]
                                 ['workoutType'] as String)
                             .split(" & ")
                             .join("_")
@@ -115,7 +118,7 @@ class FourSixCarouselSlider extends StatelessWidget {
                           height: MediaQuery.of(context).size.height * 0.02),
                       PriceRow(
                         workoutDays: '4-6Days',
-                        workoutType: (pricingContent['4-6Days']![index]
+                        workoutType: (AppData.pricingContent['4-6Days']![index]
                                 ['workoutType'] as String)
                             .split(" & ")
                             .join("_")
@@ -129,7 +132,7 @@ class FourSixCarouselSlider extends StatelessWidget {
                 ),
               ),
               Text(
-                pricingContent["4-6Days"]![index]["noWorkingDays"],
+                AppData.pricingContent["4-6Days"]![index]["noWorkingDays"],
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       fontFamily: "SwankyandMooMoo",
                       fontWeight: FontWeight.bold,
