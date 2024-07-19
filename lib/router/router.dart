@@ -1,3 +1,4 @@
+import "package:dbu_gym/utils/page_transition.dart";
 import "package:dbu_gym/views/pages/contact_developer_page.dart";
 import "package:dbu_gym/views/pages/exercise_details_page.dart";
 import "package:dbu_gym/views/pages/exxercise_category_page.dart";
@@ -21,72 +22,116 @@ class AppRouter {
       GoRoute(
         path: "/",
         name: "splash",
-        builder: (context, state) => SplashPage(),
+        pageBuilder: (context, state) => PageTransition(
+          key: state.pageKey,
+          child: SplashPage(),
+        ),
       ),
       GoRoute(
         path: "/welcome",
         name: "welcome",
-        builder: (context, state) => WelcomePage(),
+        pageBuilder: (context, state) => PageTransition(
+          key: state.pageKey,
+          child: WelcomePage(),
+        ),
       ),
       GoRoute(
         path: "/login",
         name: "login",
-        builder: (context, state) => LoginPage(),
+        pageBuilder: (context, state) => PageTransition(
+          key: state.pageKey,
+          rtl: false,
+          child: LoginPage(),
+        ),
       ),
       GoRoute(
         path: "/signup",
         name: "signup",
-        builder: (context, state) => SignUpPage(),
+        pageBuilder: (context, state) => PageTransition(
+          rtl: false,
+          key: state.pageKey,
+          child: SignUpPage(),
+        ),
       ),
       GoRoute(
         path: "/home",
         name: "home",
-        builder: (context, state) => HomePage(),
+        pageBuilder: (context, state) => PageTransition(
+          key: state.pageKey,
+          child: HomePage(),
+        ),
       ),
       GoRoute(
         path: "/pricing",
         name: "pricing",
-        builder: (context, state) => PricingPage(),
+        pageBuilder: (context, state) => PageTransition(
+          key: state.pageKey,
+          child: PricingPage(),
+        ),
       ),
       GoRoute(
         path: "/exercise-category",
         name: "exercise-category",
-        builder: (context, state) => ExerciseCategory(),
+        pageBuilder: (context, state) => PageTransition(
+          key: state.pageKey,
+          child: ExerciseCategory(),
+        ),
       ),
       GoRoute(
         path: "/exercise-details-page",
         name: "exercise-details-page",
-        builder: (context, state) => ExerciseDetailsPage(),
+        pageBuilder: (context, state) => PageTransition(
+          key: state.pageKey,
+          child: ExerciseDetailsPage(),
+        ),
       ),
       GoRoute(
         path: "/profile",
         name: "profile",
-        builder: (context, state) => ProfilePage(),
+        pageBuilder: (context, state) => PageTransition(
+          key: state.pageKey,
+          child: ProfilePage(),
+        ),
       ),
       GoRoute(
         path: "/faq",
         name: "faq",
-        builder: (context, state) => FAQPage(),
+        pageBuilder: (context, state) => PageTransition(
+          key: state.pageKey,
+          child: FAQPage(),
+        ),
       ),
       GoRoute(
         path: "/contact-dev",
         name: "contact-dev",
-        builder: (context, state) => ContactDeveloperPage(),
+        pageBuilder: (context, state) => PageTransition(
+          key: state.pageKey,
+          child: ContactDeveloperPage(),
+        ),
       ),
       GoRoute(
         path: "/payment-upload",
         name: "payment-upload",
-        builder: (context, state) => PaymentCheckerPage(),
+        pageBuilder: (context, state) => PageTransition(
+          key: state.pageKey,
+          child: PaymentCheckerPage(),
+        ),
       ),
       GoRoute(
         path: "/manage-subscription-page",
         name: "manage-subscription-page",
-        builder: (context, state) => ManageSubscriptionPage(),
+        pageBuilder: (context, state) => PageTransition(
+          key: state.pageKey,
+          child: ManageSubscriptionPage(),
+        ),
       ),
       GoRoute(
         path: "/forgot-password",
         name: "forgot-password",
-        builder: (context, state) => ForgotPasswordPage(),
+        pageBuilder: (context, state) => PageTransition(
+          key: state.pageKey,
+          child: ForgotPasswordPage(),
+        ),
       ),
     ],
     errorBuilder: (context, state) => PageNotFound(),
